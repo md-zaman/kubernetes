@@ -1,0 +1,342 @@
+1. kubectl run nginx --image=nginx
+    creates a pod by the name nginx
+
+2. kubectl get pod
+    displays list of pods available and to check the state
+
+3. kubectl describe pod nginx
+    displays detailed information about the pod
+
+4. kubectl get pods -o wide
+    displays some more information
+
+5. kubectl apply -f <file_name.yaml>
+    kubectl apply -f pod.yaml
+    creates a pod from a yaml file
+    We can replace 'apply' with create
+
+6. kubectl get replicaset
+    displays all replicaset
+
+7. kubectl get replicaset
+    displays status of replicaset
+
+8. kubectl delete pod <pod_name>
+    deletes the specified pod
+
+9. kubectl scale rs new-replica-set --replicas=2
+    scales replicaset on CLI
+
+10. kubectl edit replicaset
+    edits replicaset
+
+11. kubectl describe deployment
+    describes the deployment
+
+12. kubectl describe pod <pod_name>
+    to get the details of the pod
+
+13. kubectl run <pod_name> --image=<image_name>
+    to create a pod
+
+14. kubectl create -f replicaset-defination.yaml
+    create a replicaset
+
+15. kubectl get replicaset
+    lists replicaset
+
+16. kubectl delete replicaset <replicaset_name>
+    deletes a replicaset
+
+17. kubectl replace -f replicaset-defination.yaml
+    replaces a replicaset
+
+18. kubectl scale --replicaset=6 -f replicaset-defination.yaml
+    edits a replicaset directly from the command line
+
+19. kubectl edit replicaset <name of the replicaset>
+    opens up the editor to make changes in a replicaset
+    Point to be noted here is that this is a  running replicaset
+    
+20. kubectl describe replicaset <replicaset_name>
+    displays more info about the replicaset
+
+20. kubectl get all
+    displays all the objects
+
+21. kubectl get deployments
+    checks if deployments were created
+
+22. kubectl create -f deployment-defination.yaml
+    creates new deployment using the file
+
+23. kubectl apply -f deployemnt.yaml
+    updates the deployemnt
+
+24. kubectl set image deployment/myapp-deployemnt nginx-nginx:1.9.1
+    updates the deployment
+
+25. kubectl rollout status deployemnt/myapp
+    displays the status of rollout
+
+26. kubectl rollout history deployment/myapp-deployment
+
+27. kubectl rollout undo deployemnt/myapp
+
+#----- Kubernetes Administrator (CKA) Mumshad Mannambeth
+
+28. kubectl get -o wide pods
+    displays node details
+
+29. kubectl get namespace
+    displays all namespaces
+
+30. kubectl config set-context $(kubectl config current-context) --namespace=<namespace_name>
+    switchs to the required namespace
+
+31. kubectl run redis --image=redis:alpine --dry-run=client -oyaml > redis-pod.yaml
+    Imperative command: generates a yaml file to create a redis pod of the above defination
+
+32. kubectl expose pod redis --port=6379 --name redis-service
+    create a service with above defination
+
+33. kubectl expose pod redis --port=6379 --name=redis-service --dry-run=client -oyaml > redis-service.yaml
+    create a yaml file
+
+34. kubectl run httpd --image=httpd:alpine --port=80 --expose
+    create a pod by the above name as well as a service exposing the port 80 (mentioned above)
+
+35. kubectl get pods --selector env=dev
+    filters the pods based on a selector - dev
+
+36. kubectl get all --selector env=prod,bu=finance,tier=frontend
+    filters with mutiple selectors- use ',' without space
+
+37. kubectl taint nodes <node-name> key=value:taint-effect
+    - there are three taint-effects: 
+      NoSchedule | PreferNoSchedule | NoExecute
+    E.g., 
+    kubectl taint nodes node01 spray=mortein:NoSchedule
+
+38. kubectl taint nodes controlplane node-role.kubernetes.io/control-plane:NoSchedule-
+    removes the taint from master node
+
+39. kubectl label nodes <node_name> <label_key>=<label_value>
+    Adds labels to the node
+    E.g., kubectl label nodes node-1 size=Large
+
+40. ps -aux | grep kubelet
+    lists all the processes running on your system then greps the kubelet process
+
+41. grep -i staticpod <path>
+    grep -i staticpod /var/lib/kubelet/config.yaml
+    displays the actual path of the pod defination.
+    - To be used after the above command
+
+42. kubectl run --restart=Never --image=busybox static-busybox --dry-run=client -o yaml --command -- sleep 1000 > /etc/kubernetes/manifests/static-busybox.yaml
+    Just an important command. Go through
+
+43. git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git
+    repository for monitoring
+    -after execution of the above command run the following to be installed
+    kubectl create -f <name>
+
+44. kubectl top node
+    monitoring command
+
+45. kubectl top node --sort-by='cpu' --no-headers | head -1
+    sorts node based on the above arguments for monitoring. (self explainatory)
+
+46. kubectl top node --sort-by='memory' --no-headers | head -1
+    sorts node based on the above arguments. (self explain)
+
+47. kubectl logs -f <pod-name>
+    displays logs on realtime
+
+48. kubectl rollout status deployment/myapp-deployment
+    displays the ststus of the rollout
+
+49. kubectl rollout history deployemnt/myapp-deployment
+    displays history and revisions of our rollout
+
+50. kubectl rollout undo <deployment-name>
+    to undo a rollout
+
+51. kubectl create configmap
+        <config-name> --from-literal=<key>=<value>
+    creates a configmap on the command: This is the First Way
+    E.g.,
+    kubectl create configmap \
+        app-config --from-literal=APP_COLOR=blue
+                   --from-literal=APP_MOD=prod
+
+52. kubectl create configmap
+        <config-name> --from-file=<path-to-file>
+    creates a configmap on the command line: This is Another Way
+    E.g.,
+    kubectl create configmap \
+        app-config --from-file=app_config.properties
+
+53. Yaml file format for a configmap:
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: app-config
+    data:
+      APP_COLOR: blue
+      APP_MODE: prod
+
+54. kubectl get configmaps
+    displays configmaps
+
+55. To inject a configmap in a pod:
+    Under spec > containers add the following:
+    envFrom: #This is a list
+      - configMapRef:
+          name: app-config #add the file-name
+
+56. kubectl create secret generic \
+    <secret-name> --from-literal=<key>=<value>
+    creates a secret file to keep sensitive info; Imperative: First Way
+    E.g.,
+    kubectl create secret generic \
+    app-secret --from-literal=DB_Host=mysql
+               --from-literal=DB_User=root
+               --from-literal=DB_Password=paswrd
+
+57. kubectl create secret generic \
+    <secret-name> --from-file=<path-to-file>
+    creates a secret file from a path; Imperative: Another Way
+    E.g., 
+    kubectl create secret generic \
+    app-secret --from-file=app_secret.properties
+
+58. Yaml file format for a secrets:
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: app-secret
+    data:
+      DB_Host: mysql
+      DB:User: root
+      DB_Password: paswd
+
+      To encode the data:
+      echo -n 'mysql'
+      <This will encode the values>
+
+
+59. kubectl get secret app-secret -o yaml
+    displays the encoded data in secrets
+
+60. -n <namespace_name>
+    specifies the name space; use it in a command
+
+61. k replace --force -f /tmp/kubectl-edit-4034599886.yaml
+    replaces a runninf pod defination file after edit
+
+62. k logs <pod_name>
+    displays the logs
+
+63. k logs -c <container-name>
+    displays logs of a container in a pod
+
+64. kubectl get pods -o wide
+    displays pods with node details
+
+65. kube-controller-manager --pod-eviction-timeout=5m0s
+
+66. kubectl drain <node_name>
+    drains the node and makes it unscheduleable
+
+67. kubectl uncordon <node_name>
+    makes the node scheduleable. Happens when node is down for maintainence
+
+68. kubectl cordon <node_name>
+    makes the node unscheduleable but unlike drain it doesn't move the pods to another nodes.
+    it simply means no new pods can be scheduled in this node
+
+69. kubectl drain <node_name> --ignore-daemonsets
+    drains the node and ignores the daemonsets
+
+70. kubeadm upgrade plan
+    displays information including version installable of k8s
+
+71. apt-get install kubeadm=<version>
+    installs the specified version of kubekdm
+    E.g.,
+    apt-get install kubeadm=1.27.0-00
+
+72. kubeadm upgrade apply v1.27.0
+    upgrades controlplane node to the specified version
+    - this will still the older version when entered the command 'k get version -o wide'
+    because the kubelet is not unpdated
+
+73. apt-get upgrade kubelet=<version>
+    apt-get install kubelet=1.27.0-00 
+
+74. systemctl daemon-reload
+    - reloads daemon
+    systemctl restart kubelet
+    - restart kubelet service
+
+73. kubectl logs etcd-controlplane -n kube-system
+    checks the etcd version (Although I didn't get the version)
+
+74. kubectl describe pods etcd-controlplane -n kube-system
+    used also to check the version (Got it in this version)
+    -check the image to get the version
+
+75. kubectl describe pod etcd-controlplane -n kube-system and look for --listen-client-urls
+    this is where you can look for etcd
+
+76. --cert-file=/etc/kubernetes/pki/etcd/server.crt
+    location of etcd server certificate
+
+77. --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt
+    location of ETCD CA Certificate file
+
+78. ETCDCTL_API=3 etcdctl --endpoints=https://[127.0.0.1]:2379 \
+    --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+    --cert=/etc/kubernetes/pki/etcd/server.crt \
+    --key=/etc/kubernetes/pki/etcd/server.key \
+    snapshot save /opt/snapshot-pre-boot.db
+
+    used to take necessary backups. Takes snapshot of the ETCD db using the built-in snapshot functionality
+    - the backup will be storted in the location mentioned in the last line
+
+79. kubectl describe pods etcd-controlplane -n kube-system | grep listen
+    to know the address you can reach the ETCD cluster from the controlplane node
+
+80. ETCD_API=1 etcdctl snapshot save <name.db>
+    takes a snapshot of the etcd cluster
+    a snapshot will be saved in the current dir
+    If you want it to be saved elsewhere, just specify the full path
+
+81. ETCD_API=3 etcdctl snapshot status <name.db>
+    displays the status of the backup
+
+82. a. service kube-apiserver stop
+    b. ETCD_API=3 etcdctl snapshot restore <name.db> --data-dir /var/lib/etcd-from-backup
+
+    restores the backup stored earlier:
+    - first we have to stop the kube api server
+
+    c. systemctl daemon-relaod
+    d. service etcd restart
+    e. service kube-apiserver start
+    *** With all the ETCD commands remember to include etcd certificates AND OTHER THINGS
+
+83. k config view
+    lists clusters with details on kubeconfig 
+
+84. kubectl config get-clusters
+    lists only the clusters
+
+85. kubectl config use-context cluster1
+    switches to another cluster
+
+86. 
+    
+
+

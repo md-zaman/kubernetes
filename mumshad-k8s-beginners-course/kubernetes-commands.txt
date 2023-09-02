@@ -1,0 +1,139 @@
+1. kubectl run nginx --image=nginx
+    creates a pod by the name nginx
+
+2. kubectl get pod
+    displays list of pods available and to check the state
+
+3. kubectl describe pod nginx
+    displays detailed information about the pod
+
+4. kubectl get pods -o wide
+    displays some more information
+
+5. kubectl apply -f <file_name.yaml>
+    kubectl apply -f pod.yaml
+    creates a pod from a yaml file
+    We can replace 'apply' with create
+
+6. kubectl get replicaset
+    displays all replicaset
+
+7. kubectl get replicaset
+    displays status of replicaset
+
+8. kubectl delete pod <pod_name>
+    deletes the specified pod
+
+9. kubectl scale rs new-replica-set --replicas=2
+    scales replicaset on CLI
+
+10. kubectl edit replicaset
+    edits replicaset
+
+11. kubectl describe deployment
+    describes the deployment
+
+12. kubectl describe pod <pod_name>
+    to get the details of the pod
+
+13. kubectl run <pod_name> --image=<image_name>
+    to create a pod
+
+14. kubectl create -f replicaset-defination.yaml
+    create a replicaset
+
+15. kubectl get replicaset
+    lists replicaset
+
+16. kubectl delete replicaset <replicaset_name>
+    deletes a replicaset
+
+17. kubectl replace -f replicaset-defination.yaml
+    replaces a replicaset
+
+18. kubectl scale --replicaset=6 -f replicaset-defination.yaml
+    edits a replicaset directly from the command line
+
+19. kubectl edit replicaset <name of the replicaset>
+    opens up the editor to make changes in a replicaset
+    Point to be noted here is that this is a  running replicaset
+    
+20. kubectl describe replicaset <replicaset_name>
+    displays more info about the replicaset
+
+20. kubectl get all
+    displays all the objects
+
+21. kubectl get deployments
+    checks if deployments were created
+
+22. kubectl create -f deployment-defination.yaml
+    creates new deployment using the file
+
+23. kubectl apply -f deployemnt.yaml
+    updates the deployemnt
+
+24. kubectl set image deployment/myapp-deployemnt nginx-nginx:1.9.1
+    updates the deployment
+
+25. kubectl rollout status deployemnt/myapp
+    displays the status of rollout
+
+26. kubectl rollout history deployment/myapp-deployment
+
+27. kubectl rollout undo deployemnt/myapp
+
+#----- Kubernetes Administrator (CKA) Mumshad Mannambeth
+
+28. kubectl get -o wide pods
+    displays node details
+
+29. kubectl get namespace
+    displays all namespaces
+
+30. kubectl config set-context $(kubectl config current-context) --namespace=<namespace_name>
+    switchs to the required namespace
+
+31. kubectl run redis --image=redis:alpine --dry-run=client -oyaml > redis-pod.yaml
+    Imperative command: generates a yaml file to create a redis pod of the above defination
+
+32. kubectl expose pod redis --port=6379 --name redis-service
+    create a service with above defination
+
+33. kubectl expose pod redis --port=6379 --name=redis-service --dry-run=client -oyaml > redis-service.yaml
+    create a yaml file
+
+34. kubectl run httpd --image=httpd:alpine --port=80 --expose
+    create a pod by the above name as well as a service exposing the port 80 (mentioned above)
+
+35. kubectl get pods --selector env=dev
+    filters the pods based on a selector - dev
+
+36. kubectl get all --selector env=prod,bu=finance,tier=frontend
+    filters with mutiple selectors- use ',' without space
+
+37. kubectl taint nodes <node-name> key=value:taint-effect
+    - there are three taint-effects: 
+      NoSchedule | PreferNoSchedule | NoExecute
+    E.g., 
+    kubectl taint nodes node01 spray=mortein:NoSchedule
+
+38. kubectl taint nodes controlplane node-role.kubernetes.io/control-plane:NoSchedule-
+    removes the taint from master node
+
+39. kubectl label nodes <node_name> <label_key>=<label_value>
+    Adds labels to the node
+    E.g., kubectl label nodes node-1 size=Large
+
+40. ps -aux | grep kubelet
+    lists all the processes running on your system then greps the kubelet process
+
+41. grep -i staticpod <path>
+    grep -i staticpod /var/lib/kubelet/config.yaml
+    displays the actual path of the pod defination.
+    - To be used after the above command
+
+42. kubectl run --restart=Never --image=busybox static-busybox --dry-run=client -o yaml --command -- sleep 1000 > /etc/kubernetes/manifests/static-busybox.yaml
+    Just an important command. Go through
+
+43. 
