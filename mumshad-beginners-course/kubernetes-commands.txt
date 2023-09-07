@@ -336,7 +336,10 @@
 85. kubectl config use-context cluster1
     switches to another cluster
 
-86. 
+86. openssl x509 -in <file-path.crt> -text -noout
+    opens a certificate file
+
+87. 
     
 
 
