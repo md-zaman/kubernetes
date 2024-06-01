@@ -1,0 +1,80 @@
+18.12.2023
+DNS
+1. Name Resolution:
+   Adding an entry in cat >> /etc/hosts
+    Adding an entry in this format:
+        192.168.1.11    db
+    adds an IP address of System B in the hosts directory of System A
+    - this way system A will recognise System B by its name and mentioning 
+    its IP Address will not be required
+    
+
+2. DNS Server
+    DNS Server contains all the entries of all the IP Adresses so that we can manage them centrally
+    cat /etc/resolv.conf
+    Adding an entry in this format (This IP below belongs to the nameserver's ):
+        nameserver  192.168.1.100
+
+3. You can still have entries in your etc/hosts file for your own use.
+    CONDITIONS:
+    ENTRIES IN BOTH FILES
+    If you have entry (of an IP Adress) in your DNS servere as well as your hosts file,
+    the hosts first looks in /etc/hosts file and the then the nameserver.
+   However, this can be chnaged from
+    cat /etc/nsswitch.conf
+   Adding an entry in this format:
+        hosts:  files dns
+    (The above entry says commands to look for local file first and then the dns
+    "file" refers to /etc/hosts file and "dns" refers to DNS Server)
+
+    ENTRY IN NONE OF THE FILES
+    If you do not have an entry in both places, i.e,. the /etc/hosts as well as the nameserver
+    You can add a nameserver entry in your cat >> /etc/resolv.conf
+    Adding an entry in this format:
+        nameserver  192.168.1.100
+        nameserver  8.8.8.8
+    
+    The above nameserver 8.8.8.8 is a common public belongs is hosted by google that know all website on the internet
+
+4. Domain nameserver
+    There are top level domain names like the .com, .net, .edu, .org, .io
+
+    Subdomains: like maps.google.com
+
+5. Record Types:
+    A Record
+    AAAA Record
+    CNAME Record
+
+6. Lookups:
+    nslookup
+    Just like ping nslookup is also a way to query a hostname from a dns servere
+    remember nslookup does not consider the entry in local etc host file
+    So, it will not file it if you add any entry in your local etc host file
+    This only queries dns server
+
+    dig
+    This is a tool to test dns name Resolution. It returns more details
+
+19.12.2023
+Next Vid
+Network Namespaces
+
+If your host is a house then namespaces are room assigned to your children
+The room provides privacy but you as a parent have the access to in all the rooms
+
+DOCKER NETWORKING
+
+
+
+
+
+
+
+
+
+
+
+   
+
+    

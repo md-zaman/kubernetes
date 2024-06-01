@@ -1,0 +1,111 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+# pods "webapp" was not valid:
+# * <nil>: Invalid value: "The edited file failed validation": yaml: line 48: did not find expected key
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2023-09-17T00:47:31Z"
+  name: webapp
+  namespace: default
+  resourceVersion: "2388"
+  uid: 2e4b8633-275e-44e7-b0d3-673318aff0f6
+spec:
+  containers:
+  - env:
+    - name: LOG_HANDLERS
+      value: file
+      image: kodekloud/event-simulator
+    imagePullPolicy: Always
+    name: event-simulator
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+      - mountPath: /log
+        name: log-volume
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-crqqg
+        readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: controlplane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: log-volume
+    hostPath: /var/log/webapp
+    type: Directory
+  - name: kube-api-access-crqqg
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2023-09-17T00:47:31Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2023-09-17T00:47:36Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2023-09-17T00:47:36Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2023-09-17T00:47:31Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://46a2a26fb14dfbce33389de973796e6e28317f03659e05ee3fdc36fb03d7ebbe
+    image: docker.io/kodekloud/event-simulator:latest
+    imageID: docker.io/kodekloud/event-simulator@sha256:1e3e9c72136bbc76c96dd98f29c04f298c3ae241c7d44e2bf70bcc209b030bf9
+    lastState: {}
+    name: event-simulator
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2023-09-17T00:47:35Z"
+  hostIP: 192.1.217.9
+  phase: Running
+  podIP: 10.244.0.4
+  podIPs:
+  - ip: 10.244.0.4
+  qosClass: BestEffort
+  startTime: "2023-09-17T00:47:31Z"

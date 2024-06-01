@@ -339,7 +339,33 @@
 86. openssl x509 -in <file-path.crt> -text -noout
     opens a certificate file
 
-87. 
+87. k get clusterroles --no-headers | wc -l
+    Or
+    kubectl get clusterroles --no-headers  -o json | jq '.items | length'
+    displays the quantity of clusterroles
+
+88. k get clusterrolebindings --no-headers | wc -l
+    displays the quantity of clusterrolebindings
+
+89. kubectl api resources
+    displays details about all the objects of kubernetes
+
+90. k create serviceaccount dashboard-save
+    creates a service account
+
+91. k get serviceaccount
+    displays all the service accounts
+
+92. k describe serviceaccount dashboard-sa
+    describes service account including tokens
+
+93. k describe secret dashboard-sa-token-kbbdm
+    displays the secret object
+
+94. kubectl get pod <object-name> -o yaml > <desired-name.yaml
+    outputs a manifest file from an existing object i.e., pods, etc
+
+95. 
     
 
 

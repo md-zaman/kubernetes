@@ -364,7 +364,49 @@
 94. k config view
     view the config file
 
-95. 
+95. k create -f developer-role.yaml
+    creates a rule
+
+96. kubectl create -f devuser-developer-binding.yaml
+    create role binding using a yaml file
+
+97. k get roles
+    displays roles
+
+98. k get rolebindings
+    displays rolebindings
+
+99. k decribe role developer
+    displays more detailes above a role
+
+100. k decribe rolebinding devuser-developer-binding
+    describes more details about role bindings
+
+101. kubectl auth can-i create deployments
+    checks to see if you have the authrisation for deployments
+
+102. k auth can-i delete nodes
+    checks to see if you have the authorisation to delete
+
+103. k auth cann-i create deployments --as dev-user
+    checks to see if you ave authorisation to create deployments as dev-user
+
+104. k auth can-i create pods --as dev-user
+    checks to see if you ave authorisation to create pods as a dev-user
+
+105. k auth can-i create pods --as dev-user --namespace test
+    checks to see if you have ----self explainatory
+
+106. kubectl describe pod kube-apiserver-controlplane -n kube-system
+    checks the authorisation modes
+
+107. kubectl get roles --all-namespaces or kubectl get roles -A
+    checks roles on all namespaces
+
+108. kubectl describe rolebinding kube-proxy -n kube-system
+    check which account is kube-proxy is binded to
+
+109. 
     
 
 
