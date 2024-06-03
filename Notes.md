@@ -34,7 +34,7 @@ Features:
 
 8. Enterprise nature : custom resourses- adv load balancing. k8s advancing every day by cncf. 
 
-Kubernetes Architecture:
+Day 2: Kubernetes Architecture:
 
 9. On a high level k8s is divided in two parts: Control plane and the data plane. 
 Under Control plane we have: API Server, Controler Manager, ETCD, Scheduler and Cloud Controler Manager
@@ -48,4 +48,21 @@ Under Data Plane we have: Kubelet, kube proxy and container runtime.
 | ETCD                        |                   |
 | Cloud Control Manager (CCM) |                   |
 
+Worker Node:
+10. Kubelet is responsible for maintaing the pod. It ensure that the pod is always running of the pod is not running, it will inform the API server in control plane.
 
+11. Container runtime: It can be docker (dockershim) or any other container runtime of crio, containerd or any other container runtimes which implements conatiner interface.
+
+12. Kube proxy: provides you networking. Every container has to be allocated with IP address and load balancing capabilities. (Basically uses the IP tables on your Linux machine).
+
+Control Plane:
+
+13. API Server: component which exposes to the outside world. Takes request from external world. It decides on which node the pod has to be created.
+14. Scheduler (Kube-scheduler): It scheduler schedules your pods/resources in k8s. 
+15. ETCD : Backup store. it is key value store. Store the entire cluster information. 
+16. Controller manager: K8s basically has some controllers like 'replica sets'. It ensures that such components are always running. 
+17. CCM (Cloud Controller Manager): When we use our k8s cluster on eks or aks or gke and want to lets say create a pod, k8s doesn't understad the language of these cloud provider so the ccm convert this instruction to eks to talk to the api of eks. the ccm is open source and suppose if i make a cloud by the name "Zaman cloud" I can create my own ccm which can be used in k8s. If we are deploying the cluseter in on-premise ccm is not required.
+
+18. Kubernetes has custom resources and custom resource definations for the features it doesn't have.
+
+19.     
