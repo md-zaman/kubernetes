@@ -36,7 +36,10 @@ Features:
 
 Kubernetes Architecture:
 
-9. 
+9. On a high level k8s is divided in two parts: Control plane and the data plane. 
+Under Control plane we have: API Server, Controler Manager, ETCD, Scheduler and Cloud Controler Manager
+Under Data Plane we have: Kubelet, kube proxy and container runtime.
+
 | **Control Plane**          | **Data Plane**    |
 | --------                    | -------           |
 | API Server                  | Kubelet           |
