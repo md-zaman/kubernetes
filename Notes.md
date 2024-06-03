@@ -37,7 +37,7 @@ Features:
 Kubernetes Architecture:
 
 9. 
-| **Control Plane **          | **Data Plane**    |
+| **Control Plane**          | **Data Plane**    |
 | --------                    | -------           |
 | API Server                  | Kubelet           |
 | Controler Manager           | Kube proxy        |
