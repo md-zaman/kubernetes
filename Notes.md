@@ -65,4 +65,13 @@ Control Plane:
 
 18. Kubernetes has custom resources and custom resource definations for the features it doesn't have.
 
-19.     
+19. Pod is described of how to run a container. It is like a wrapper of container. In K8s instead of deploying a container we deploy a pod.
+20. Why do we deploy a pod instead because k8s is an enterprise level platform and it wants to build a declarative capabilities.
+
+21. We put 1 or more containers in a single pod (sidecar container or init containers (recheck this)) so that k8s can ensure they have advantages like allow you shared networking, shared storage, can talk to each other using local host like share the file.
+
+22. IP address in not generated for contaier but pods.
+23. kube-proxy generates the cluster ip address for ppods.
+24. kubectl is the k8s cli.
+25. Local k8s clusters minikube, k3s, kind, microk8s
+26. Minikube create only one cluster and has a single node.
