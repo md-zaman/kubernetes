@@ -75,3 +75,50 @@ Control Plane:
 24. kubectl is the k8s cli.
 25. Local k8s clusters minikube, k3s, kind, microk8s
 26. Minikube create only one cluster and has a single node.
+
+27. How to deploy a pod:
+    a. Create a yml file like below:
+    
+    apiVersion: v1
+    kind: Pod
+    metadata:
+    name: nginx
+    spec:
+    containers:
+    - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+
+    Save the yml file.
+    To create the pod use the command:
+
+```ssh
+    kubectl create pod -f pod.yml
+    - creates a pod 
+
+    kubectl get pods
+    - displays all the running containers
+
+    kubectl get pods -o wide
+    - displays the details of the pod
+
+```
+27. To login to your kubernetes cluster:
+    minikube ssh
+
+
+Auto Scaling and Auto healing:
+
+27. You have to use deployment to get auto-healing and auto-scaling
+
+28. In actual scenarios we don't deploy a pod but we deploy a deployments or stateful sets or deamon sets.
+
+29. To check the logs of the pod:
+    kubectl logs nginx
+    - displays the logs of the pod
+
+30. kubectl describe nginx
+    - displays all the details of the pod
+
+31. 
