@@ -133,4 +133,31 @@ Auto Scaling and Auto healing:
 
 Day 34: Kubernetes Deployment
 
-34. 
+34. difference between container, pod and deployment
+
+| **Container**                   | **Pod**                                 | **Deployment** |
+| --------                        | -------                                 |
+| can be from docker, containerd  | Single or multiple container            | used because auto-healing and auto scaling
+| docker run -it -p -v -net       | you write a yaml. Pod is a running spec |
+| Scheduler                       | cannot do auto healing and scaling      | can do | 0 downtime
+|                                 |                                         | creates intermediate resource call replica set and then rs create pod
+|                                 |                                         |
+
+35. What k8s say is don't create a pod directly instead create a deployment. Deployment creates a replicaset (it is a k8s controller) then the rs creates a pod
+
+36. Replicaset controller: It is a controller created by deployment. It will ensure to create no. of pod which you have mentioned in the deployemnt yaml manifest. If you say replica count is 2 it ensure that the cluster has 2 replicas of pod. So that many user can use simultanenously. This is how 0 downtime is achieved.
+
+37. Replicaset defination from Google gemini:
+
+38. Controller: are someting which ensure that the desired state and actual state are same. there are default controllers and custom controllers. it is a go language application whcih k8s has written which ensures.
+
+39. Controllers defination:
+
+40. deployment vs replicaset: 
+
+41. kubectl get pods -w
+    - watch the container log realtime
+
+42. if you delete a pod or if a pod is deleted for any reason while you have deployed a deployment. The replicaset which was created by the deployemnt will ensure that another pod is create even before the pod is deleted. This ensures 0 downtime.
+
+43. 
