@@ -23,7 +23,13 @@ Features:
     d. white listing/ black listing 
     e. firewall
 
-3. Kubernetes is instlled as a cluster
+3. Kubernetes is installed as a cluster
+
+4. Problems with Docker:
+    a. Single Host - Because there only one host the containers inside it is getting impacted because of that and one of the containers in getting killed.
+    b. Auto healing
+    c. 
+
 4. Docker has one more problem, it has a single host, so if there is a shortage of memory one container is killed by another container. This is not the case with k8s. k8s has multi nodes and if a container is killed by another container k8s will put that container is a different node.
 
 5. K8s can put a faulty pod/application in a different node.
@@ -40,7 +46,7 @@ Day 2: Kubernetes Architecture:
 Under Control plane we have: API Server, Controler Manager, ETCD, Scheduler and Cloud Controler Manager
 Under Data Plane we have: Kubelet, kube proxy and container runtime.
 
-| **Control Plane**          | **Data Plane**    |
+| **Control Plane**           | **Data Plane**    |
 | --------                    | -------           |
 | API Server                  | Kubelet           |
 | Controler Manager           | Kube proxy        |
@@ -160,4 +166,11 @@ Day 34: Kubernetes Deployment
 
 42. if you delete a pod or if a pod is deleted for any reason while you have deployed a deployment. The replicaset which was created by the deployemnt will ensure that another pod is create even before the pod is deleted. This ensures 0 downtime.
 
-43. 
+
+Day 35
+
+Kubernetes Services
+
+43. What is an ideal pod size - it depends upon the number of concurrent users. and it depends upon the number of request 1 replica of your application can handle.
+43. What if there is not service in k8s?
+    A. If 
