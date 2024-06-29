@@ -143,11 +143,11 @@ Day 34: Kubernetes Deployment
 
 | **Container**                   | **Pod**                                 | **Deployment** |
 | --------                        | -------                                 |
-| can be from docker, containerd  | Single or multiple container            | used because auto-healing and auto scaling
-| docker run -it -p -v -net       | you write a yaml. Pod is a running spec |
-| Scheduler                       | cannot do auto healing and scaling      | can do | 0 downtime
-|                                 |                                         | creates intermediate resource call replica set and then rs create pod
-|                                 |                                         |
+| Can be from docker, containerd  | Single or multiple container            | Used because auto-healing and auto scaling
+| docker run -it -p -v -net       | You write a YAML. Pod is a running spec |
+| Scheduler                       | Cannot do auto healing and scaling      | can do | 0 downtime
+|                                 | A Pod can have single or multiple       | creates intermediate resource call replica set and then rs create pod
+|                                 | container                               |
 
 35. What k8s say is don't create a pod directly instead create a deployment. Deployment creates a replicaset (it is a k8s controller) then the rs creates a pod
 
@@ -174,3 +174,4 @@ Kubernetes Services
 43. What is an ideal pod size - it depends upon the number of concurrent users. and it depends upon the number of request 1 replica of your application can handle.
 43. What if there is not service in k8s?
     A. If 
+
