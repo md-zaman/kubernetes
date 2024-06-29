@@ -8,7 +8,7 @@ Kubernetes is an orchestration platform
 Containers are ephemeral in nature. Means containers can die and revive anytime.
 
 Features:
- a. Auto-healing
+ a. Auto-healing behaviour
  b. Auto-scaling
 
 1. Auto Scaling
