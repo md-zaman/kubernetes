@@ -153,7 +153,7 @@ Day 34: Kubernetes Deployment
 
 36. Replicaset controller: It is a controller created by deployment. It will ensure to create no. of pod which you have mentioned in the deployemnt yaml manifest. If you say replica count is 2 it ensure that the cluster has 2 replicas of pod. So that many user can use simultanenously. This is how 0 downtime is achieved.
 
-37. Replicaset defination from Google gemini:
+37. Replicaset defination from Google gemini:  
 
 38. Controller: are someting which ensure that the desired state and actual state are same. there are default controllers and custom controllers. it is a go language application whcih k8s has written which ensures.
 
