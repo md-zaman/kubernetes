@@ -162,7 +162,7 @@ Day 34: Kubernetes Deployment
 40. deployment vs replicaset: 
 
 41. kubectl get pods -w
-    - watch the container log realtime
+    - watch the container log realtime (live)
 
 42. if you delete a pod or if a pod is deleted for any reason while you have deployed a deployment. The replicaset which was created by the deployemnt will ensure that another pod is create even before the pod is deleted. This ensures 0 downtime.
 
@@ -172,6 +172,25 @@ Day 35
 Kubernetes Services
 
 43. What is an ideal pod size - it depends upon the number of concurrent users. and it depends upon the number of request 1 replica of your application can handle.
-43. What if there is not service in k8s?
-    A. If 
+43. What if there is not service in k8s?/ what if there is not component as service in k8s?
+    We know containers are ephimeral in nature and that's why we deploy a deployment to ensure a particular no. of pods are running at all times.
+    So, when a pod dies for any reason a new pod will come up because we have deployed a deployment (and we know to maintain the required number of services replicaset controller will start another pod). The new pod will have new IP address. Since in our case service doesn't exists in k8s, the user will send the request to the died container- which doesn't exists. So, we service acts as a load balancer where whenever there is a traffic from a user, the user is redirected to the new pod and not the previous pod. Services are mapped with pods in deployments using labels and selectors and not IP addresses.
+    Features of service: 
+    A. Service acts as load-balancing
+    B. Service discovery - Using Labels and Selectors. For all pods that is created a label is added. This labels will be common for all pods. Service will not bother about the IP addresses but it will look for labels. The label will be same because Replicaset controller will deploy a new pod with the same YAML.
+    C. Expose to external world - There are three types:
+        i.   Cluster IP
+        ii.  NodePort
+        iii. Load balancer
+        iv. There are more but these are the default types
+
+        i. Cluster IP mode: Application will be accessible inside the k8s cluster. Here you will only get 2 benefits- Discovery and load balancing.
+        ii. NodePort- This will allow your application to be accessed inside your organisation. within your org or network. They might not have access to your cluster but they have the access to your app.- the workernode ip addresses
+        iii. Load balancer - In this mode service will expose your application to the external world. Suppose you have deployed you app on eks cluster. In this case you will get Elastic Load balancer IP for your service and now whoever want to access they can use this public IP address.
+        
+
+
+    
+
+
 
