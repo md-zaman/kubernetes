@@ -193,29 +193,53 @@ Kubernetes Services
         ClusterIP - Cluster Network
         
 Kubernetes Service Deep Dive using Kubeshark
+44. Activity: 
 
-44. minikube status
-    - checks the minikube status- the running cluster
+    a. minikube status
+        - checks the minikube status- the running cluster
 
-45. We will enter the following commands to clear the kubernetes cluster
+    b. We will enter the following commands to clear the kubernetes cluster
 
-46. kubectl get all
-    - lists all the resources in current namespace in k8s cluster
+    c. kubectl get all
+        - lists all the resources in current namespace in k8s cluster
 
-47. kubectl delete deploy <deployment_name>
-    - deletes the mentioned deployment
+    d. kubectl delete deploy <deployment_name>
+        - deletes the mentioned deployment
 
-48. kube delete svc <service_name>
-    - delete the mentioned services
-        
-49. Ensure that you don't remove the default kubernetes service by the name - "service/kubernetes".
+    e. kube delete svc <service_name>
+        - delete the mentioned services
+            
+    f. Ensure that you don't remove the default kubernetes service by the name - "service/kubernetes".
 
-50. Ensure that when you do "kubectl get all" you get only the "service/kubernetes" running.
+    g. Ensure that when you do "kubectl get all" you get only the "service/kubernetes" running.
 
-51. Let's clone a particular GitHub repository with which we will work
-    git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero.git
+    h. Let's clone a particular GitHub repository with which we will work
+        git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero.git
 
-52. 
+    i. Inside the we have these files and directorries:
+        zaman@MdZamanLaptop:~/k8s/Docker-Zero-to-Hero/examples/python-web-app$ ls
+        Dockerfile  devops  requirements.txt
+        zaman@MdZamanLaptop:~/k8s/Docker-Zero-to-Hero/examples/python-web-app$ vim Dockerfile
+    j. The Dockerfile that we have has this content:
+        FROM ubuntu
+
+        WORKDIR /app
+
+        COPY requirements.txt /app
+        COPY devops /app
+
+        RUN apt-get update && \
+            apt-get install -y python3 python3-pip && \
+            pip install -r requirements.txt && \
+            cd devops
+
+        ENTRYPOINT ["python3"]
+        CMD ["manage.py", "runserver", "0.0.0.0:8000"]
+
+    k. Let's build the image:
+        docker build -t zamanf5/python-sample-app-demo:v1 .
+
+    l. 
 
     
 
