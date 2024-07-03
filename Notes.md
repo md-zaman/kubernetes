@@ -373,5 +373,50 @@ Kubernetes Service Deep Dive using Kubeshark
 
 Ingress
 
+There are 2 problems which ingress addresses which Services in kubernetes were not offering:
+    a. Enterprise & TLS Load Balancing
+        E.g.,
+        i.   Sticky sessions LB
+        ii.  TLS based LB
+        iii. Path Based LB
+        iv.  Host based LB
+        v.   Ratio based LB
+    b. Load Balancing
+        Cloud provider will charge you for each every service type. for each Static IP.
 
+As a kubernetes user you can create an ingress resource and what kubernetes told to different load balancers like:
+    - Nginx
+    - f5
+    - Ambassador
+    - Treffic
+    - HA proxy
+    Kubernetes told them to create ingress controllers. So, the nginx company will write the nginx ingress controller and then you can use it to your k8s cluster. You can deploy it using helm chart you can deploy using yaml manifest. 
+
+User will write the ingress and load balancing companies will create the ingress 'controllers' and they will place their ingress controllers on github k8s page and they will provide the steps on how to install this ingress controllers using helm charts or any other ways.
+As for user, after you have created the ingress resource, you also have to deploy ingress controllers and a user can choose which ingress controllers he wants to user.
+So basically ingress in a load balancer and some times it is LB + API Gateway also.
+In real life you have to deploy the Nginx controller in your k8s cluster after that you will create ingress resource depending upon the capabilities that you need so suppose if you need path routh routing, you will create one type of ingress, if you need TLS based you will create another type of ingress, if you need host based you will create another type of ingress. The one time thing of devops engineer is to chosse which ingress controller they want to use - which load balancer they want to user- it can be nginx it can be f5. After the decision they can go to their respective github page and install the their controller and after that in their cluster they can create their desired service. 1 service, 2 service, 10 service they will only write the ingress resource.
+Ingress is not 1 to 1 mapping, you can create one ingress and pay 100s of services. 
+So ingress is solving 2 problems:
+    a. Enterprise level LB capabilities
+    b. Cloud providers were charging for each and every IP addresses
+
+Ingress controller has to be installed before ingress resource.
+
+45. Activity
+
+Using the previous setup we will do 'Host based' Load Balancing
+
+
+
+
+
+
+
+
+
+
+
+
+after completing this video watch this video positively for more details on Ingress controllers: https://www.youtube.com/watch?v=3YTU4EPjEh4
 
