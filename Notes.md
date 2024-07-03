@@ -239,7 +239,58 @@ Kubernetes Service Deep Dive using Kubeshark
     k. Let's build the image:
         docker build -t zamanf5/python-sample-app-demo:v1 .
 
-    l. 
+    l. Now, let us make the deployment.yaml manifest
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+        name: sample-python-app
+        labels:
+            app: sample-python-app
+        spec:
+        replicas: 2
+        selector:
+            matchLabels:
+            app: sample-python-app
+        template:
+            metadata:
+            labels:
+                app: sample-python-app
+            spec:
+            containers:
+            - name: python-app
+                image: zamanf5/python-sample-app-demo:v1
+                ports:
+                - containerPort: 8000
+    
+    m. Now deploy the deployment:
+        kubectl apply -f deployment.yaml
+
+    n. Let's check:
+        kubectl get deploy
+        - shows the deployements
+        check the pods also to recheck:
+        kubectl get pods
+        - shows the pods that are running
+        To get the pod's IP address also:
+        kubectl get pods -o wide
+        - shows the IP address of the pods
+        kubectl get pods -v=7
+        - displays the pods in verbose - shows your more details
+        kubectl get pods -v=9
+        - this is the maximum verbosity level
+        
+    o. If you want to go to the application in minikube:
+        minikube ssh
+        The:
+        curl -L http://172.17.0.5/8000/demo
+        - We're are using '-L' because abhishek veeramalla said that the application he has written, it requires a redirect.
+        - Here we are trying to access the app. The app runs on the port 8000/demo
+
+
+
+    o. 
+
+
 
     
 
