@@ -370,20 +370,8 @@ Kubernetes Service Deep Dive using Kubeshark
         a. LoadBalancing: Here he used kubeshark application to show how traffic is being redirected. You can write your own something.
 
 
-Day: 38
 
 Ingress
-
-             
-
-
-
-
-
-
-
-
-    
 
 
 
