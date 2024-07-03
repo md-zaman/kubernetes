@@ -285,10 +285,74 @@ Kubernetes Service Deep Dive using Kubeshark
         curl -L http://172.17.0.5/8000/demo
         - We're are using '-L' because abhishek veeramalla said that the application he has written, it requires a redirect.
         - Here we are trying to access the app. The app runs on the port 8000/demo
+        - '/demo' is context root of the application
+                  
+    p. If you try the same command after coming out of the k8s cluster, you won't be able to access it. This is because a pod be default will have cluster network attached to it. But you can have internal as well as external cutomers.
+
+    q. To ensure that your application can be accessed by your organisation or the outside world we have services and as discussed we have 3 types of services:
+    i. ClusterIP
+    ii. NodePort Mode
+    iii. Load Balancer Mode
+
+    r. vi service.yaml
+        
+        apiVersion: v1
+        kind: Service
+        metadata:
+        name: python-django-sample-app
+        spec:
+        type: NodePort
+        selector:
+            app: sample-python-app 
+        ports:
+            - port: 80
+            targetPort: 8000
+            nodePort: 30007
+
+        Now, simply apply:
+        kubectl apply -f service.yml
+
+        ------
+        Comment:
+        - Esure that the correct selector is entered
+        - Ensure that the correct 'targetPort' is entered. Target port is the port where your application is running. Since in this case the application is running on '8000', we have entered the same.
+        ------
+
+        To check:
+        kubectl get svc
+        - desplays the services
+
+        kubectl get svc -v=9
+        - shows a verbose status of the services
+
+    s. Irrespective of what kind of service you choose whether it be ClusterIp mode, NodePort mode or Load Balancing mode, 'ClusterIp' will always be there.
+    Apart from this you will also get a port mapping- the Nope IP Address. This will be under the column 'PORT(S)'. You will get this port mapping and you can access you application using this port when you are using NodePort or LoadBalancing mode. (In NodePort we don't get this because in NodePort you only have your application avaiable in the Cluster.)
+    
+    t. You can access the application either by ClusterIP address which you will find under the 'CLUSTERIP' column (but you have to ensure that you are loggedin in the cluster) or you can use the Nope IP address. So, suppose your Node IP Address which is getting displayed under PORT(S) is '80:30007' and here is how you can do it:
+        i. Get the IP Address. In minikube we can enter the command:
+            minikube ip
+            Output: 192.168.64.10
+
+            Now, you can curl and see your application:
+            curl -L http://192.168.64.10:30007/demo
+
+            We can also enter this link in the address bar of the browser and access our application.
+            However, if you take the same URL and try to access it from elsewhere you will not be able to access it. This is becaue you haven't exposed your application to the outside world.
+
+    u. To expose this existing application to the outside world we can simply edit the svc:
+        kubectl edit svc python-django-sample-app
+        - opens services' yaml where you can edit the service.
+        - if you want to check the name of the service you can simply enter:
+            kubectl get svc
+            - lists all the service
+    Here you can have to change the service 'type:' from 'NodePort' to 'LoadBalancer'
+
+    v. 
 
 
 
-    o. 
+
+
 
 
 
