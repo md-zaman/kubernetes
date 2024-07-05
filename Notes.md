@@ -381,8 +381,8 @@ There are 2 problems which ingress addresses which Services in kubernetes were n
         iii. Path Based LB
         iv.  Host based LB
         v.   Ratio based LB
-    b. Load Balancing
-        Cloud provider will charge you for each every service type. for each Static IP.
+    b. Charges for Load Balancing
+        Cloud provider will charge you for each and every service type. for each Static IP.
 
 As a kubernetes user you can create an ingress resource and what kubernetes told to different load balancers like:
     - Nginx
@@ -392,10 +392,10 @@ As a kubernetes user you can create an ingress resource and what kubernetes told
     - HA proxy
     Kubernetes told them to create ingress controllers. So, the nginx company will write the nginx ingress controller and then you can use it to your k8s cluster. You can deploy it using helm chart you can deploy using yaml manifest. 
 
-User will write the ingress and load balancing companies will create the ingress 'controllers' and they will place their ingress controllers on github k8s page and they will provide the steps on how to install this ingress controllers using helm charts or any other ways.
-As for user, after you have created the ingress resource, you also have to deploy ingress controllers and a user can choose which ingress controllers he wants to user.
+User will write the ingress and load balancing companies will create the ingress 'controllers' and they will place their ingress controllers on github k8s page and they will provide the steps on how to install this ingress controllers using helm charts or any other way.
+As for user, after you have created the ingress resource, you also have to deploy ingress controllers and a user can choose which ingress controller he wants to use.
 So basically ingress in a load balancer and some times it is LB + API Gateway also.
-In real life you have to deploy the Nginx controller in your k8s cluster after that you will create ingress resource depending upon the capabilities that you need so suppose if you need path routh routing, you will create one type of ingress, if you need TLS based you will create another type of ingress, if you need host based you will create another type of ingress. The one time thing of devops engineer is to chosse which ingress controller they want to use - which load balancer they want to user- it can be nginx it can be f5. After the decision they can go to their respective github page and install the their controller and after that in their cluster they can create their desired service. 1 service, 2 service, 10 service they will only write the ingress resource.
+In real life you have to deploy the Nginx controller in your k8s cluster after that you will create ingress resource depending upon the capabilities that you need so suppose if you need path based routing, you will create one type of ingress, if you need TLS based you will create another type of ingress, if you need host based you will create another type of ingress. The one time thing of devops engineer is to choose which ingress controller they want to use - which load balancer they want to user- it can be nginx it can be f5. After the decision they can go to their respective github page and install the their controller and after that in their cluster they can create their desired service. 1 service, 2 service, 10 service they will only write the ingress resource.
 Ingress is not 1 to 1 mapping, you can create one ingress and pay 100s of services. 
 So ingress is solving 2 problems:
     a. Enterprise level LB capabilities
@@ -407,16 +407,272 @@ Ingress controller has to be installed before ingress resource.
 
 Using the previous setup we will do 'Host based' Load Balancing
 
+    a. vi ingress.yml
 
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+        name: ingress-example
+        spec:
+        rules:
+        - host: "foo.bar.com"
+            http:
+            paths:
+            - pathType: Prefix
+                path: "/bar"
+                backend:
+                service:
+                    name: python-django-sample-app
+                    port:
+                    number: 80
+        
+        Now, simply apply:
+        kubectl apply -f ingress.yml
+        ---------
 
+        Check:
+        kubectl get ingress
+        - lists all ingres
 
+        Now although we have made this ingress, nothing will happen - what do I mean by that? What it means is that since I have created the ingress if I were to curl the domain 'foo.bar.com/bar' like this:
+        curl -L http://foo.bar.com/bar -v
+        Nothing will happen here..
+        Why?
+        Our desired output was that ingress should take me to the service- 'python-django-sample-app' as mentioned in the ingress that we have defined above. It is not happening because there is no ingress 'controller'.
+        So, we will install ingress controller
+        Search for it on Google for minikube:
 
+        minikube addons enable ingress
+        - installs nginx controller
 
+        Let's check if it has installed. To check we will check pods because ingress controllers are also a pod
+        kubectl get pods -A | grep nginx
+        - lists pods in all namespace '-A' means all namespace
 
+        Now let us find the logs and find out if it has identified our ingress resource that we have created.
+        kubectl logs ingress-nginx-controller-cc8496... -n ingress-nginx
+        - this command checks the logs of the mentioned pod in the specified namespace (nginx ingress created its own logs)
 
+        You will find that it has successfully synced as well.
+
+        If you enter the command 
+        kubectl get ingress
+        you will find here that now the Under the address there is an IP address earlier it was not there.
+
+        In your minikube, you also have to edit the 'host'
+        sudo vi /etc/hosts
+        and add this :
+        192.168.64.11 foo.bar.com
+        Now if you try to ping it will be resolved.
+                     
 
 
 
 
 after completing this video watch this video positively for more details on Ingress controllers: https://www.youtube.com/watch?v=3YTU4EPjEh4
+
+
+ConfigMaps & Secrets
+
+ConfigMaps are used to store information. Suppose your app needs some information like DB port, DB username, connection type, etc., we know these information is retrieved used environment variables these details shouldn't be hardcoded because if details get changed user get null or no info at all
+So we try to save this as an ENV variable
+As a DevOps eng you can create a configmap inside a k8s cluster and put the information like DB port and any kind of information inside the configmap and you can mount the configmap or you can use the details of the configmap inside your k8s pod. 
+So you can use this data of the configmap as ENV variables inside your k8s pod. You can use them by different ways like you can use them as ENV variables or you can use them as Volume Mounts. 
+So, Configmap is solving the problem of stroring the information that can be used by your application at later point of time. 
+Stored data can be used by your Pod, Deployment or your application.
+
+Secrets - Secrets in k8s solves the same problem but it is used for sesitive data. Like parameters like DB password, DB Username.
+Why we don't save this information in ConfigMap because whenever we save save anything in k8s this information is saved in etcd, and in etcd data is stored as objects and any hacker who tries to access the etcd they can get access to your infomation like DBpassword DB Username.  
+So we should save all the non-sensitive data in ConfigMaps and Sensitive data in Secrets.
+In Secrets k8s encrypts the data at rest. By default k8s uses the basic encryption but it also allows you to use your own encryption machanism - custom encryption.
+K8s also says that although we're using an encryption for secrets you should do your part of using a strong RBAC. "Least Privilegde"
+With secrets you can use a strong RBAC.
+
+ConfigMaps
+Activity:
+
+    a. vi cm.yml
+
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+        name: test-cm
+    data:
+        db-port: "3306"
+    
+    kubectl apply -f cm.yml
+
+    kubectl get cm
+
+    kubectl describe cm test-cm
+
+    Let's use this fields an environmental variable in a pod
+    But for that we need to have a k8s pod. So, let's create a pod:
+
+    apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+        name: sample-python-app
+        labels:
+            app: sample-python-app
+        spec:
+        replicas: 2
+        selector:
+            matchLabels:
+            app: sample-python-app
+        template:
+            metadata:
+            labels:
+                app: sample-python-app
+            spec:
+            containers:
+            - name: python-app
+                image: zamanf5/python-sample-app-demo:v1
+                ports:
+                - containerPort: 8000
+    
+        kubectl apply -f deployement.yml
+
+        kubectl get pods -w
+        - watches the pods
+
+        let's check the env variable of a pod of this deployement:
+
+        kubectl exec -it sample-python-app-78578 -- /bin/bash
+        - enters into the pod
+
+        If you check here you will not find any environmental variable:
+        env | grep db
+        - checks for env variable in pod
+
+        So to do this we have to add env in our deployment:
+        vo deployment.yml
+
+        Under image:
+        env:
+          - name: DB-PORT
+            valueFrom:
+              configMapKeyRef:
+                name: test-cm
+                key: db-port
+        
+        kubectl apply -f deployement.yml
+
+        kubectl get pods -w
+        - watches the pods in realtime.
+        - you will see here that the previous pods are getting terminated and new ones are getting created.
+
+        kubectl get pods
+        - displays all the pods
+
+        kubectl exec -it sample-python-app-78676 --bin/bash
+        - enters into the pod
+        - We have picked randomly any container for exec
+
+        env | grep DB
+        - searchs for env DB
+
+        You will get the DB port as 3306
+        So the developer can go to the python app and say
+        os.env("DB-PORT") 
+        and he will get the value for his database connection
+
+        But now there is a problem
+        What if we were to change the port from "3306" to "3307"
+        and we make this change in our configmap.yml
+        How will the pods come to know about this change?
+        If you exec here to the pod we will find that the port is still the same 
+        kubectl exec -it sample-python-app-78676 --bin/bash
+        env | grep DB
+        You will get the output DB-PORT=3306
+        So the port has not changes despite changing it in our configmap.yml
+        To solve this problem k8s says instead of using this approach, go with the approach of VolumeMounts
+        VolumeMounts
+        In VolumeMounts, instead of using them as environmental variables you can use them as files. So you configmap information can be saved inside a file and developers can read the files instead of env variables.
+        let's see how to do it
+
+        vi deployment.yml
+        Delete the environment (entire content of env) and replace it with:
+        Keep in mind that to mount any volume you need to create a volume first
+        At the level of the 'containers', write 'volumes' like:
+        volumes:
+          - name: db-connection
+            configMap:
+              name: test-cm
+
+        - In the above volume, we have kept 'configmap' to take out the info
+        
+        And under 'image':
+        volumeMounts:
+          - name: db-connection
+            mountPath: /opt
+        
+        - In the above volumeMount, we have kept the mountPath as '/opt' but it can be anything.
+
+        Let's apply:
+        kubectl apply -f deployment.yml
+
+        kubectl get pods -w
+        - watches the pods realtime
+
+        Get the pod name to exec
+        kubectl get pods
+
+        kubectl exec -it sample-python-app-7878687 --/bin/bash
+        let's see if the volume is mouted on the '/opt' directory
+        ls /opt
+        Output: db-port
+        - this means it is mounted
+        Let's find the value of the db-port
+        cat /opt/db-port | more
+        Output: 3306
+        So, it got mounted appropriately in the file-system 
+        
+        Now, let's change the port in the configmap and see if it gets updated. for this, let's edit the configmap:
+        vi configmap.yml
+        change the port from '3306' to '3307'
+        and apply the changes:
+        kubectl apply -f cm.yml
+        
+        Now, what will happen is the kubernetes pod, without getting restarted will know that the value of the configmap has changed. Let's find out:
+        Fisrt let's make sure that the port you have applied has actually changed:
+
+        kubectl describe cm test-cm
+        - decribes the referred configmap(cm)- here 'test-cm'
+        You will find here that the value has changed
+
+        Let's also ensure that the pods have not restarted:
+        kubectl get pods
+        - lists the pods
+        - check the AGE to find whether they have restarted or not
+        Now let's exec and see:
+        kubectl exec -it sample-python-app-675675776 -- /bin/bash
+        cat /opt/dp-port
+        it got changed!
+
+        Change it again in the cm
+        vi cm.yml
+        Under 'data:' in db-port: "3307"
+        change the port number to "3309"
+        kubectl apply -f cm.yml
+
+        You don't have to exec everytime we can modify the command to display the info like:
+        kubectl exec -it sample-python-app-7686 --cat/opt/db-port
+
+        You will find it got changed after some time
+
+Secrets
+Activity
+
+        
+
+
+              
+
+
+
+
+
+
+
 
