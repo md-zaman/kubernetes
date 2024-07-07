@@ -664,7 +664,38 @@ Activity:
 Secrets
 Activity
 
-        
+        a. kubectl create secret generic test-secret --from -literal=db-port="3306"
+            - creates secret from the cli itself
+            - there are several kinds of secrets like 'tls secret', 'generic secret'. 'tls secrets' are basically used to store the certificates.
+
+        kubectl describe secret test-secret
+        - Describes the secret
+        - Let's find if this is encrypted or not (since it is a secret)
+
+        kubectl edit secret test-secret
+        - opens the referred secret yml
+        - you will find here that the db-port is encrypted in base64. This is not the best encryption though.
+        - Kubernetes allows you to encrypt secret. You can encrypt it using HashiCorp vault, Seal secret, etc.,
+        - if you want to find out what is the encrypted by coming out of yml and type the following command:
+        echo MzMwNg== | base64 --decode
+        - Output: 3306
+        - decrypts the port number
+        - encryption is done on etcd (we will discuss later)
+
+RBAC - Role Based Access Control
+
+45. Can be broadly devided into 2 parts:
+    a. Users
+    b. Service Accounts
+
+    a. Users 
+
+
+
+    
+
+
+
 
 
               
