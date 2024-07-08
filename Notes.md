@@ -12,7 +12,7 @@ Features:
  b. Auto-scaling
 
 1. Auto Scaling
-    In Docker, you can manually increase the number of containers in K8s, it can be done automatically. K8s also uses load balancing to redirect the traffic appropriately to the new containers.
+    In Docker, you can manually increase the number of containers. In K8s, it can be done automatically. K8s also uses load balancing to redirect the traffic appropriately to the new containers.
     Load Balancing 
 
 2. Why Docker is not used in enterprise:
@@ -55,7 +55,7 @@ Under Data Plane we have: Kubelet, kube proxy and container runtime.
 | Cloud Control Manager (CCM) |                   |
 
 Worker Node:
-10. Kubelet is responsible for maintaing the pod. It ensure that the pod is always running of the pod is not running, it will inform the API server in control plane.
+10. Kubelet is responsible for maintaing the pod. It ensure that the pod is always running if the pod is not running, it will inform the API server in control plane.
 
 11. Container runtime: It can be docker (dockershim) or any other container runtime of crio, containerd or any other container runtimes which implements conatiner interface.
 
@@ -67,7 +67,7 @@ Control Plane:
 14. Scheduler (Kube-scheduler): It scheduler schedules your pods/resources in k8s. 
 15. ETCD : Backup store. it is key value store. Store the entire cluster information. 
 16. Controller manager: K8s basically has some controllers like 'replica sets'. It ensures that such components are always running. 
-17. CCM (Cloud Controller Manager): When we use our k8s cluster on eks or aks or gke and want to lets say create a pod, k8s doesn't understad the language of these cloud provider so the ccm convert this instruction to eks to talk to the api of eks. the ccm is open source and suppose if i make a cloud by the name "Zaman cloud" I can create my own ccm which can be used in k8s. If we are deploying the cluseter in on-premise ccm is not required.
+17. CCM (Cloud Controller Manager): When we use our k8s cluster on eks or aks or gke and want to lets say create a pod, k8s doesn't understad the language of these cloud provider so the ccm convert this instruction to eks to talk to the api of eks. the ccm is open source and suppose if i make a cloud by the name "Zaman cloud" I can create my own ccm which can be used in k8s. If we are deploying the cluster in on-premise ccm is not required.
 
 18. Kubernetes has custom resources and custom resource definations for the features it doesn't have.
 
@@ -76,8 +76,8 @@ Control Plane:
 
 21. We put 1 or more containers in a single pod (sidecar container or init containers (recheck this)) so that k8s can ensure they have advantages like allow you shared networking, shared storage, can talk to each other using local host like share the file.
 
-22. IP address in not generated for contaier but pods.
-23. kube-proxy generates the cluster ip address for ppods.
+22. IP address in not generated for containers but pods.
+23. kube-proxy generates the cluster ip address for pods.
 24. kubectl is the k8s cli.
 25. Local k8s clusters minikube, k3s, kind, microk8s
 26. Minikube create only one cluster and has a single node.
@@ -133,7 +133,7 @@ Auto Scaling and Auto healing:
 32. kubectl delete pod nginx
     - deletes the pod
 
-33. To debug pods or apps. You 2 go-to commands could be:
+33. To debug pods or apps. Your go-to commands could be:
     kubectl describe pod <pod_name>
     kubectl logs nginx
 
@@ -174,7 +174,7 @@ Kubernetes Services
 43. What is an ideal pod size - it depends upon the number of concurrent users. and it depends upon the number of request 1 replica of your application can handle.
 43. What if there is not service in k8s?/ what if there is not component as service in k8s?
     We know containers are ephimeral in nature and that's why we deploy a deployment to ensure a particular no. of pods are running at all times.
-    So, when a pod dies for any reason a new pod will come up because we have deployed a deployment (and we know to maintain the required number of services replicaset controller will start another pod). The new pod will have new IP address. Since in our case service doesn't exists in k8s, the user will send the request to the died container- which doesn't exists. So, we service acts as a load balancer where whenever there is a traffic from a user, the user is redirected to the new pod and not the previous pod. Services are mapped with pods in deployments using labels and selectors and not IP addresses.
+    So, when a pod dies for any reason a new pod will come up because we have deployed a deployment (and we know to maintain the required number of services replicaset controller will start another pod). The new pod will have new IP address. Since in our case service doesn't exists in k8s, the user will send the request to the died container- which doesn't exists. So, service acts as a load balancer where whenever there is a traffic from a user, the user is redirected to the new pod and not the previous pod. Services are mapped with pods in deployments using labels and selectors and not IP addresses.
     Features of service: 
     A. Service acts as load-balancing
     B. Service discovery - Using Labels and Selectors. For all pods that is created a label is added. This labels will be common for all pods. Service will not bother about the IP addresses but it will look for labels. The label will be same because Replicaset controller will deploy a new pod with the same YAML.
@@ -281,13 +281,13 @@ Kubernetes Service Deep Dive using Kubeshark
         
     o. If you want to go to the application in minikube:
         minikube ssh
-        The:
+        Then:
         curl -L http://172.17.0.5/8000/demo
         - We're are using '-L' because abhishek veeramalla said that the application he has written, it requires a redirect.
         - Here we are trying to access the app. The app runs on the port 8000/demo
         - '/demo' is context root of the application
                   
-    p. If you try the same command after coming out of the k8s cluster, you won't be able to access it. This is because a pod be default will have cluster network attached to it. But you can have internal as well as external cutomers.
+    p. If you try the same command after coming out of the k8s cluster, you won't be able to access it. This is because a pod by default will have cluster network attached to it. But you can have internal as well as external cutomers.
 
     q. To ensure that your application can be accessed by your organisation or the outside world we have services and as discussed we have 3 types of services:
     i. ClusterIP
@@ -320,7 +320,7 @@ Kubernetes Service Deep Dive using Kubeshark
 
         To check:
         kubectl get svc
-        - desplays the services
+        - displays the services
 
         kubectl get svc -v=9
         - shows a verbose status of the services
@@ -337,7 +337,7 @@ Kubernetes Service Deep Dive using Kubeshark
             curl -L http://192.168.64.10:30007/demo
 
             We can also enter this link in the address bar of the browser and access our application.
-            However, if you take the same URL and try to access it from elsewhere you will not be able to access it. This is becaue you haven't exposed your application to the outside world.
+            However, if you take the same URL and try to access it from elsewhere you will not be able to access it. This is because you haven't exposed your application to the outside world.
 
     u. To expose this existing application to the outside world we can simply edit the svc:
         kubectl edit svc python-django-sample-app
@@ -346,8 +346,8 @@ Kubernetes Service Deep Dive using Kubeshark
             kubectl get svc
             - lists all the service
     Here you can have to change the service 'type:' from 'NodePort' to 'LoadBalancer'
-    This will not work here because we are using minikube. But suppose you're using ec2 instance you can c=do it by accessing the ec2 instances' public IP.
-    These things are taken of by the CCM- Cloud Control Manager.
+    This will not work here because we are using minikube. But suppose you're using ec2 instance you can do it by accessing the ec2 instances' public IP.
+    These things are taken care of by the CCM- Cloud Control Manager.
     After you save this service aftermaking the changes and enter 
     'kubectl get svc'
     You will find that the status under the 'EXTERNAL-IP' says '<pending>' because this is minikube.
@@ -394,9 +394,9 @@ As a kubernetes user you can create an ingress resource and what kubernetes told
 
 User will write the ingress and load balancing companies will create the ingress 'controllers' and they will place their ingress controllers on github k8s page and they will provide the steps on how to install this ingress controllers using helm charts or any other way.
 As for user, after you have created the ingress resource, you also have to deploy ingress controllers and a user can choose which ingress controller he wants to use.
-So basically ingress in a load balancer and some times it is LB + API Gateway also.
+So basically ingress is a load balancer and some times it is LB + API Gateway also.
 In real life you have to deploy the Nginx controller in your k8s cluster after that you will create ingress resource depending upon the capabilities that you need so suppose if you need path based routing, you will create one type of ingress, if you need TLS based you will create another type of ingress, if you need host based you will create another type of ingress. The one time thing of devops engineer is to choose which ingress controller they want to use - which load balancer they want to user- it can be nginx it can be f5. After the decision they can go to their respective github page and install the their controller and after that in their cluster they can create their desired service. 1 service, 2 service, 10 service they will only write the ingress resource.
-Ingress is not 1 to 1 mapping, you can create one ingress and pay 100s of services. 
+Ingress is not 1 to 1 mapping, you can create one ingress and route 100s of services. 
 So ingress is solving 2 problems:
     a. Enterprise level LB capabilities
     b. Cloud providers were charging for each and every IP addresses
