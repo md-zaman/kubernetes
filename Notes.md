@@ -30,13 +30,13 @@ Features:
     b. Auto healing
     c. ...
 
-4. Docker has one more problem, it has a single host, so if there is a shortage of memory one container is killed by another container. This is not the case with k8s. k8s has multi nodes and if a container is killed by another container k8s will put that container is a different node.
+4. Docker has one more problem, it has a single host, so if there is a shortage of memory one container is killed by another container. This is not the case with k8s. k8s has multi nodes and if a container is killed by another container k8s will put that container in a different node.
 
 5. K8s can put a faulty pod/application in a different node.
 
-6. Kubernetes' Auto scaling : It has something called 'replication controler' or 'replica set' (Replication controler is the old name). So, you can go to the deployment.yaml file and say increase my load from 1 to 10 because my load has increased. It also supports HPA (horizontal pod scaler) using which you can directly say that whenever there is a load increase the number of containers. Whenever my container is reaching the load of 80% increase a pod.
+6. Kubernetes' Auto scaling : It has something called 'replication controler' or 'replica set' (Replication controler is the old name). So, you can go to the deployment.yaml file and say increase the load from 1 to 10 because load has increased. It also supports HPA (horizontal pod scaler) using which you can directly say that whenever there is a load increase the number of containers. Whenever my container is reaching the load of 80% increase a pod.
 
-7. Auto healing : k8s ccontrols and fix the damage. mostly control. suppose a container is going down. Even before a container goes down starts a new cotainer. Whenever API server receives a signal that a container is going down immediately it will rollout a new container/pod.
+7. Auto healing : k8s controls and fix the damage. mostly control. suppose a container is going down. Even before a container goes down, k8s starts a new container. Whenever API server receives a signal that a container is going down immediately it will rollout a new container/pod.
 
 8. Enterprise nature : custom resourses- adv load balancing. k8s advancing every day by cncf. 
 
