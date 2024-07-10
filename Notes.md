@@ -28,7 +28,7 @@ Features:
 4. Problems with Docker:
     a. Single Host - Because there only one host the containers inside it is getting impacted because of that and one of the containers in getting killed.
     b. Auto healing
-    c. 
+    c. ...
 
 4. Docker has one more problem, it has a single host, so if there is a shortage of memory one container is killed by another container. This is not the case with k8s. k8s has multi nodes and if a container is killed by another container k8s will put that container is a different node.
 
