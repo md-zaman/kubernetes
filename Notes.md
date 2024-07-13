@@ -38,7 +38,7 @@ Features:
 
 7. Auto healing : k8s controls and fix the damage. mostly control. suppose a container is going down. Even before a container goes down, k8s starts a new container. Whenever API server receives a signal that a container is going down immediately it will rollout a new container/pod.
 
-8. Enterprise nature : custom resourses- adv load balancing. k8s advancing every day by cncf. 
+8. Enterprise nature: custom resourses- adv load balancing. k8s advancing every day by cncf. 
 
 Day 2: Kubernetes Architecture:
 
@@ -57,7 +57,7 @@ Under Data Plane we have: Kubelet, kube proxy and container runtime.
 Worker Node:
 10. Kubelet is responsible for maintaing the pod. It ensure that the pod is always running if the pod is not running, it will inform the API server in control plane.
 
-11. Container runtime: It can be docker (dockershim) or any other container runtime of crio, containerd or any other container runtimes which implements conatiner interface.
+11. Container runtime: It can be docker (dockershim) or any other container runtime of crio, containerd or any other container runtimes which implements container interface.
 
 12. Kube proxy: provides you networking. Every container has to be allocated with IP address and load balancing capabilities. (Basically uses the IP tables on your Linux machine).
 
