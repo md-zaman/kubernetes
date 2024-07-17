@@ -67,7 +67,7 @@ Control Plane:
 14. Scheduler (Kube-scheduler): It schedules your pods/resources in k8s. 
 15. ETCD : Backup store. It is a key value store. Store the entire cluster information. 
 16. Controller manager: K8s basically has some controllers like 'replica sets'. It ensures that such components are always running. 
-17. CCM (Cloud Controller Manager): When we use our k8s cluster on eks or aks or gke and want to lets say create a pod, k8s doesn't understad the language of these cloud provider so the ccm convert this instruction to eks to talk to the api of eks. the ccm is open source and suppose if i make a cloud by the name "Zaman cloud" I can create my own ccm which can be used in k8s. If we are deploying the cluster in on-premise ccm is not required.
+17. CCM (Cloud Controller Manager): When we use our k8s cluster on eks or aks or gke and want to lets say create a pod, k8s doesn't understand the language of these cloud provider so the ccm convert this instruction to eks to talk to the api of eks. The CCM is open source and suppose if I make a cloud by the name "Zaman cloud" I can create my own CCM which can be used in k8s. If we are deploying the cluster in on-premise, CCM is not required.
 
 18. Kubernetes has custom resources and custom resource definations for the features it doesn't have.
 
@@ -139,7 +139,7 @@ Auto Scaling and Auto healing:
 
 Day 34: Kubernetes Deployment
 
-34. difference between container, pod and deployment
+34. Difference between Container, Pod and Deployment
 
 | **Container**                   | **Pod**                                 | **Deployment** |
 | --------                        | -------                                 |
@@ -155,7 +155,7 @@ Day 34: Kubernetes Deployment
 
 37. Replicaset defination from Google gemini:  
 
-38. Controller: are someting which ensure that the desired state and actual state are same. there are default controllers and custom controllers. it is a go language application whcih k8s has written which ensures.
+38. Controller: are someting which ensure that the desired state and actual state are same. There are default controllers and custom controllers. It is a go language application whcih k8s has written which ensures.
 
 39. Controllers defination:
 
