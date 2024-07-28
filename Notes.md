@@ -153,18 +153,44 @@ Day 34: Kubernetes Deployment
 
 36. Replicaset controller: It is a controller created by deployment. It will ensure to create no. of pod which you have mentioned in the deployemnt yaml manifest. If you say replica count is 2 it ensure that the cluster has 2 replicas of pod. So that many user can use simultanenously. This is how 0 downtime is achieved.
 
-37. Replicaset defination from Google gemini:  
+37. Replicaset defination from Google gemini:
+    A ReplicaSet (RS) is a controller that ensures a specified number of identical Pods are running at any given time. It's a core component for managing stateless applications in Kubernetes.
 
-38. Controller: are someting which ensure that the desired state and actual state are same. There are default controllers and custom controllers. It is a go language application whcih k8s has written which ensures.
+    Key Functions:
 
-39. Controllers defination:
+    **Replication**: A ReplicaSet maintains the desired number of Pod replicas, ensuring your application can handle incoming traffic or workload.
+    **Self-Healing**: If a Pod fails, the ReplicaSet automatically replaces it to maintain the desired replica count.
+    **Scaling**: You can easily scale your application up or down by adjusting the number of replicas in the ReplicaSet.
 
-40. deployment vs replicaset: 
+38. Controller: are someting which ensure that the desired state and actual state are same. There are default controllers and custom controllers. It is a go language application which k8s has written which ensures this.
+
+39. Controllers defination from Gemini:
+    Controllers are the core components that continuously monitor and maintain the desired state of your cluster. They operate in control loops, constantly comparing the actual state of objects (like Pods, Deployments, Services) to their desired state, and taking actions to reconcile any differences.
+
+    **Key Concepts**:
+
+    **Control Loop**: Controllers operate in an endless loop, performing the following steps:
+
+    **Observe**: Watch for changes in the state of specific Kubernetes objects.
+    **Analyze**: Compare the current state to the desired state defined in the object's specification.
+    **Act**: Take necessary actions to bring the current state closer to the desired state.
+    **Types of Controllers**: Kubernetes has built-in controllers for managing different kinds of objects:
+
+    **Deployment Controller**: Manages ReplicaSets to ensure the correct number of Pods are running.
+    **ReplicaSet Controller**: Ensures the desired number of identical Pods are running.
+    **DaemonSet Controller**: Runs a copy of a Pod on each node in the cluster.
+    **Job Controller**: Creates one or more Pods to complete a task and then stops.
+    **CronJob Controller**: Creates Jobs on a schedule.
+    **StatefulSet Controller**: Manages stateful applications with unique network identities and persistent storage.
+    **Custom Controllers**: You can create your own controllers to manage custom resources or extend the functionality of Kubernetes.
+
+40. Deployment vs Replicaset: 
+    
 
 41. kubectl get pods -w
     - watch the container log realtime (live)
 
-42. if you delete a pod or if a pod is deleted for any reason while you have deployed a deployment. The replicaset which was created by the deployemnt will ensure that another pod is create even before the pod is deleted. This ensures 0 downtime.
+42. If you delete a pod or if a pod is deleted for any reason while you have deployed a deployment. The replicaset which was created by the deployemnt will ensure that another pod is create even before the pod is deleted. This ensures 0 downtime.
 
 
 Day 35
@@ -174,11 +200,12 @@ Kubernetes Services
 43. What is an ideal pod size - it depends upon the number of concurrent users. and it depends upon the number of request 1 replica of your application can handle.
 43. What if there is not service in k8s?/ what if there is not component as service in k8s?
     We know containers are ephimeral in nature and that's why we deploy a deployment to ensure a particular no. of pods are running at all times.
-    So, when a pod dies for any reason a new pod will come up because we have deployed a deployment (and we know to maintain the required number of services replicaset controller will start another pod). The new pod will have new IP address. Since in our case service doesn't exists in k8s, the user will send the request to the died container- which doesn't exists. So, service acts as a load balancer where whenever there is a traffic from a user, the user is redirected to the new pod and not the previous pod. Services are mapped with pods in deployments using labels and selectors and not IP addresses.
+    So, when a pod dies for any reason a new pod will come up because we have deployed a deployment (and we know to maintain the required number of services replicaset controller will start another pod). The new pod will have new IP address. Since in our case service doesn't exists in k8s, the user will send the request to the died container- which doesn't exists. So, service acts as a load balancer where whenever there is a traffic from a user, the user is redirected to the new pod and not the previous pod. Services are mapped with pods in deployments using **labels** and **selectors** and not IP addresses.
     Features of service: 
-    A. Service acts as load-balancing
-    B. Service discovery - Using Labels and Selectors. For all pods that is created a label is added. This labels will be common for all pods. Service will not bother about the IP addresses but it will look for labels. The label will be same because Replicaset controller will deploy a new pod with the same YAML.
-    C. Expose to external world - There are three types:
+    **A. Service acts as load-balancing**
+    **B. Service Discovery**- Using **Labels** and **Selectors**. 
+    For all pods that is created, a `label` is added. This label will be common for all pods. Service will not bother about the IP addresses but it will look for labels. The label will be same because Replicaset controller will deploy a new pod with the same YAML.
+    **C. Expose to External World** - There are three types:
         i.   Cluster IP
         ii.  NodePort
         iii. Load balancer
@@ -186,7 +213,7 @@ Kubernetes Services
 
         i. Cluster IP mode: Application will be accessible inside the k8s cluster. Here you will only get 2 benefits- Discovery and load balancing.
         ii. NodePort- This will allow your application to be accessed inside your organisation. within your org or network. They might not have access to your cluster but they have the access to your app.- the workernode ip addresses
-        iii. Load balancer - In this mode service will expose your application to the external world. Suppose you have deployed you app on eks cluster. In this case you will get Elastic Load balancer IP for your service and now whoever want to access they can use this public IP address. Ths type is possible in cloud providers only as of now.
+        iii. Load balancer - In this mode service will expose your application to the external world. Suppose you have deployed you app on eks cluster. In this case you will get Elastic Load balancer IP for your service and now whoever want to access they can use this public IP address. This type is possible in cloud providers only as of now.
         Use Cases:
         Load Balancer - Amazon.com
         NodePort - VPC Nodes
@@ -217,10 +244,13 @@ Kubernetes Service Deep Dive using Kubeshark
         git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero.git
 
     i. Inside the we have these files and directorries:
+        ```sh
         zaman@MdZamanLaptop:~/k8s/Docker-Zero-to-Hero/examples/python-web-app$ ls
         Dockerfile  devops  requirements.txt
         zaman@MdZamanLaptop:~/k8s/Docker-Zero-to-Hero/examples/python-web-app$ vim Dockerfile
+        ```
     j. The Dockerfile that we have has this content:
+        ```sh
         FROM ubuntu
 
         WORKDIR /app
@@ -235,6 +265,7 @@ Kubernetes Service Deep Dive using Kubeshark
 
         ENTRYPOINT ["python3"]
         CMD ["manage.py", "runserver", "0.0.0.0:8000"]
+        ```
 
     k. Let's build the image:
         docker build -t zamanf5/python-sample-app-demo:v1 .
