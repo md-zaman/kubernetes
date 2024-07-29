@@ -65,7 +65,7 @@ Control Plane:
 
 13. API Server: component which exposes to the outside world. Takes request from external world. It decides on which node the pod has to be created.
 14. Scheduler (Kube-scheduler): It schedules your pods/resources in k8s. 
-15. ETCD : Backup store. It is a key value store. Store the entire cluster information. 
+15. ETCD: Backup store. It is a key value store. Store the entire cluster information. 
 16. Controller manager: K8s basically has some controllers like 'replica sets'. It ensures that such components are always running. 
 17. CCM (Cloud Controller Manager): When we use our k8s cluster on eks or aks or gke and want to lets say create a pod, k8s doesn't understand the language of these cloud provider so the ccm convert this instruction to eks to talk to the api of eks. The CCM is open source and suppose if I make a cloud by the name "Zaman cloud" I can create my own CCM which can be used in k8s. If we are deploying the cluster in on-premise, CCM is not required.
 
