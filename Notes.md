@@ -34,7 +34,7 @@ Features:
 
 5. K8s can put a faulty pod/application in a different node.
 
-6. Kubernetes' Auto scaling : It has something called 'replication controller' or 'replica set' (Replication controler is the old name). So, you can go to the deployment.yaml file and say increase the load from 1 to 10 because load has increased. It also supports HPA (horizontal pod scaler) using which you can directly say that whenever there is a load increase, increase the number of containers. Whenever my container is reaching the load of 80% increase a pod.
+6. Kubernetes' Auto scaling : It has something called 'replication controller' or 'replica set' (Replication controler is the old name). So, you can go to the deployment.yaml file and say increase the load from 1 to 10 because load has increased. It also supports HPA (horizontal pod scaler) using which you can directly say that whenever there is a increase in load, increase the number of containers. Whenever my container is reaching the load of 80% increase a pod.
 
 7. Auto healing : k8s controls and fixes the damage. mostly control. suppose a container is going down. Even before a container goes down, k8s starts a new container. Whenever API server receives a signal that a container is going down immediately it will rollout a new container/pod.
 
