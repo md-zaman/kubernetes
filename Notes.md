@@ -55,7 +55,7 @@ Under Data Plane we have: Kubelet, kube proxy and container runtime.
 | Cloud Control Manager (CCM) |                   |
 
 Worker Node:
-10. Kubelet is responsible for maintaing the pod. It ensure that the pod is always running if the pod is not running, it will inform the API server in control plane.
+10. Kubelet is responsible for maintaing the pod. It ensure that the pod is always running if the pod is not running, it will inform the API Server in control plane.
 
 11. Container runtime: It can be docker (dockershim) or any other container runtime of crio, containerd or any other container runtimes which implements container interface.
 
