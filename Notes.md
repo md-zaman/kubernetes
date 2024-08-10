@@ -76,7 +76,7 @@ Control Plane:
 
 21. We put one or more containers in a single pod (sidecar container or init containers (recheck this)) so that k8s can ensure they have advantages like allow you shared networking, shared storage, can talk to each other using local host like share the file.
 
-22. IP address in not generated for containers but pods.
+22. IP address is not generated for containers but pods.
 23. kube-proxy generates the cluster IP address for pods.
 24. kubectl is the k8s cli.
 25. Local k8s clusters minikube, k3s, kind, microk8s
