@@ -63,7 +63,7 @@ Worker Node:
 
 Control Plane:
 
-13. API Server: component which exposes to the outside world. Takes request from external world. It decides on which node the pod has to be created.
+13. API Server: Component which exposes to the outside world. Takes request from external world. It decides on which node the pod has to be created.
 14. Scheduler (Kube-scheduler): It schedules your pods/resources in k8s. 
 15. ETCD: Backup store. It is a key value store. Store the entire cluster information. 
 16. Controller manager: K8s basically has some controllers like 'replica sets'. It ensures that such components are always running. 
@@ -128,7 +128,7 @@ Auto Scaling and Auto healing:
     - displays all the details of the pod
     - this is how to debug
 
-31. How to rembeber the command "kubernetes cheatsheet"
+31. How to remember the command "kubernetes cheatsheet"
 
 32. kubectl delete pod nginx
     - deletes the pod
