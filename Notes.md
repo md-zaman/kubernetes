@@ -76,6 +76,26 @@ Control Plane:
 
 21. We put one or more containers in a single pod (sidecar container or init containers (recheck this)) so that k8s can ensure they have advantages like allow you shared networking, shared storage, can talk to each other using local host like share the file.
 
+    Init Containers:
+
+    **Purpose**: Perform setup tasks before the main application container starts.
+    **Execution**: Run sequentially, one after the other, to completion before the main container starts. If any init container fails, the Pod is restarted.
+    **Use Cases**:
+    Fetch configuration files or secrets from external sources.
+    Initialize databases or storage volumes.
+    Perform data migrations or transformations.
+    Run any other necessary setup tasks before the main application is ready.
+    Sidecar Containers:
+
+    **Purpose**: Provide supporting functionality or services to the main application container.
+    **Execution:** Run alongside the main container throughout its lifecycle.
+    **Use Cases:**
+    Log collection and forwarding.
+    Monitoring and health checks.
+    Service discovery and registration.
+    Proxy and load balancing.
+    Configuration management.
+
 22. IP address is not generated for containers but pods.
 23. kube-proxy generates the cluster IP address for pods.
 24. kubectl is the k8s cli.
