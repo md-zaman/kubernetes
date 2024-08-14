@@ -171,7 +171,7 @@ Day 34: Kubernetes Deployment
 
 35. What k8s say is don't create a pod directly instead create a deployment. Deployment creates a replicaset (it is a k8s controller) then the rs creates a pod
 
-36. Replicaset controller: It is a controller created by deployment. It will ensure to create no. of pod which you have mentioned in the deployemnt yaml manifest. If you say replica count is 2 it ensure that the cluster has 2 replicas of pod. So that many user can use simultanenously. This is how 0 downtime is achieved.
+36. **Replicaset controller**: It is a controller created by deployment. It will ensure to create no. of pod which you have mentioned in the deployment yaml manifest. If you say replica count is 2 it ensures that the cluster has 2 replicas of pod. So that many user can use simultanenously. This is how 0 downtime is achieved.
 
 37. Replicaset defination from Google gemini:
     A ReplicaSet (RS) is a controller that ensures a specified number of identical Pods are running at any given time. It's a core component for managing stateless applications in Kubernetes.
@@ -182,7 +182,7 @@ Day 34: Kubernetes Deployment
     **Self-Healing**: If a Pod fails, the ReplicaSet automatically replaces it to maintain the desired replica count.
     **Scaling**: You can easily scale your application up or down by adjusting the number of replicas in the ReplicaSet.
 
-38. Controller: are someting which ensure that the desired state and actual state are same. There are default controllers and custom controllers. It is a go language application which k8s has written which ensures this.
+38. Controller: are something which ensure that the desired state and actual state are same. There are default controllers and custom controllers. It is a go language application which k8s has written which ensures this.
 
 39. Controllers defination from Gemini:
     Controllers are the core components that continuously monitor and maintain the desired state of your cluster. They operate in control loops, constantly comparing the actual state of objects (like Pods, Deployments, Services) to their desired state, and taking actions to reconcile any differences.
@@ -217,7 +217,7 @@ Day 35
 
 Kubernetes Services
 
-43. What is an ideal pod size - it depends upon the number of concurrent users. and it depends upon the number of request 1 replica of your application can handle.
+43. What is an ideal pod size - it depends upon the number of concurrent users. and it depends upon the number of request one replica of your application can handle.
 43. What if there is not service in k8s?/ what if there is not component as service in k8s?
     We know containers are ephimeral in nature and that's why we deploy a deployment to ensure a particular no. of pods are running at all times.
     So, when a pod dies for any reason a new pod will come up because we have deployed a deployment (and we know to maintain the required number of services replicaset controller will start another pod). The new pod will have new IP address. Since in our case service doesn't exists in k8s, the user will send the request to the died container- which doesn't exists. So, service acts as a load balancer where whenever there is a traffic from a user, the user is redirected to the new pod and not the previous pod. Services are mapped with pods in deployments using **labels** and **selectors** and not IP addresses.
