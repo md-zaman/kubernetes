@@ -147,7 +147,7 @@ Auto Scaling and Auto healing:
     ```
 
 30. ```bash
-kubectl describe nginx
+    kubectl describe nginx
     - displays all the details of the pod
     - this is how to debug
 ```
