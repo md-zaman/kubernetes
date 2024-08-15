@@ -240,10 +240,10 @@ Kubernetes Services
     For all pods that is created, a `label` is added. This label will be common for all pods. Service will not bother about the IP addresses but it will look for labels. The label will be same because Replicaset controller will deploy a new pod with the same YAML. \
     **C. Expose to External World** \
      There are three types: \
-        i.   **Cluster IP** \
-        ii.  **NodePort** \
-        iii. **Load balancer** \
-        iv. There are more but these are the default types
+            i.   **Cluster IP** \
+            ii.  **NodePort** \
+            iii. **Load balancer** \
+            iv. There are more but these are the default types
 
         i. Cluster IP mode: Application will be accessible inside the k8s cluster. Here you will only get 2 benefits- Discovery and load balancing.
         ii. NodePort- This will allow your application to be accessed inside your organisation. within your org or network. They might not have access to your cluster but they have the access to your app.- the workernode ip addresses
