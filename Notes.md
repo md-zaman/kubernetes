@@ -150,7 +150,7 @@ Auto Scaling and Auto healing:
     kubectl describe nginx
     - displays all the details of the pod
     - this is how to debug
-```
+    ```
 
 31. How to remember the command "kubernetes cheatsheet"
 
