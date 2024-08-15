@@ -141,21 +141,29 @@ Auto Scaling and Auto healing:
 28. In actual scenarios we don't deploy a pod but we deploy a deployments or stateful sets or deamon sets. We will discuss about these things later.
 
 29. To check the logs of the pod:
+    ```bash
     kubectl logs nginx
     - displays the logs of the pod
+    ```
 
-30. kubectl describe nginx
+30. ```bash
+kubectl describe nginx
     - displays all the details of the pod
     - this is how to debug
+```
 
 31. How to remember the command "kubernetes cheatsheet"
 
-32. kubectl delete pod nginx
+32. ```bash
+kubectl delete pod nginx
     - deletes the pod
+```
 
 33. To debug pods or apps. Your go-to commands could be:
+    ```bash
     kubectl describe pod <pod_name>
     kubectl logs nginx
+    ```
 
 Day 34: Kubernetes Deployment
 
