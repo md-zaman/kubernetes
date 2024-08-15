@@ -170,7 +170,7 @@ Day 34: Kubernetes Deployment
 
 34. Difference between Container, Pod and Deployment
 
-| **Container**                   | **Pod**                                 | **Deployment** |
+| **Container**                   | **Pod**                                 | **Deployment**
 | --------                        | -------                                 |
 | Can be from docker, containerd  | Single or multiple container            | Used because auto-healing and auto scaling
 | docker run -it -p -v -net       | You write a YAML. Pod is a running spec |
