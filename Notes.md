@@ -233,15 +233,15 @@ Kubernetes Services
 44. What if there is no service in k8s?/ what if there is not component as service in k8s?
     We know containers are ephimeral in nature and that's why we deploy a deployment to ensure a particular no. of pods are running at all times.
     So, when a pod dies for any reason a new pod will come up because we have deployed a deployment (and we know to maintain the required number of services replicaset controller will start another pod). The new pod will have new IP address. Since in our case service doesn't exists in k8s, the user will send the request to the died container- which doesn't exists. So, service acts as a load balancer where whenever there is a traffic from a user, the user is redirected to the new pod and not the previous pod. Services are mapped with pods in deployments using **labels** and **selectors** and not IP addresses.
-    
+
     **Features of service**: 
     **A. Service acts as load-balancing**
     **B. Service Discovery**- Using **Labels** and **Selectors**. 
     For all pods that is created, a `label` is added. This label will be common for all pods. Service will not bother about the IP addresses but it will look for labels. The label will be same because Replicaset controller will deploy a new pod with the same YAML.
     **C. Expose to External World** - There are three types:
-        i.   **Cluster IP**
-        ii.  **NodePort**
-        iii. **Load balancer**
+        i.   **Cluster IP** \
+        ii.  **NodePort** \
+        iii. **Load balancer** \
         iv. There are more but these are the default types
 
         i. Cluster IP mode: Application will be accessible inside the k8s cluster. Here you will only get 2 benefits- Discovery and load balancing.
