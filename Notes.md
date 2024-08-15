@@ -207,8 +207,10 @@ Day 34: Kubernetes Deployment
 40. Deployment vs Replicaset: 
     
 
-41. kubectl get pods -w
+41. ```bash
+kubectl get pods -w
     - watch the container log realtime (live)
+```
 
 42. If you delete a pod or if a pod is deleted for any reason while you have deployed a deployment. The replicaset which was created by the deployemnt will ensure that another pod is create even before the pod is deleted. This ensures 0 downtime.
 
