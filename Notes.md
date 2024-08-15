@@ -154,10 +154,11 @@ Auto Scaling and Auto healing:
 
 31. How to remember the command "kubernetes cheatsheet"
 
-32. ```bash
-kubectl delete pod nginx
+32. When you want to delete a pod:
+    ```bash
+    kubectl delete pod nginx
     - deletes the pod
-```
+    ```
 
 33. To debug pods or apps. Your go-to commands could be:
     ```bash
