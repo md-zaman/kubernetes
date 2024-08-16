@@ -247,7 +247,7 @@ Kubernetes Services
 
     **i. Cluster IP mode**: Application will be accessible inside the k8s cluster. Here you will only get 2 benefits- Discovery and load balancing. \
     **ii. NodePort**: This will allow your application to be accessed inside your organisation. within your org or network. They might not have access to your cluster but they have the access to your app.- the workernode ip addresses \
-    **iii. Load balancer**: In this mode service will expose your application to the external world. Suppose you have deployed you app on eks cluster. In this case you will get Elastic Load balancer IP for your service and now whoever want to access they can use this public IP address. This type is possible in cloud providers only as of now. \
+    **iii. Load balancer**: In this mode service will expose your application to the external world. Suppose you have deployed your app on eks cluster. In this case you will get Elastic Load balancer IP for your service and now whoever want to access they can use this public IP address. This type is possible in cloud providers only as of now. \
     **Use Cases**:
         Load Balancer - Amazon.com
         NodePort - VPC Nodes
@@ -277,7 +277,7 @@ Kubernetes Service Deep Dive using Kubeshark
     h. Let's clone a particular GitHub repository with which we will work
         git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero.git
 
-    i. Inside the we have these files and directorries:
+    i. Inside the folder we have these files and directorries:
         ```sh
         zaman@MdZamanLaptop:~/k8s/Docker-Zero-to-Hero/examples/python-web-app$ ls
         Dockerfile  devops  requirements.txt
