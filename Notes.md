@@ -241,9 +241,7 @@ To create the pod use the command:
 42. If you delete a pod or if a pod is deleted for any reason while you have deployed a deployment. The replicaset which was created by the deployemnt will ensure that another pod is create even before the pod is deleted. This ensures 0 downtime.
 
 
-Day 35
-
-Kubernetes Services
+# Day 35: Kubernetes Services
 
 43. What is an ideal pod size - it depends upon the number of concurrent users. and it depends upon the number of request one replica of your application can handle.
 
