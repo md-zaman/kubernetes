@@ -17,11 +17,11 @@ Features:
 
 2. Why Docker is not used in enterprise:
     Docker does not provide:
-    a. auto healing
-    b. auto scaling
-    c. api support
-    d. white listing/ black listing 
-    e. firewall
+    a. Auto healing
+    b. Auto scaling
+    c. API Support
+    d. white listing/ Black listing 
+    e. Firewall
 
 3. Kubernetes is installed as a cluster
 
@@ -36,7 +36,7 @@ Features:
 
 6. Kubernetes' Auto scaling : It has something called 'replication controller' or 'replica set' (Replication controler is the old name). So, you can go to the deployment.yaml file and say increase the load from 1 to 10 because load has increased. It also supports HPA (horizontal pod scaler) using which you can directly say that whenever there is a increase in load, increase the number of containers. Whenever my container is reaching the load of 80% increase a pod.
 
-7. Auto healing : k8s controls and fixes the damage. mostly control. suppose a container is going down. Even before a container goes down, k8s starts a new container. Whenever API server receives a signal that a container is going down immediately it will rollout a new container/pod.
+7. Auto healing : k8s controls and fixes the damage. Mostly controls. Suppose a container is going down. Even before a container goes down, k8s starts a new container. Whenever API server receives a signal that a container is going down immediately it will rollout a new container/pod.
 
 8. Enterprise nature: custom resourses- adv load balancing. k8s advancing every day by cncf. 
 
@@ -54,20 +54,20 @@ Under Data Plane we have: Kubelet, kube proxy and container runtime.
 | ETCD                        |                   |
 | Cloud Control Manager (CCM) |                   |
 
-Worker Node:
-10. Kubelet is responsible for maintaing the pod. It ensure that the pod is always running if the pod is not running, it will inform the API Server in control plane.
+**Worker Node**: \
+10. **Kubelet**: Kubelet is responsible for maintaing the pod. It ensure that the pod is always running if the pod is not running, it will inform the API Server in control plane.
 
-11. Container runtime: It can be docker (dockershim) or any other container runtime of crio, containerd or any other container runtimes which implements container interface.
+11. **Container runtime**: It can be docker (dockershim) or any other container runtime of crio, containerd or any other container runtimes which implements container interface.
 
-12. Kube proxy: provides you networking. Every container has to be allocated with IP address and load balancing capabilities. (Basically uses the IP tables on your Linux machine).
+12. **Kube Proxy**: Kube Proxy provides you networking. Every container has to be allocated with IP address and load balancing capabilities. (Basically uses the IP tables on your Linux machine).
 
-Control Plane:
+**Control Plane**:
 
-13. API Server: Component which exposes to the outside world. Takes request from external world. It decides on which node the pod has to be created.
-14. Scheduler (Kube-scheduler): It schedules your pods/resources in k8s. 
-15. ETCD: Backup store. It is a key value store. Store the entire cluster information. 
-16. Controller manager: K8s basically has some controllers like 'replica sets'. It ensures that such components are always running. 
-17. CCM (Cloud Controller Manager): When we use our k8s cluster on eks or aks or gke and want to lets say create a pod, k8s doesn't understand the language of these cloud provider so the ccm convert this instruction to eks to talk to the api of eks. The CCM is open source and suppose if I make a cloud by the name "Zaman cloud" I can create my own CCM which can be used in k8s. If we are deploying the cluster in on-premise, CCM is not required.
+13. **API Server**: Component which exposes to the outside world. Takes request from external world. It also decides on which node the pod has to be created.
+14. **Scheduler (Kube-Scheduler)**: It schedules your pods/resources in k8s. 
+15. **ETCD**: Backup store. It is a key value store. Store the entire cluster information. 
+16. **Controller Manager**: K8s basically has some controllers like 'replica sets'. It ensures that such components are always running. 
+17. **CCM (Cloud Controller Manager)**: When we use our k8s cluster on EKS or AKS or GKE and want to lets say create a pod, k8s doesn't understand the language of these cloud provider so the ccm convert this instruction to EKS to talk to the API of EKS. The CCM is open source and suppose if I make a cloud by the name "Zaman cloud" I can create my own CCM which can be used in k8s. If we are deploying the cluster in on-premise, CCM is not required.
 
 18. Kubernetes has custom resources and custom resource definations for the features it doesn't have.
 
