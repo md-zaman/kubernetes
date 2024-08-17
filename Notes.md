@@ -217,20 +217,20 @@ To create the pod use the command:
 
     **Control Loop**: Controllers operate in an endless loop, performing the following steps:
 
-    - **Observe**: Watch for changes in the state of specific Kubernetes objects. \
-    - **Analyze**: Compare the current state to the desired state defined in the object's specification. \
+    - **Observe**: Watch for changes in the state of specific Kubernetes objects. 
+    - **Analyze**: Compare the current state to the desired state defined in the object's specification. 
     - **Act**: Take necessary actions to bring the current state closer to the desired state. 
 
-    **Types of Controllers**: Kubernetes has built-in controllers for managing different kinds of objects: \
-    - **Deployment Controller**: Manages ReplicaSets to ensure the correct number of Pods are running. \
-    - **ReplicaSet Controller**: Ensures the desired number of identical Pods are running. \
-    - **DaemonSet Controller**: Runs a copy of a Pod on each node in the cluster. \
-    - **Job Controller**: Creates one or more Pods to complete a task and then stops. \
-    - **CronJob Controller**: Creates Jobs on a schedule. \
-    - **StatefulSet Controller**: Manages stateful applications with unique network identities and persistent storage. \
+    **Types of Controllers**: Kubernetes has built-in controllers for managing different kinds of objects: 
+    - **Deployment Controller**: Manages ReplicaSets to ensure the correct number of Pods are running. 
+    - **ReplicaSet Controller**: Ensures the desired number of identical Pods are running. 
+    - **DaemonSet Controller**: Runs a copy of a Pod on each node in the cluster. 
+    - **Job Controller**: Creates one or more Pods to complete a task and then stops. 
+    - **CronJob Controller**: Creates Jobs on a schedule. 
+    - **StatefulSet Controller**: Manages stateful applications with unique network identities and persistent storage. 
     - **Custom Controllers**: You can create your own controllers to manage custom resources or extend the functionality of Kubernetes.
 
-40. Deployment vs Replicaset: 
+40. #### Deployment vs Replicaset:
     
 
 41. ```bash
