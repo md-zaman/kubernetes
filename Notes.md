@@ -438,7 +438,7 @@ To create the pod use the command:
         - shows a verbose status of the services
     ```
 
-    s. Irrespective of what kind of service you choose whether it be ClusterIp mode, NodePort mode or Load Balancing mode, 'ClusterIp' will always be there.
+    s. Irrespective of what kind of service you choose whether it be ClusterIP mode, NodePort mode or Load Balancing mode, `ClusterIP` will always be there.
     Apart from this you will also get a port mapping- the Node IP Address. This will be under the column 'PORT(S)'. You will get this port mapping and you can access you application using this port when you are using NodePort or LoadBalancing mode. (In NodePort we don't get this because in NodePort you only have your application avaiable in the Cluster.)
     
     t. You can access the application either by ClusterIP address which you will find under the 'CLUSTERIP' column (but you have to ensure that you are loggedin in the cluster) or you can use the Nope IP address. So, suppose your Node IP Address which is getting displayed under PORT(S) is '80:30007' and here is how you can do it:
