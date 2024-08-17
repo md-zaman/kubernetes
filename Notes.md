@@ -539,7 +539,7 @@ a. Create YML manifest for the ingress
 ```ssh
 vi ingress.yml
 ```
-\
+
 ```ssh
         apiVersion: networking.k8s.io/v1
         kind: Ingress
@@ -601,7 +601,7 @@ If you enter the command
 ```ssh
     kubectl get ingress
 ```
-You will find here that now the Under the address there is an IP address earlier it was not there.
+You will find here that now, under the address, there is an IP address earlier it was not there.
 
 In your minikube, you also have to edit the 'host'
 ```ssh
