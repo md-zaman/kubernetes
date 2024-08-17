@@ -536,7 +536,7 @@ Ingress controller has to be installed before ingress resource.
 Using the previous setup we will do 'Host based' Load Balancing
 
 a. vi ingress.yml
-    ```ssh
+```ssh
         apiVersion: networking.k8s.io/v1
         kind: Ingress
         metadata:
@@ -553,7 +553,7 @@ a. vi ingress.yml
                     name: python-django-sample-app
                     port:
                     number: 80
-    ```    
+```    
 Now, simply apply:
 ```ssh
     kubectl apply -f ingress.yml
