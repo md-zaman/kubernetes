@@ -149,9 +149,9 @@ To create the pod use the command:
     ```
 
 
-Auto Scaling and Auto healing:
+#### Auto Scaling and Auto healing:
 
-30. You have to use deployment to get auto-healing and auto-scaling
+30. You have to use deployment to get ```auto-healing``` and ```auto-scaling```
 
 31. In actual scenarios we don't deploy a pod but we deploy a deployments or stateful sets or deamon sets. We will discuss about these things later.
 
@@ -167,7 +167,7 @@ Auto Scaling and Auto healing:
     - this is how to debug
     ```
 
-34. How to remember the command "kubernetes cheatsheet"
+34. We can remember all the Kubernetes commands by downloading the pdf file easily available on the internet by the name: "kubernetes cheatsheet"
 
 32. When you want to delete a pod:
     ```bash
@@ -181,17 +181,17 @@ Auto Scaling and Auto healing:
     kubectl logs nginx
     ```
 
-Day 34: Kubernetes Deployment
+# Day 34: Kubernetes Deployment
 
 34. Difference between Container, Pod and Deployment
 
-| **Container**                   | **Pod**                                 | **Deployment**                                                        |
-| --------                        | -------                                 |                                                                       |
-| Can be from docker, containerd  | Single or multiple container            | Used because auto-healing and auto scaling                            |
-| docker run -it -p -v -net       | You write a YAML. Pod is a running spec |                                                                       |
-| Scheduler                       | Cannot do auto healing and scaling      | can do | 0 downtime                                                   |
-|                                 | A Pod can have single or multiple       | creates intermediate resource call replica set and then rs create pod |
-|                                 | container                               |                                                                       |
+| **Container**                     | **Pod**                                   | **Deployment**                                |
+| --------                          | -------                                   |                                               |
+| - Can be from docker, containerd  | - Single or multiple container            | - Used because auto-healing and auto scaling  |
+| - docker run -it -p -v -net       | - You write a YAML. Pod is a running spec |                                               |
+| Scheduler                         | - Cannot do auto healing and scaling      | - Can do | 0 downtime                         |
+|                                   | - A Pod can have single or multiple       | - Creates intermediate resource call replica  |
+|                                   | container                                 | set and then rs creates the   pod             |
 
 35. What k8s say is don't create a pod directly instead create a deployment. Deployment creates a replicaset (it is a k8s controller) then the rs creates a pod
 
