@@ -302,9 +302,9 @@ To create the pod use the command:
     Ensure that when you do "kubectl get all" you get only the "service/kubernetes" running.
 
     Let's clone a particular GitHub repository with which we will work: \
-        ```ssh
+    ```ssh
         git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero.git
-        ```
+    ```
 
     Inside the folder we have these files and directories:
 
