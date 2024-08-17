@@ -199,7 +199,7 @@ To create the pod use the command:
 
 36. **Replicaset controller**: It is a controller created by deployment. It will ensure to create no. of pod which you have mentioned in the deployment yaml manifest. If you say replica count is 2 it ensures that the cluster has 2 replicas of pod. So that many user can use simultanenously. This is how 0 downtime is achieved.
 
-37. **Replicaset defination from Google Gemini:** |
+37. **Replicaset defination from Google Gemini:** \
     A ReplicaSet (RS) is a controller that ensures a specified number of identical Pods are running at any given time. It's a core component for managing stateless applications in Kubernetes.
 
     Key Functions:
@@ -217,18 +217,18 @@ To create the pod use the command:
 
     **Control Loop**: Controllers operate in an endless loop, performing the following steps:
 
-    **Observe**: Watch for changes in the state of specific Kubernetes objects.
-    **Analyze**: Compare the current state to the desired state defined in the object's specification.
-    **Act**: Take necessary actions to bring the current state closer to the desired state.
+    **Observe**: Watch for changes in the state of specific Kubernetes objects. \
+    **Analyze**: Compare the current state to the desired state defined in the object's specification. \
+    **Act**: Take necessary actions to bring the current state closer to the desired state. \
     **Types of Controllers**: Kubernetes has built-in controllers for managing different kinds of objects:
 
-    **Deployment Controller**: Manages ReplicaSets to ensure the correct number of Pods are running.
-    **ReplicaSet Controller**: Ensures the desired number of identical Pods are running.
-    **DaemonSet Controller**: Runs a copy of a Pod on each node in the cluster.
-    **Job Controller**: Creates one or more Pods to complete a task and then stops.
-    **CronJob Controller**: Creates Jobs on a schedule.
-    **StatefulSet Controller**: Manages stateful applications with unique network identities and persistent storage.
-    **Custom Controllers**: You can create your own controllers to manage custom resources or extend the functionality of Kubernetes.
+    - **Deployment Controller**: Manages ReplicaSets to ensure the correct number of Pods are running. \
+    - **ReplicaSet Controller**: Ensures the desired number of identical Pods are running. \
+    - **DaemonSet Controller**: Runs a copy of a Pod on each node in the cluster. \
+    - **Job Controller**: Creates one or more Pods to complete a task and then stops. \
+    - **CronJob Controller**: Creates Jobs on a schedule. \
+    - **StatefulSet Controller**: Manages stateful applications with unique network identities and persistent storage. \
+    - **Custom Controllers**: You can create your own controllers to manage custom resources or extend the functionality of Kubernetes.
 
 40. Deployment vs Replicaset: 
     
