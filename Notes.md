@@ -65,10 +65,11 @@ Under Data Plane we have:
 #### Worker Node: 
 11. **Kubelet**: Kubelet is responsible for ```maintaing``` the pod. It ensure that the pod is always running if the pod is not running, it will inform the API Server in control plane.
 
-12. **Container runtime**: Container runtime's primary job is to ```create```, ```start```, ```stop```, and ```delete``` containers on a node
-It can be docker (dockershim) or any other container runtime of crio, containerd or any other container runtimes which implements container interface.
+12. **Container runtime**: Container runtime's primary job is to ```create```, ```start```, ```stop```, and ```delete``` containers on a node.
+It can be docker or any other container runtime of CRI-O, containerd or any other container runtimes which implements container interface.
 
-13. **Kube Proxy**: Kube Proxy provides you networking. Every container has to be allocated with IP address and load balancing capabilities. (Basically uses the IP tables on your Linux machine).
+13. **Kube Proxy**: Kube Proxy provides you networking. Its primary function is to ```maintain network rules on the node```, ensuring that pods can communicate with each other and with external services.
+Every container has to be allocated with IP address and load balancing capabilities. (Basically uses the IP tables on your Linux machine).
 
 #### Control Plane:
 
