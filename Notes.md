@@ -63,11 +63,11 @@ Under Data Plane we have: Kubelet, kube proxy and container runtime.
 
 **Control Plane**:
 
-13. **API Server**: Component which exposes to the outside world. Takes request from external world. It also decides on which node the pod has to be created.
+13. **API Server**: This is the component which exposes to the outside world. Takes request from external world. It also decides on which node the pod has to be created.
 14. **Scheduler (Kube-Scheduler)**: It schedules your pods/resources in k8s. 
-15. **ETCD**: Backup store. It is a key value store. Store the entire cluster information. 
+15. **ETCD**: Backup store. It is a key value store. Stores the entire cluster information. 
 16. **Controller Manager**: K8s basically has some controllers like 'replica sets'. It ensures that such components are always running. 
-17. **CCM (Cloud Controller Manager)**: When we use our k8s cluster on EKS or AKS or GKE and want to lets say create a pod, k8s doesn't understand the language of these cloud provider so the ccm convert this instruction to EKS to talk to the API of EKS. The CCM is open source and suppose if I make a cloud by the name "Zaman cloud" I can create my own CCM which can be used in k8s. If we are deploying the cluster in on-premise, CCM is not required.
+17. **CCM (Cloud Controller Manager)**: When we use our k8s cluster on EKS or AKS or GKE and want to lets say create a pod, k8s doesn't understand the language of these cloud provider so the CCM converts this instruction to EKS to talk to the API of EKS. The CCM is open source and suppose if I make a cloud by the name "Zaman cloud" I can create my own CCM which can be used in k8s. If we are deploying the cluster in on-premise, CCM is not required.
 
 18. Kubernetes has custom resources and custom resource definations for the features it doesn't have.
 
@@ -81,20 +81,21 @@ Under Data Plane we have: Kubelet, kube proxy and container runtime.
     **Purpose**: Perform setup tasks before the main application container starts.
     **Execution**: Run sequentially, one after the other, to completion before the main container starts. If any init container fails, the Pod is restarted.
     **Use Cases**:
-    Fetch configuration files or secrets from external sources.
-    Initialize databases or storage volumes.
-    Perform data migrations or transformations.
-    Run any other necessary setup tasks before the main application is ready.
+    - Fetch configuration files or secrets from external sources.
+    - Initialize databases or storage volumes.
+    - Perform data migrations or transformations.
+    - Run any other necessary setup tasks before the main application is ready.
+
     Sidecar Containers:
 
     **Purpose**: Provide supporting functionality or services to the main application container.
     **Execution:** Run alongside the main container throughout its lifecycle.
     **Use Cases:**
-    Log collection and forwarding.
-    Monitoring and health checks.
-    Service discovery and registration.
-    Proxy and load balancing.
-    Configuration management.
+    - Log collection and forwarding.
+    - Monitoring and health checks.
+    - Service discovery and registration.
+    - Proxy and load balancing.
+    - Configuration management.
 
 22. IP address is not generated for containers but pods.
 23. kube-proxy generates the cluster IP address for pods.
