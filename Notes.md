@@ -493,11 +493,11 @@ To create the pod use the command:
     Now, after changing the selector the labels and selectors are different. Let's find out if we can access our application with the Node IP. We can enter the command in the browser also. 'http://192.168.64.10:30007/demo'.
             Here you will find that our application is not accessible.
 
-    a. LoadBalancing: Here he used kubeshark application to show how traffic is being redirected. You can write your own something.
+    LoadBalancing: Here he used kubeshark application to show how traffic is being redirected. You can write your own something.
 
 
 
-Ingress
+### Ingress
 
 There are 2 problems which ingress addresses which Services in kubernetes were not offering:
     a. Enterprise & TLS Load Balancing
