@@ -307,12 +307,12 @@ To create the pod use the command:
         ```
 
     Inside the folder we have these files and directorries:
-    
-        ```sh
+
+    ```sh
         zaman@MdZamanLaptop:~/k8s/Docker-Zero-to-Hero/examples/python-web-app$ ls
         Dockerfile  devops  requirements.txt
         zaman@MdZamanLaptop:~/k8s/Docker-Zero-to-Hero/examples/python-web-app$ vim Dockerfile
-        ```
+    ```
     j. The Dockerfile that we have has this content:
         ```sh
         FROM ubuntu
