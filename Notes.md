@@ -499,24 +499,25 @@ To create the pod use the command:
 
 ### Ingress
 
-There are 2 problems which ingress addresses which Services in kubernetes were not offering:
-    a. Enterprise & TLS Load Balancing
-        E.g.,
-        i.   Sticky sessions LB
-        ii.  TLS based LB
-        iii. Path Based LB
-        iv.  Host based LB
-        v.   Ratio based LB
-    b. Charges for Load Balancing
-        Cloud provider will charge you for each and every service type. for each Static IP.
+There are 2 problems which ingress addresses which Services in kubernetes were not offering: \
+    a. Enterprise & TLS Load Balancing \
+        E.g., \
+        i.   Sticky sessions LB \
+        ii.  TLS based LB \
+        iii. Path Based LB \
+        iv.  Host based LB \
+        v.   Ratio based LB \
+    b. Charges for Load Balancing \
+        Cloud provider will charge you for each and every service type. for each Static IP. \
 
 As a kubernetes user you can create an ingress resource and what kubernetes told to different load balancers like:
-    - Nginx
-    - f5
-    - Ambassador
-    - Treffic
-    - HA proxy
-    Kubernetes told them to create ingress controllers. So, the nginx company will write the nginx ingress controller and then you can use it to your k8s cluster. You can deploy it using helm chart you can deploy using yaml manifest. 
+- Nginx
+- f5
+- Ambassador
+- Treffic
+- HA proxy
+
+Kubernetes told them to create ingress controllers. So, the nginx company will write the nginx ingress controller and then you can use it to your k8s cluster. You can deploy it using helm chart you can deploy using yaml manifest. 
 
 User will write the ingress and load balancing companies will create the ingress 'controllers' and they will place their ingress controllers on github k8s page and they will provide the steps on how to install this ingress controllers using helm charts or any other way.
 As for user, after you have created the ingress resource, you also have to deploy ingress controllers and a user can choose which ingress controller he wants to use.
