@@ -76,7 +76,8 @@ Every container has to be allocated with IP address and load balancing capabilit
 14. **API Server**: This is the component which exposes to the outside world. Takes request from external world. It also decides on which node the pod has to be created.
 15. **Scheduler (Kube-Scheduler)**: It schedules your pods/resources in k8s. 
 16. **ETCD**: Backup store. It is a key value store. Stores the entire cluster information. 
-17. **Controller Manager**: K8s basically has some controllers like 'replica sets'. It ensures that such components are always running. 
+17. **Controller Manager**: It helps in ```maintaing the desired state``` of the ```cluster```. It consists of multiple controllers that continuously monitor the state of various Kubernetes objects (like deployments, replica sets, and daemon sets) and take corrective actions to ensure they match the desired state specified in their configuration.
+
 18. **CCM (Cloud Controller Manager)**: When we use our k8s cluster on EKS or AKS or GKE and want to lets say create a pod, k8s doesn't understand the language of these cloud provider so the CCM converts this instruction to EKS to talk to the API of EKS. The CCM is open source and suppose if I make a cloud by the name "Zaman cloud" I can create my own CCM which can be used in k8s. If we are deploying the cluster in on-premise, CCM is not required.
 
 19. Kubernetes has custom resources and custom resource definations for the features it doesn't have.
