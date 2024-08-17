@@ -535,7 +535,7 @@ Ingress controller has to be installed before ingress resource.
 
 Using the previous setup we will do 'Host based' Load Balancing
 
-    a. vi ingress.yml
+a. vi ingress.yml
     ```ssh
         apiVersion: networking.k8s.io/v1
         kind: Ingress
@@ -616,7 +616,7 @@ Now if you try to ping it will be resolved.
 After completing this video watch this video positively for more details on Ingress controllers: https://www.youtube.com/watch?v=3YTU4EPjEh4
 
 
-ConfigMaps & Secrets
+### ConfigMaps & Secrets
 
 ConfigMaps are used to store information. Suppose your app needs some information like DB port, DB username, connection type, etc., we know these information is retrieved used environment variables these details shouldn't be hardcoded because if details get changed user get null or no info at all
 So we try to save this as an ENV variable
