@@ -367,6 +367,7 @@ To create the pod use the command:
     ```
 
     i. Let's check:
+    ```ssh
         kubectl get deploy
         - shows the deployements
         check the pods also to recheck:
@@ -379,14 +380,17 @@ To create the pod use the command:
         - displays the pods in verbose - shows your more details
         kubectl get pods -v=9
         - this is the maximum verbosity level
+    ```
         
     j. If you want to go to the application in minikube:
+    ```ssh
         minikube ssh
         Then:
         curl -L http://172.17.0.5/8000/demo
         - We're using '-L' because abhishek veeramalla said that the application he has written, it requires a redirect.
         - Here we are trying to access the app. The app runs on the port 8000/demo
         - '/demo' is context root of the application
+    ```
                   
     k. If you try the same command after coming out of the k8s cluster, you won't be able to access it. This is because a pod by default will have cluster network attached to it. But you can have internal as well as external cutomers.
 
@@ -395,8 +399,11 @@ To create the pod use the command:
     ii. NodePort Mode
     iii. Load Balancer Mode
 
-    m. vi service.yaml
-        
+    m. Create the files:
+    ```ssh
+        vi service.yaml
+    ```
+    ```ssh
         apiVersion: v1
         kind: Service
         metadata:
@@ -409,9 +416,12 @@ To create the pod use the command:
             - port: 80
             targetPort: 8000
             nodePort: 30007
+    ```
 
-        Now, simply apply:
+    Now, simply apply:
+    ```ssh
         kubectl apply -f service.yml
+    ```
 
         ------
         Comment:
