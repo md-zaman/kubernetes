@@ -301,7 +301,7 @@ To create the pod use the command:
 
     Ensure that when you do "kubectl get all" you get only the "service/kubernetes" running.
 
-    Let's clone a particular GitHub repository with which we will work: \
+    Let's clone a particular GitHub repository with which we will work: 
     ```ssh
         git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero.git
     ```
@@ -332,12 +332,12 @@ To create the pod use the command:
     ```
 
     f. Let's build the image:
-        ```ssh
+    ```ssh
         docker build -t zamanf5/python-sample-app-demo:v1 .
-        ```
+    ```
 
     g. Now, let us make the deployment.yaml manifest
-        ```ssh
+    ```ssh
         apiVersion: apps/v1
         kind: Deployment
         metadata:
@@ -359,12 +359,12 @@ To create the pod use the command:
                 image: zamanf5/python-sample-app-demo:v1
                 ports:
                 - containerPort: 8000
-        ```
+    ```
     
     h. Now deploy the deployment:
-        ```ssh
+    ```ssh
         kubectl apply -f deployment.yaml
-        ```
+    ```
 
     i. Let's check:
         kubectl get deploy
