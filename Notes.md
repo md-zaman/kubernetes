@@ -306,7 +306,7 @@ To create the pod use the command:
         git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero.git
         ```
 
-    Inside the folder we have these files and directorries:
+    Inside the folder we have these files and directories:
 
     ```sh
         zaman@MdZamanLaptop:~/k8s/Docker-Zero-to-Hero/examples/python-web-app$ ls
@@ -314,7 +314,7 @@ To create the pod use the command:
         zaman@MdZamanLaptop:~/k8s/Docker-Zero-to-Hero/examples/python-web-app$ vim Dockerfile
     ```
     j. The Dockerfile that we have has this content:
-        ```sh
+    ```sh
         FROM ubuntu
 
         WORKDIR /app
@@ -329,12 +329,15 @@ To create the pod use the command:
 
         ENTRYPOINT ["python3"]
         CMD ["manage.py", "runserver", "0.0.0.0:8000"]
-        ```
+    ```
 
     k. Let's build the image:
+        ```ssh
         docker build -t zamanf5/python-sample-app-demo:v1 .
+        ```
 
     l. Now, let us make the deployment.yaml manifest
+        ```ssh
         apiVersion: apps/v1
         kind: Deployment
         metadata:
@@ -356,6 +359,7 @@ To create the pod use the command:
                 image: zamanf5/python-sample-app-demo:v1
                 ports:
                 - containerPort: 8000
+        ```
     
     m. Now deploy the deployment:
         kubectl apply -f deployment.yaml
