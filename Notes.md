@@ -91,7 +91,7 @@ Every container has to be allocated with IP address and load balancing capabilit
 
     **Purpose**: Performs setup tasks before the main application container starts. \
     **Execution**: Run sequentially, one after the other, to completion before the main container starts. If any init container fails, the Pod is restarted. \
-    **Use Cases**: \
+    **Use Cases**: 
     - Fetch configuration files or secrets from external sources.
     - Initialize databases or storage volumes.
     - Perform data migrations or transformations.
@@ -114,9 +114,10 @@ Every container has to be allocated with IP address and load balancing capabilit
 26. Local k8s clusters minikube, k3s, kind, microk8s
 27. Minikube create only one cluster and has a single node.
 
-28. How to deploy a pod:
-    a. Create a yml file like below:
+28. How to deploy a pod: \
+    a. Create a yml file like below: \
     
+```ssh
     apiVersion: v1
     kind: Pod
     metadata:
@@ -127,6 +128,7 @@ Every container has to be allocated with IP address and load balancing capabilit
         image: nginx:1.14.2
         ports:
         - containerPort: 80
+```
 
     Save the yml file.
     To create the pod use the command:
