@@ -52,27 +52,27 @@ Under Data Plane we have: Kubelet, Kube proxy and container runtime.
 | ETCD                        |                   |
 | Cloud Control Manager (CCM) |                   |
 
-##### Worker Node: 
-10. **Kubelet**: Kubelet is responsible for ```maintaing``` the pod. It ensure that the pod is always running if the pod is not running, it will inform the API Server in control plane.
+#### Worker Node: 
+11. **Kubelet**: Kubelet is responsible for ```maintaing``` the pod. It ensure that the pod is always running if the pod is not running, it will inform the API Server in control plane.
 
-11. **Container runtime**: It can be docker (dockershim) or any other container runtime of crio, containerd or any other container runtimes which implements container interface.
+12. **Container runtime**: It can be docker (dockershim) or any other container runtime of crio, containerd or any other container runtimes which implements container interface.
 
-12. **Kube Proxy**: Kube Proxy provides you networking. Every container has to be allocated with IP address and load balancing capabilities. (Basically uses the IP tables on your Linux machine).
+13. **Kube Proxy**: Kube Proxy provides you networking. Every container has to be allocated with IP address and load balancing capabilities. (Basically uses the IP tables on your Linux machine).
 
-**Control Plane**:
+#### Control Plane:
 
-13. **API Server**: This is the component which exposes to the outside world. Takes request from external world. It also decides on which node the pod has to be created.
-14. **Scheduler (Kube-Scheduler)**: It schedules your pods/resources in k8s. 
-15. **ETCD**: Backup store. It is a key value store. Stores the entire cluster information. 
-16. **Controller Manager**: K8s basically has some controllers like 'replica sets'. It ensures that such components are always running. 
-17. **CCM (Cloud Controller Manager)**: When we use our k8s cluster on EKS or AKS or GKE and want to lets say create a pod, k8s doesn't understand the language of these cloud provider so the CCM converts this instruction to EKS to talk to the API of EKS. The CCM is open source and suppose if I make a cloud by the name "Zaman cloud" I can create my own CCM which can be used in k8s. If we are deploying the cluster in on-premise, CCM is not required.
+14. **API Server**: This is the component which exposes to the outside world. Takes request from external world. It also decides on which node the pod has to be created.
+15. **Scheduler (Kube-Scheduler)**: It schedules your pods/resources in k8s. 
+16. **ETCD**: Backup store. It is a key value store. Stores the entire cluster information. 
+17. **Controller Manager**: K8s basically has some controllers like 'replica sets'. It ensures that such components are always running. 
+18. **CCM (Cloud Controller Manager)**: When we use our k8s cluster on EKS or AKS or GKE and want to lets say create a pod, k8s doesn't understand the language of these cloud provider so the CCM converts this instruction to EKS to talk to the API of EKS. The CCM is open source and suppose if I make a cloud by the name "Zaman cloud" I can create my own CCM which can be used in k8s. If we are deploying the cluster in on-premise, CCM is not required.
 
-18. Kubernetes has custom resources and custom resource definations for the features it doesn't have.
+19. Kubernetes has custom resources and custom resource definations for the features it doesn't have.
 
-19. Pod is described of how to run a container. It is like a wrapper of container. In K8s instead of deploying a container we deploy a pod.
-20. Why do we deploy a pod instead because k8s is an enterprise level platform and it wants to build a declarative capabilities.
+20. Pod is described of how to run a container. It is like a wrapper of container. In K8s instead of deploying a container we deploy a pod.
+21. Why do we deploy a pod instead because k8s is an enterprise level platform and it wants to build a declarative capabilities.
 
-21. We put one or more containers in a single pod (sidecar container or init containers (recheck this)) so that k8s can ensure they have advantages like allow you shared networking, shared storage, can talk to each other using local host like share the file.
+22. We put one or more containers in a single pod (sidecar container or init containers (recheck this)) so that k8s can ensure they have advantages like allow you shared networking, shared storage, can talk to each other using local host like share the file.
 
     Init Containers:
 
@@ -95,13 +95,13 @@ Under Data Plane we have: Kubelet, Kube proxy and container runtime.
     - Proxy and load balancing.
     - Configuration management.
 
-22. IP address is not generated for containers but pods.
-23. kube-proxy generates the cluster IP address for pods.
-24. kubectl is the k8s cli.
-25. Local k8s clusters minikube, k3s, kind, microk8s
-26. Minikube create only one cluster and has a single node.
+23. IP address is not generated for containers but pods.
+24. kube-proxy generates the cluster IP address for pods.
+25. kubectl is the k8s cli.
+26. Local k8s clusters minikube, k3s, kind, microk8s
+27. Minikube create only one cluster and has a single node.
 
-27. How to deploy a pod:
+28. How to deploy a pod:
     a. Create a yml file like below:
     
     apiVersion: v1
@@ -129,29 +129,29 @@ Under Data Plane we have: Kubelet, Kube proxy and container runtime.
     - displays the details of the pod
 
 ```
-27. To login to your kubernetes cluster:
+29. To login to your kubernetes cluster:
     minikube ssh
 
 
 Auto Scaling and Auto healing:
 
-27. You have to use deployment to get auto-healing and auto-scaling
+30. You have to use deployment to get auto-healing and auto-scaling
 
-28. In actual scenarios we don't deploy a pod but we deploy a deployments or stateful sets or deamon sets. We will discuss about these things later.
+31. In actual scenarios we don't deploy a pod but we deploy a deployments or stateful sets or deamon sets. We will discuss about these things later.
 
-29. To check the logs of the pod:
+32. To check the logs of the pod:
     ```bash
     kubectl logs nginx
     - displays the logs of the pod
     ```
 
-30. ```bash
+33. ```bash
     kubectl describe nginx
     - displays all the details of the pod
     - this is how to debug
     ```
 
-31. How to remember the command "kubernetes cheatsheet"
+34. How to remember the command "kubernetes cheatsheet"
 
 32. When you want to delete a pod:
     ```bash
