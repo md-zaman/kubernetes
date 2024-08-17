@@ -80,7 +80,7 @@ Under Data Plane we have: Kubelet, kube proxy and container runtime.
 
     **Purpose**: Perform setup tasks before the main application container starts.
     **Execution**: Run sequentially, one after the other, to completion before the main container starts. If any init container fails, the Pod is restarted.
-    **Use Cases**:
+    **Use Cases**: \
     - Fetch configuration files or secrets from external sources.
     - Initialize databases or storage volumes.
     - Perform data migrations or transformations.
@@ -89,7 +89,7 @@ Under Data Plane we have: Kubelet, kube proxy and container runtime.
     Sidecar Containers:
 
     **Purpose**: Provide supporting functionality or services to the main application container.
-    **Execution:** Run alongside the main container throughout its lifecycle.
+    **Execution:** Run alongside the main container throughout its lifecycle. \
     **Use Cases:**
     - Log collection and forwarding.
     - Monitoring and health checks.
