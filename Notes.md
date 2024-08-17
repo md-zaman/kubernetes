@@ -42,15 +42,16 @@ Features:
 
 10. On a high level k8s is divided in two parts: Control plane and the data plane. \
 Under Control plane we have: 
-    - API Server, 
-    - Controler Manager, 
-    - ETCD, 
-    - Scheduler and 
-    - Cloud Controler Manager
+- API Server, 
+- Controler Manager, 
+- ETCD, 
+- Scheduler and 
+- Cloud Controler Manager
+
 Under Data Plane we have: 
-    - Kubelet, 
-    - Kube proxy and 
-    - Container runtime.
+- Kubelet, 
+- Kube proxy and 
+- Container runtime.
 
 | **Control Plane**           | **Data Plane**    |
 | --------                    | -------           |
