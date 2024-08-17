@@ -87,19 +87,19 @@ Every container has to be allocated with IP address and load balancing capabilit
 
 22. We put one or more containers in a single pod (sidecar container or init containers (recheck this)) so that k8s can ensure they have advantages like allow you shared networking, shared storage, can talk to each other using local host like share the file.
 
-    Init Containers:
+    #### Init Containers:
 
-    **Purpose**: Perform setup tasks before the main application container starts.
-    **Execution**: Run sequentially, one after the other, to completion before the main container starts. If any init container fails, the Pod is restarted.
+    **Purpose**: Performs setup tasks before the main application container starts. \
+    **Execution**: Run sequentially, one after the other, to completion before the main container starts. If any init container fails, the Pod is restarted. \
     **Use Cases**: \
     - Fetch configuration files or secrets from external sources.
     - Initialize databases or storage volumes.
     - Perform data migrations or transformations.
     - Run any other necessary setup tasks before the main application is ready.
 
-    Sidecar Containers:
+    #### Sidecar Containers:
 
-    **Purpose**: Provide supporting functionality or services to the main application container.
+    **Purpose**: Provide supporting functionality or services to the main application container. \
     **Execution:** Run alongside the main container throughout its lifecycle. \
     **Use Cases:**
     - Log collection and forwarding.
