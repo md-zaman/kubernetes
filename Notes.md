@@ -1,6 +1,4 @@
-Day 1:
-
-Basics
+# Day 1: Basics
 
 Docker is a container platform
 Kubernetes is an orchestration platform
@@ -40,7 +38,7 @@ Features:
 
 8. Enterprise nature: custom resourses- adv load balancing. k8s advancing every day by cncf. 
 
-Day 2: Kubernetes Architecture:
+# Day 2: Kubernetes Architecture
 
 9. On a high level k8s is divided in two parts: Control plane and the data plane. 
 Under Control plane we have: API Server, Controler Manager, ETCD, Scheduler and Cloud Controler Manager
