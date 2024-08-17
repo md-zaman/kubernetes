@@ -558,7 +558,7 @@ Now, simply apply:
 ```ssh
     kubectl apply -f ingress.yml
 ```
-        ---------
+---------
 
 Check:
 ```ssh
