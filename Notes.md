@@ -115,7 +115,7 @@ Every container has to be allocated with IP address and load balancing capabilit
 27. Minikube create only one cluster and has a single node.
 
 28. How to deploy a pod: \
-    a. Create a yml file like below: \
+    a. Create a yml file like below: 
     
 ```ssh
     apiVersion: v1
@@ -129,9 +129,8 @@ Every container has to be allocated with IP address and load balancing capabilit
         ports:
         - containerPort: 80
 ```
-
-    Save the yml file.
-    To create the pod use the command:
+Save the yml file. \
+To create the pod use the command:
 
 ```ssh
     kubectl create pod -f pod.yml
@@ -144,8 +143,10 @@ Every container has to be allocated with IP address and load balancing capabilit
     - displays the details of the pod
 
 ```
-29. To login to your kubernetes cluster:
+29. To login to your kubernetes cluster: 
+    ```ssh
     minikube ssh
+    ```
 
 
 Auto Scaling and Auto healing:
