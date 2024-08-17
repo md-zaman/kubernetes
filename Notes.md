@@ -185,22 +185,14 @@ To create the pod use the command:
 
 34. Difference between Container, Pod and Deployment
 
-| **Container**                     | **Pod**                                   | **Deployment**                                |
-|---------------------------------  |------------------------------------------ |---------------------------------------------  |
-| - Can be from docker, containerd  | - Single or multiple container            | - Used because auto-healing and auto scaling  |
-| - docker run -it -p -v -net       | - You write a YAML. Pod is a running spec |                                               |
-| Scheduler                         | - Cannot do auto healing and scaling      | - Can do | 0 downtime                         |
-|                                   | - A Pod can have single or multiple       | - Creates intermediate resource call replica  |
-|                                   | container                                 | set and then rs creates the   pod             |
 
-
-| **Features** |**Container**                            | **Pod**                                                 |**Deployment**                                   |
-|------------|-------------------------------------------|---------------------------------------------------------|-------------------------------------------------|
-| Basic Unit | Single running process                    | Smallest deployable unit in Kubernetes                  | Manages and scales Pods                         |
-| Contents   | Application code, dependencies, libraries | One or more containers                                  | Desired state of Pods                           |
-| Lifecycle  | Ephemeral, managed by container runtime   | Ephemeral, managed by Kubernetes                        | Manages ReplicaSets, which manage Pods          |
-| Purpose    | Package and isolate application           | Logical host for one or more containers                 | Ensure desired number of Pods are running       |
-| Analogy    | Single program on a computer              | Group of programs running together on a virtual machine | Supervisor ensuring a certain number of VMs run |
+| ```Features```|```Container```                           | ```Pod```                                  |```Deployment```                                 |
+|---------------|------------------------------------------|--------------------------------------------|-------------------------------------------------|
+| ***Basic Unit***| Single running process                 | Smallest deployable unit in K8s            | Manages and scales Pods                         |
+| ***Contents***  | App. code, dependencies, libraries     | One or more containers                     | Desired state of Pods                           |
+| ***Lifecycle*** | Ephemeral, managed by container runtime| Ephemeral, managed by Kubernetes           | Manages ReplicaSets, which manage Pods          |
+| ***Purpose***   | Package and isolate application        | Logical host for one or more containers    | Ensure desired number of Pods are running       |
+| ***Analogy***   | Single program on a computer           | Group of programs running together on a VM | Supervisor ensuring a certain number of VMs run |
 
 35. What k8s say is don't create a pod directly instead create a deployment. Deployment creates a replicaset (it is a k8s controller) then the rs creates a pod
 
