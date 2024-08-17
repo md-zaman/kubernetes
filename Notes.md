@@ -466,13 +466,15 @@ To create the pod use the command:
         kubectl get svc
         - lists all the service
     ```
-    Here you can have to change the service 'type:' from 'NodePort' to 'LoadBalancer'
+    Here you have to change the service 'type:' from 'NodePort' to 'LoadBalancer'
     This will not work here because we are using minikube. But suppose you're using ec2 instance you can do it by accessing the ec2 instances' public IP.
     These things are taken care of by the CCM- Cloud Control Manager.
-    After you save this service aftermaking the changes and enter 
-    'kubectl get svc'
-    You will find that the status under the 'EXTERNAL-IP' says '<pending>' because this is minikube.
-    The Cloud Controller manager generates this IP
+    After you saved this service aftermaking the changes enter:
+    ```ssh
+        kubectl get svc
+    ```
+    You will find that the status under the 'EXTERNAL-IP' says '<pending>' because this is minikube. \
+    The Cloud Controller manager generates this IP \
     Extra Info: there is a project called MetalLB where you can do this using the minikube.
 
     v. Services can do three things:
