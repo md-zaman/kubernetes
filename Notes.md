@@ -524,8 +524,9 @@ As for user, after you have created the ingress resource, you also have to deplo
 So basically ingress is a load balancer and some times it is LB + API Gateway also.
 In real life you have to deploy the Nginx controller in your k8s cluster after that you will create ingress resource depending upon the capabilities that you need so suppose if you need path based routing, you will create one type of ingress, if you need TLS based you will create another type of ingress, if you need host based you will create another type of ingress. The one time thing of devops engineer is to choose which ingress controller they want to use - which load balancer they want to use- it can be nginx it can be f5. After the decision they can go to their respective github page and install the their controller and after that in their cluster they can create their desired service. 1 service, 2 service, 10 service they will only write the ingress resource.
 Ingress is not 1 to 1 mapping, you can create one ingress and route 100s of services. 
-So ingress is solving 2 problems:
-    a. Enterprise level LB capabilities
+
+So ingress is solving 2 problems: \
+    a. Enterprise level LB capabilities \
     b. Cloud providers were charging for each and every IP addresses
 
 Ingress controller has to be installed before ingress resource.
@@ -535,7 +536,7 @@ Ingress controller has to be installed before ingress resource.
 Using the previous setup we will do 'Host based' Load Balancing
 
     a. vi ingress.yml
-
+    ```ssh
         apiVersion: networking.k8s.io/v1
         kind: Ingress
         metadata:
@@ -552,45 +553,61 @@ Using the previous setup we will do 'Host based' Load Balancing
                     name: python-django-sample-app
                     port:
                     number: 80
-        
-        Now, simply apply:
+    ```    
+    Now, simply apply:
+    ```ssh
         kubectl apply -f ingress.yml
+    ```
         ---------
 
-        Check:
+    Check:
+    ```ssh
         kubectl get ingress
         - lists all ingres
+    ```
 
-        Now although we have made this ingress, nothing will happen - what do I mean by that? What it means is that since I have created the ingress if I were to curl the domain 'foo.bar.com/bar' like this:
+    Now although we have made this ingress, nothing will happen - what do I mean by that? What it means is that since I have created the ingress if I were to curl the domain 'foo.bar.com/bar' like this:
+    ```ssh
         curl -L http://foo.bar.com/bar -v
-        Nothing will happen here..
-        Why?
-        Our desired output was that ingress should take me to the service- 'python-django-sample-app' as mentioned in the ingress that we have defined above. It is not happening because there is no ingress 'controller'.
-        So, we will install ingress controller
-        Search for it on Google for minikube:
-
+    ```
+    Nothing will happen here..
+    Why?
+    Our desired output was that ingress should take me to the service- 'python-django-sample-app' as mentioned in the ingress that we have defined above. It is not happening because there is no ingress 'controller'.
+    So, we will install ingress controller
+    Search for it on Google for minikube:
+    ```ssh
         minikube addons enable ingress
         - installs nginx controller
-
-        Let's check if it has installed. To check we will check pods because ingress controllers are also a pod
+    ```
+    Let's check if it has installed. To check we will check pods because ingress controllers are also a pod
+    ```ssh
         kubectl get pods -A | grep nginx
         - lists pods in all namespace '-A' means all namespace
+    ```
 
-        Now let us find the logs and find out if it has identified our ingress resource that we have created.
+    Now let us find the logs and find out if it has identified our ingress resource that we have created.
+    ```ssh
         kubectl logs ingress-nginx-controller-cc8496... -n ingress-nginx
         - this command checks the logs of the mentioned pod in the specified namespace (nginx ingress created its own logs)
+    ```
+    
+    You will find that it has successfully synced as well.
 
-        You will find that it has successfully synced as well.
-
-        If you enter the command 
+    If you enter the command 
+    ```ssh
         kubectl get ingress
-        you will find here that now the Under the address there is an IP address earlier it was not there.
+    ```
+    You will find here that now the Under the address there is an IP address earlier it was not there.
 
-        In your minikube, you also have to edit the 'host'
+    In your minikube, you also have to edit the 'host'
+    ```ssh
         sudo vi /etc/hosts
-        and add this :
+    ```
+    And add this :
+    ```ssh
         192.168.64.11 foo.bar.com
-        Now if you try to ping it will be resolved.
+    ```
+    Now if you try to ping it will be resolved.
                      
 
 
