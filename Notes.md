@@ -423,18 +423,20 @@ To create the pod use the command:
         kubectl apply -f service.yml
     ```
 
-        ------
-        Comment:
-        - Esure that the correct selector is entered
-        - Ensure that the correct 'targetPort' is entered. Target port is the port where your application is running. Since in this case the application is running on '8000', we have entered the same.
-        ------
+    ------
+    Comment:
+    - Esure that the correct selector is entered
+    - Ensure that the correct 'targetPort' is entered. Target port is the port where your application is running. Since in this case the application is running on '8000', we have entered the same.
+    ------
 
-        To check:
+    To check:
+    ```ssh
         kubectl get svc
         - displays the services
 
         kubectl get svc -v=9
         - shows a verbose status of the services
+    ```
 
     s. Irrespective of what kind of service you choose whether it be ClusterIp mode, NodePort mode or Load Balancing mode, 'ClusterIp' will always be there.
     Apart from this you will also get a port mapping- the Node IP Address. This will be under the column 'PORT(S)'. You will get this port mapping and you can access you application using this port when you are using NodePort or LoadBalancing mode. (In NodePort we don't get this because in NodePort you only have your application avaiable in the Cluster.)
