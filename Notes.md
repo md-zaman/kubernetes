@@ -313,7 +313,7 @@ To create the pod use the command:
         Dockerfile  devops  requirements.txt
         zaman@MdZamanLaptop:~/k8s/Docker-Zero-to-Hero/examples/python-web-app$ vim Dockerfile
     ```
-    j. The Dockerfile that we have has this content:
+    The Dockerfile that we have has this content:
     ```sh
         FROM ubuntu
 
@@ -331,12 +331,12 @@ To create the pod use the command:
         CMD ["manage.py", "runserver", "0.0.0.0:8000"]
     ```
 
-    k. Let's build the image:
+    f. Let's build the image:
         ```ssh
         docker build -t zamanf5/python-sample-app-demo:v1 .
         ```
 
-    l. Now, let us make the deployment.yaml manifest
+    g. Now, let us make the deployment.yaml manifest
         ```ssh
         apiVersion: apps/v1
         kind: Deployment
@@ -361,10 +361,12 @@ To create the pod use the command:
                 - containerPort: 8000
         ```
     
-    m. Now deploy the deployment:
+    h. Now deploy the deployment:
+        ```ssh
         kubectl apply -f deployment.yaml
+        ```
 
-    n. Let's check:
+    i. Let's check:
         kubectl get deploy
         - shows the deployements
         check the pods also to recheck:
@@ -378,7 +380,7 @@ To create the pod use the command:
         kubectl get pods -v=9
         - this is the maximum verbosity level
         
-    o. If you want to go to the application in minikube:
+    j. If you want to go to the application in minikube:
         minikube ssh
         Then:
         curl -L http://172.17.0.5/8000/demo
@@ -386,14 +388,14 @@ To create the pod use the command:
         - Here we are trying to access the app. The app runs on the port 8000/demo
         - '/demo' is context root of the application
                   
-    p. If you try the same command after coming out of the k8s cluster, you won't be able to access it. This is because a pod by default will have cluster network attached to it. But you can have internal as well as external cutomers.
+    k. If you try the same command after coming out of the k8s cluster, you won't be able to access it. This is because a pod by default will have cluster network attached to it. But you can have internal as well as external cutomers.
 
-    q. To ensure that your application can be accessed by your organisation or the outside world we have services and as discussed we have 3 types of services:
+    l. To ensure that your application can be accessed by your organisation or the outside world we have services and as discussed we have 3 types of services:
     i. ClusterIP
     ii. NodePort Mode
     iii. Load Balancer Mode
 
-    r. vi service.yaml
+    m. vi service.yaml
         
         apiVersion: v1
         kind: Service
