@@ -232,6 +232,15 @@ To create the pod use the command:
 
 40. #### Deployment vs Replicaset:
     
+| **Feature**           | **Deployment**                                                | **ReplicaSet**                                                                  |
+|-----------------------|---------------------------------------------------------------|---------------------------------------------------------------------------------|
+| **Abstraction Level** | Higher-level, manages ReplicaSets                             | Lower-level, directly manages Pods                                              |
+| **Primary Function**  | Provides declarative updates and manages application versions | Ensures a specified number of Pod replicas are running                          |
+| **Update Mechanism**  | Rolling updates, rollbacks, and versioning                    | Manual updates or scaling                                                       |
+| **Use Case**          | Preferred for managing stateless applications                 | Useful for fine-grained control over Pods, often used internally by Deployments |
+| **User Interaction**  | Directly interacted with by users                             | Usually managed indirectly through Deployments                                  |
+
+
 
 41. ```bash
     kubectl get pods -w
