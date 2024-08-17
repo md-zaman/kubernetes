@@ -40,7 +40,8 @@ Features:
 
 # Day 2: Kubernetes Architecture
 
-10. On a high level k8s is divided in two parts: Control plane and the data plane. \
+10. On a high level k8s is divided in two parts: Control plane and the data plane. 
+
 Under Control plane we have: 
 - API Server, 
 - Controler Manager, 
