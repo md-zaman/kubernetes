@@ -297,14 +297,16 @@ To create the pod use the command:
         - delete the mentioned services
     ```
             
-    f. Ensure that you don't remove the default kubernetes service by the name - "service/kubernetes".
+    Ensure that you don't remove the default kubernetes service by the name - "service/kubernetes".
 
-    g. Ensure that when you do "kubectl get all" you get only the "service/kubernetes" running.
+    Ensure that when you do "kubectl get all" you get only the "service/kubernetes" running.
 
-    h. Let's clone a particular GitHub repository with which we will work
+   Let's clone a particular GitHub repository with which we will work
+        ```ssh
         git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero.git
+        ```
 
-    i. Inside the folder we have these files and directorries:
+    Inside the folder we have these files and directorries:
         ```sh
         zaman@MdZamanLaptop:~/k8s/Docker-Zero-to-Hero/examples/python-web-app$ ls
         Dockerfile  devops  requirements.txt
