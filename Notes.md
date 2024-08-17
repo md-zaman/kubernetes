@@ -281,6 +281,7 @@ To create the pod use the command:
 
 44. Activity: 
 
+    ```ssh
     a. minikube status
         - checks the minikube status- the running cluster
 
@@ -294,6 +295,7 @@ To create the pod use the command:
 
     e. kube delete svc <service_name>
         - delete the mentioned services
+    ```
             
     f. Ensure that you don't remove the default kubernetes service by the name - "service/kubernetes".
 
