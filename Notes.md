@@ -194,23 +194,24 @@ To create the pod use the command:
 | **Purpose**   | Package and isolate application        | Logical host for one or more containers    | Ensure desired number of Pods are running       |
 | **Analogy**   | Single program on a computer           | Group of programs running together on a VM | Supervisor ensuring a certain number of VMs run |
 
+
 35. What k8s say is don't create a pod directly instead create a deployment. Deployment creates a replicaset (it is a k8s controller) then the rs creates a pod
 
 36. **Replicaset controller**: It is a controller created by deployment. It will ensure to create no. of pod which you have mentioned in the deployment yaml manifest. If you say replica count is 2 it ensures that the cluster has 2 replicas of pod. So that many user can use simultanenously. This is how 0 downtime is achieved.
 
-37. Replicaset defination from Google gemini:
+37. **Replicaset defination from Google Gemini:** |
     A ReplicaSet (RS) is a controller that ensures a specified number of identical Pods are running at any given time. It's a core component for managing stateless applications in Kubernetes.
 
     Key Functions:
 
-    **Replication**: A ReplicaSet maintains the desired number of Pod replicas, ensuring your application can handle incoming traffic or workload.
-    **Self-Healing**: If a Pod fails, the ReplicaSet automatically replaces it to maintain the desired replica count.
+    **Replication**: A ReplicaSet maintains the desired number of Pod replicas, ensuring your application can handle incoming traffic or workload. \
+    **Self-Healing**: If a Pod fails, the ReplicaSet automatically replaces it to maintain the desired replica count. \
     **Scaling**: You can easily scale your application up or down by adjusting the number of replicas in the ReplicaSet.
 
-38. Controller: are something which ensure that the desired state and actual state are same. There are default controllers and custom controllers. It is a go language application which k8s has written which ensures this.
+38. **Controller**: are something which ensure that the desired state and actual state are same. There are default controllers and custom controllers. It is a go language application which k8s has written which ensures this.
 
-39. Controllers defination from Gemini:
-    Controllers are the core components that continuously monitor and maintain the desired state of your cluster. They operate in control loops, constantly comparing the actual state of objects (like Pods, Deployments, Services) to their desired state, and taking actions to reconcile any differences.
+39. **Controllers defination from Gemini:**
+    Controllers are the core components that ```continuously monitor``` and ```maintain``` the ```desired state of your cluster```. They operate in control loops, constantly comparing the actual state of objects (like Pods, Deployments, Services) to their desired state, and taking actions to reconcile any differences.
 
     **Key Concepts**:
 
