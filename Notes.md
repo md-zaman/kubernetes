@@ -477,15 +477,18 @@ To create the pod use the command:
     The Cloud Controller manager generates this IP \
     Extra Info: there is a project called MetalLB where you can do this using the minikube.
 
-    v. Services can do three things:
+    v. Services can do three things: \
         a. LoadBalancing - Done
-        d. Service Discovery
-        c. Expose - Done
+        b. Expose - Done
+        c. Service Discovery
+        
 
-        b. Service Discovery: An activity for this
+        c. Service Discovery: An activity for this
             Let us edit the svc and change the 'selector' value and see how it goes:
+        ```ssh
             kubectl edit svc python-django-sample-app
             - edits the service referred
+        ```
 
             Now, after changing the selector the labels and selectors are different. Let's find out if we can access our application with the Node IP. We can enter the command in the browser also. 'http://192.168.64.10:30007/demo'.
             Here you will find that our application is not accessible.
