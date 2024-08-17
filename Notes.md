@@ -443,21 +443,29 @@ To create the pod use the command:
     
     t. You can access the application either by ClusterIP address which you will find under the 'CLUSTERIP' column (but you have to ensure that you are loggedin in the cluster) or you can use the Nope IP address. So, suppose your Node IP Address which is getting displayed under PORT(S) is '80:30007' and here is how you can do it:
         i. Get the IP Address. In minikube we can enter the command:
+        ```ssh
             minikube ip
             Output: 192.168.64.10
+        ```
 
-            Now, you can curl and see your application:
+        Now, you can curl and see your application:
+        ```ssh
             curl -L http://192.168.64.10:30007/demo
+        ```
 
-            We can also enter this link in the address bar of the browser and access our application.
-            However, if you take the same URL and try to access it from elsewhere you will not be able to access it. This is because you haven't exposed your application to the outside world.
+        We can also enter this link in the address bar of the browser and access our application.
+        However, if you take the same URL and try to access it from elsewhere you will not be able to access it. This is because you haven't exposed your application to the outside world.
 
     u. To expose this existing application to the outside world we can simply edit the svc:
+    ```ssh
         kubectl edit svc python-django-sample-app
         - opens services' yaml where you can edit the service.
-        - if you want to check the name of the service you can simply enter:
+    ```
+        If you want to check the name of the service you can simply enter:
+    ```ssh
             kubectl get svc
             - lists all the service
+    ```
     Here you can have to change the service 'type:' from 'NodePort' to 'LoadBalancer'
     This will not work here because we are using minikube. But suppose you're using ec2 instance you can do it by accessing the ec2 instances' public IP.
     These things are taken care of by the CCM- Cloud Control Manager.
