@@ -535,7 +535,11 @@ Ingress controller has to be installed before ingress resource.
 
 Using the previous setup we will do 'Host based' Load Balancing
 
-a. vi ingress.yml
+a. Create YML manifest for the ingress 
+```ssh
+vi ingress.yml
+```
+\
 ```ssh
         apiVersion: networking.k8s.io/v1
         kind: Ingress
