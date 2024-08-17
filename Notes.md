@@ -348,7 +348,7 @@ Kubernetes Service Deep Dive using Kubeshark
         minikube ssh
         Then:
         curl -L http://172.17.0.5/8000/demo
-        - We're are using '-L' because abhishek veeramalla said that the application he has written, it requires a redirect.
+        - We're using '-L' because abhishek veeramalla said that the application he has written, it requires a redirect.
         - Here we are trying to access the app. The app runs on the port 8000/demo
         - '/demo' is context root of the application
                   
@@ -391,7 +391,7 @@ Kubernetes Service Deep Dive using Kubeshark
         - shows a verbose status of the services
 
     s. Irrespective of what kind of service you choose whether it be ClusterIp mode, NodePort mode or Load Balancing mode, 'ClusterIp' will always be there.
-    Apart from this you will also get a port mapping- the Nope IP Address. This will be under the column 'PORT(S)'. You will get this port mapping and you can access you application using this port when you are using NodePort or LoadBalancing mode. (In NodePort we don't get this because in NodePort you only have your application avaiable in the Cluster.)
+    Apart from this you will also get a port mapping- the Node IP Address. This will be under the column 'PORT(S)'. You will get this port mapping and you can access you application using this port when you are using NodePort or LoadBalancing mode. (In NodePort we don't get this because in NodePort you only have your application avaiable in the Cluster.)
     
     t. You can access the application either by ClusterIP address which you will find under the 'CLUSTERIP' column (but you have to ensure that you are loggedin in the cluster) or you can use the Nope IP address. So, suppose your Node IP Address which is getting displayed under PORT(S) is '80:30007' and here is how you can do it:
         i. Get the IP Address. In minikube we can enter the command:
@@ -417,15 +417,15 @@ Kubernetes Service Deep Dive using Kubeshark
     'kubectl get svc'
     You will find that the status under the 'EXTERNAL-IP' says '<pending>' because this is minikube.
     The Cloud Controller manager generates this IP
-    Extra Info: there is aproject called MetalLB where you can do this using the minikube.
+    Extra Info: there is a project called MetalLB where you can do this using the minikube.
 
-    v. Service can do three things:
+    v. Services can do three things:
         a. LoadBalancing - Done
         d. Service Discovery
         c. Expose - Done
 
         b. Service Discovery: An activity for this
-            Let us edit the svc and change the 'selector' value and see it goes:
+            Let us edit the svc and change the 'selector' value and see how it goes:
             kubectl edit svc python-django-sample-app
             - edits the service referred
 
@@ -460,7 +460,7 @@ As a kubernetes user you can create an ingress resource and what kubernetes told
 User will write the ingress and load balancing companies will create the ingress 'controllers' and they will place their ingress controllers on github k8s page and they will provide the steps on how to install this ingress controllers using helm charts or any other way.
 As for user, after you have created the ingress resource, you also have to deploy ingress controllers and a user can choose which ingress controller he wants to use.
 So basically ingress is a load balancer and some times it is LB + API Gateway also.
-In real life you have to deploy the Nginx controller in your k8s cluster after that you will create ingress resource depending upon the capabilities that you need so suppose if you need path based routing, you will create one type of ingress, if you need TLS based you will create another type of ingress, if you need host based you will create another type of ingress. The one time thing of devops engineer is to choose which ingress controller they want to use - which load balancer they want to user- it can be nginx it can be f5. After the decision they can go to their respective github page and install the their controller and after that in their cluster they can create their desired service. 1 service, 2 service, 10 service they will only write the ingress resource.
+In real life you have to deploy the Nginx controller in your k8s cluster after that you will create ingress resource depending upon the capabilities that you need so suppose if you need path based routing, you will create one type of ingress, if you need TLS based you will create another type of ingress, if you need host based you will create another type of ingress. The one time thing of devops engineer is to choose which ingress controller they want to use - which load balancer they want to use- it can be nginx it can be f5. After the decision they can go to their respective github page and install the their controller and after that in their cluster they can create their desired service. 1 service, 2 service, 10 service they will only write the ingress resource.
 Ingress is not 1 to 1 mapping, you can create one ingress and route 100s of services. 
 So ingress is solving 2 problems:
     a. Enterprise level LB capabilities
@@ -543,13 +543,13 @@ ConfigMaps are used to store information. Suppose your app needs some informatio
 So we try to save this as an ENV variable
 As a DevOps eng you can create a configmap inside a k8s cluster and put the information like DB port and any kind of information inside the configmap and you can mount the configmap or you can use the details of the configmap inside your k8s pod. 
 So you can use this data of the configmap as ENV variables inside your k8s pod. You can use them by different ways like you can use them as ENV variables or you can use them as Volume Mounts. 
-So, Configmap is solving the problem of stroring the information that can be used by your application at later point of time. 
+So, Configmap is solving the problem of storing the information that can be used by your application at later point of time. 
 Stored data can be used by your Pod, Deployment or your application.
 
-Secrets - Secrets in k8s solves the same problem but it is used for sesitive data. Like parameters like DB password, DB Username.
-Why we don't save this information in ConfigMap because whenever we save save anything in k8s this information is saved in etcd, and in etcd data is stored as objects and any hacker who tries to access the etcd they can get access to your infomation like DBpassword DB Username.  
+Secrets - Secrets in k8s solves the same problem but it is used for sesitive data. Like parameters, like DB password, DB Username.
+Why we don't save this information in ConfigMap because whenever we save anything in k8s this information is saved in etcd, and in etcd data is stored as objects and any hacker who tries to access the etcd they can get access to your infomation like DBpassword DB Username.  
 So we should save all the non-sensitive data in ConfigMaps and Sensitive data in Secrets.
-In Secrets k8s encrypts the data at rest. By default k8s uses the basic encryption but it also allows you to use your own encryption machanism - custom encryption.
+In Secrets, k8s encrypts the data at rest. By default k8s uses the basic encryption but it also allows you to use your own encryption machanism - custom encryption.
 K8s also says that although we're using an encryption for secrets you should do your part of using a strong RBAC. "Least Privilegde"
 With secrets you can use a strong RBAC.
 
@@ -610,8 +610,8 @@ Activity:
         env | grep db
         - checks for env variable in pod
 
-        So to do this we have to add env in our deployment:
-        vo deployment.yml
+        So to do this, we have to add env in our deployment:
+        vi deployment.yml
 
         Under image:
         env:
@@ -653,7 +653,7 @@ Activity:
         So the port has not changes despite changing it in our configmap.yml
         To solve this problem k8s says instead of using this approach, go with the approach of VolumeMounts
         VolumeMounts
-        In VolumeMounts, instead of using them as environmental variables you can use them as files. So you configmap information can be saved inside a file and developers can read the files instead of env variables.
+        In VolumeMounts, instead of using them as environmental variables you can use them as files. So your configmap information can be saved inside a file and developers can read the files instead of env variables.
         let's see how to do it
 
         vi deployment.yml
@@ -700,7 +700,7 @@ Activity:
         kubectl apply -f cm.yml
         
         Now, what will happen is the kubernetes pod, without getting restarted will know that the value of the configmap has changed. Let's find out:
-        Fisrt let's make sure that the port you have applied has actually changed:
+        First, let's make sure that the port you have applied has actually changed:
 
         kubectl describe cm test-cm
         - decribes the referred configmap(cm)- here 'test-cm'
