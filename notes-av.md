@@ -265,9 +265,10 @@ To create the pod use the command:
     - **Expose to External World** 
 
     **Service Discovery**- Using **Labels** and **Selectors**. \
-        For all pods that are created, a `label` is added. This label will be common for all pods. Service will not bother about the IP addresses but it will look for labels. The label will be same because Replicaset controller will deploy a new pod with the same YAML. \
+        For all pods that are created, a `label` is added. This label will be common for all pods. Service will not bother about the IP addresses but it will look for labels. The label will be same because Replicaset controller will deploy a new pod with the same YAML. 
+
     **Expose to External World** \
-    There are three types: \
+    There are three types: 
     - i.   **Cluster IP** 
     - ii.  **NodePort** 
     - iii. **Load balancer** 
