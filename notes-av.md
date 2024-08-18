@@ -87,7 +87,7 @@ Every container has to be allocated with IP address and load balancing capabilit
 22. We put one or more containers in a single pod (sidecar container or init containers) so that k8s can ensure they have advantages like allow you shared networking, shared storage, can talk to each other using local host like share the file.
 
     #### Init Containers:
-    Keyword: ```Initial-Container``` rolls down the red-carpet
+    Keyword: ```Initial-Container``` rolls down the red-carpet \
     Init containers are specialized containers that run before the main application containers in a Pod. They are designed to perform initialization tasks necessary for the proper functioning of the application. \
     **Use Cases**: 
     **Initialization tasks** : They are typically used for tasks like:
