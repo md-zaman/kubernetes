@@ -10,49 +10,48 @@ Containers are ephemeral in nature. Means containers can die and revive anytime.
  b. Auto-scaling
 
 1. **Auto Scaling:** \
-    In Docker, you can manually increase the number of containers. In K8s, it can be done automatically. K8s also uses load balancing to redirect the traffic appropriately to the new containers.
-    Load Balancing 
+    In Docker, you can manually increase the number of containers. In K8s, it can be done automatically. K8s also uses load balancing to redirect the traffic appropriately to the new containers. - Load Balancing 
 
 2. **Why Docker is not used in enterprise:** \
     Docker does not provide: \
     a. Auto Healing \
     b. Auto Scaling \
     c. API Support \
-    d. White Listing/ Black Listing \
+    d. White Listing/Black Listing \
     e. Firewalls
 
 3. Kubernetes is installed as a cluster
 
 4. **Problems with Docker:** \
-    a. **Single Host -** Because there only one host the containers inside it is getting impacted because of that and one of the containers in getting killed.
+    a. **Single Host -** Because there only one host the containers inside it is getting impacted because of that and one of the containers in it is getting killed. \
     b. **Auto Healing**
     c. ...
 
-5. Docker has one more problem, it has a single host, so if there is a shortage of memory one container is killed by another container. This is not the case with k8s. k8s has multi nodes and if a container is killed by another container k8s will put that container in a different node.
+5. Docker has one more problem, it has a ```Single Host```, so if there is a shortage of memory one container is killed by another container. This is not the case with k8s. K8s has multi nodes and if a container is killed by another container k8s will put that container in a different node.
 
 6. K8s can put a faulty pod/application in a different node.
 
-7. Kubernetes' Auto scaling : It has something called 'replication controller' or 'replica set' (Replication controler is the old name). So, you can go to the deployment.yaml file and say increase the load from 1 to 10 because load has increased. It also supports HPA (horizontal pod scaler) using which you can directly say that whenever there is a increase in load, increase the number of containers. Whenever my container is reaching the load of 80% increase a pod.
+7. **Kubernetes' Auto Scaling :** Kubernetes has something called ```replication controller``` or ```replica set``` (Replication controler is the old name). So, you can go to the deployment.yaml file and say increase the load from 1 to 10 because load has increased. It also supports HPA (Horizontal Pod Scaler) using which you can directly say that whenever there is an increase in load, increase the number of containers. Whenever my container is reaching the load of 80% increase a pod.
 
-8. Auto healing : k8s controls and fixes the damage. Mostly controls. Suppose a container is going down. Even before a container goes down, k8s starts a new container. Whenever API server receives a signal that a container is going down immediately it will rollout a new container/pod.
+8. **Auto Healing :** k8s controls and fixes the damage. Mostly controls. Suppose a container is going down. Even before a container goes down, k8s starts a new container. Whenever API server receives a signal that a container is going down immediately it will rollout a new container/pod.
 
-9. Enterprise nature: custom resourses- adv load balancing. k8s advancing every day by cncf. 
+9. **Enterprise nature:** Custom resourses- advanced load balancing. K8s advancing every day by CNCF. 
 
 # Day 2: Kubernetes Architecture
 
-10. On a high level k8s is divided in two parts: Control plane and the data plane. 
+10. On a high level k8s is divided in two parts- Control plane and the data plane. 
 
-Under Control plane we have: 
+Under ```Control plane``` we have: 
 - API Server, 
-- Controler Manager, 
+- Controller Manager, 
 - ETCD, 
 - Scheduler and 
 - Cloud Controller Manager
 
-Under Data Plane we have: 
+Under ```Data Plane``` we have: 
 - Kubelet, 
-- Kube proxy and 
-- Container runtime.
+- Kube Proxy and 
+- Container Runtime.
 
 | **Control Plane**           | **Data Plane**    |
 | --------                    | -------           |
@@ -63,9 +62,9 @@ Under Data Plane we have:
 | Cloud Control Manager (CCM) |                   |
 
 #### Worker Node: 
-11. **Kubelet**: Kubelet is responsible for ```maintaing``` the pod. It ensure that the pod is always running if the pod is not running, it will inform the API Server in control plane.
+11. **Kubelet:** Kubelet is responsible for ```maintaing``` the pod. It ensure that the pod is always running if the pod is not running, it will inform the API Server in control plane.
 
-12. **Container runtime**: Container runtime's primary job is to ```create```, ```start```, ```stop```, and ```delete``` containers on a node.
+12. **Container runtime:** Container runtime's primary job is to ```create```, ```start```, ```stop```, and ```delete``` containers on a node.
 It can be docker or any other container runtime of CRI-O, containerd or any other container runtimes which implements container interface.
 
 13. **Kube Proxy**: Kube Proxy provides you networking. Its primary function is to ```maintain network rules on the node```, ensuring that pods can communicate with each other and with external services.
