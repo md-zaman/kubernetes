@@ -483,7 +483,7 @@ To create the pod use the command:
         c. Service Discovery
         
 
-    c. Service Discovery: An activity for this
+    c. **Service Discovery**: An activity for this
         Let us edit the svc and change the 'selector' value and see how it goes:
     ```ssh
         kubectl edit svc python-django-sample-app
