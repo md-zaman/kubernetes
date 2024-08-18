@@ -5,27 +5,27 @@ Kubernetes is an orchestration platform
 
 Containers are ephemeral in nature. Means containers can die and revive anytime.
 
-Features:
- a. Auto-healing behaviour
+#### Features:
+ a. Auto-healing \
  b. Auto-scaling
 
-1. Auto Scaling
+1. **Auto Scaling:** 
     In Docker, you can manually increase the number of containers. In K8s, it can be done automatically. K8s also uses load balancing to redirect the traffic appropriately to the new containers.
     Load Balancing 
 
-2. Why Docker is not used in enterprise:
-    Docker does not provide:
-    a. Auto healing
-    b. Auto scaling
-    c. API Support
-    d. white listing/ Black listing 
-    e. Firewall
+2. **Why Docker is not used in enterprise:** \
+    Docker does not provide: \
+    a. Auto Healing \
+    b. Auto Scaling \
+    c. API Support \
+    d. White Listing/ Black Listing \
+    e. Firewalls
 
 3. Kubernetes is installed as a cluster
 
-4. Problems with Docker:
-    a. Single Host - Because there only one host the containers inside it is getting impacted because of that and one of the containers in getting killed.
-    b. Auto healing
+4. **Problems with Docker:** \
+    a. **Single Host -** Because there only one host the containers inside it is getting impacted because of that and one of the containers in getting killed.
+    b. **Auto Healing**
     c. ...
 
 5. Docker has one more problem, it has a single host, so if there is a shortage of memory one container is killed by another container. This is not the case with k8s. k8s has multi nodes and if a container is killed by another container k8s will put that container in a different node.
