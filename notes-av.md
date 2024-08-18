@@ -31,7 +31,7 @@ Containers are ephemeral in nature. Means containers can die and revive anytime.
 
 6. K8s can put a faulty pod/application in a different node.
 
-7. **Kubernetes' Auto Scaling :** Kubernetes has something called ```replication controller``` or ```replica set``` (Replication controler is the old name). So, you can go to the deployment.yaml file and say increase the load from 1 to 10 because load has increased. It also supports HPA (Horizontal Pod Scaler) using which you can directly say that whenever there is an increase in load, increase the number of containers. Whenever my container is reaching the load of 80% increase a pod.
+7. **Kubernetes' Auto Scaling :** Kubernetes has something called ```replication controller``` or ```replica set``` (Replication controler is the old name). So, you can go to the ```deployment.yaml``` file and say increase the load from 1 to 10 because load has increased. It also supports HPA (Horizontal Pod Scaler) using which you can directly say that whenever there is an increase in load, increase the number of containers. Whenever my container is reaching the load of 80% increase a pod.
 
 8. **Auto Healing :** k8s controls and fixes the damage. Mostly controls. Suppose a container is going down. Even before a container goes down, k8s starts a new container. Whenever API server receives a signal that a container is going down immediately it will rollout a new container/pod.
 
@@ -62,7 +62,7 @@ Under ```Data Plane``` we have:
 | Cloud Control Manager (CCM) |                   |
 
 #### Worker Node: 
-11. **Kubelet:** Kubelet is responsible for ```maintaing``` the pod. It ensure that the pod is always running if the pod is not running, it will inform the API Server in control plane.
+11. **Kubelet**: Kubelet is responsible for ```maintaing``` the pod. It ensure that the pod is always running if the pod is not running, it will inform the API Server in control plane.
 
 12. **Container runtime:** Container runtime's primary job is to ```create```, ```start```, ```stop```, and ```delete``` containers on a node.
 It can be docker or any other container runtime of CRI-O, containerd or any other container runtimes which implements container interface.
@@ -84,22 +84,23 @@ Every container has to be allocated with IP address and load balancing capabilit
 20. Pod is described of how to run a container. It is like a wrapper of container. In K8s instead of deploying a container we deploy a pod.
 21. Why do we deploy a pod instead because k8s is an enterprise level platform and it wants to build a declarative capabilities.
 
-22. We put one or more containers in a single pod (sidecar container or init containers (recheck this)) so that k8s can ensure they have advantages like allow you shared networking, shared storage, can talk to each other using local host like share the file.
+22. We put one or more containers in a single pod (sidecar container or init containers) so that k8s can ensure they have advantages like allow you shared networking, shared storage, can talk to each other using local host like share the file.
 
     #### Init Containers:
 
-    **Purpose**: Performs setup tasks before the main application container starts. \
-    **Execution**: Run sequentially, one after the other, to completion before the main container starts. If any init container fails, the Pod is restarted. \
+    Init containers are specialized containers that run before the main application containers in a Pod. They are designed to perform initialization tasks necessary for the proper functioning of the application. \
     **Use Cases**: 
-    - Fetch configuration files or secrets from external sources.
-    - Initialize databases or storage volumes.
-    - Perform data migrations or transformations.
-    - Run any other necessary setup tasks before the main application is ready.
+    **Initialization tasks** : They are typically used for tasks like:
+
+    - Setting up configuration files   
+    - Creating directories or files needed by the application   
+    - Fetching data or dependencies from external sources   
+    - Running database migrations or schema updates   
+    - Performing health checks on dependent services
 
     #### Sidecar Containers:
-
-    **Purpose**: Provide supporting functionality or services to the main application container. \
-    **Execution:** Run alongside the main container throughout its lifecycle. \
+    Keyword : ```Side-Kick``` of super hero
+    Sidecar containers are helper containers that run alongside the main application container within the same Kubernetes Pod. They extend and enhance the functionality of the main application without modifying its code directly. \
     **Use Cases:**
     - Log collection and forwarding.
     - Monitoring and health checks.
