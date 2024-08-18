@@ -260,14 +260,14 @@ To create the pod use the command:
     So, when a pod dies for any reason a new pod will come up because we have deployed a deployment (and we know to maintain the required number of services replicaset controller will start another pod). The new pod will have new IP address. Since in our case service doesn't exists in k8s, the user will send the request to the died container- which doesn't exists. So, service acts as a load balancer where whenever there is a traffic from a user, the user is redirected to the new pod and not the previous pod. Services are mapped with pods in deployments using ```labels``` and ```selectors``` and not IP addresses.
 
     ### Features of Service: 
-    - **Service acts as Load-Balancer** 
-    - **Service Discovery**- Using **Labels** and **Selectors**. 
-    - **Expose to External World** 
+    - **(a) Service acts as Load-Balancer** 
+    - **(b) Service Discovery**- Using **Labels** and **Selectors**. 
+    - **(c) Expose to External World** 
 
-    **Service Discovery**- Using **Labels** and **Selectors**. \
+    **(b) Service Discovery**- Using **Labels** and **Selectors**. \
         For all pods that are created, a `label` is added. This label will be common for all pods. Service will not bother about the IP addresses but it will look for labels. The label will be same because Replicaset controller will deploy a new pod with the same YAML. 
 
-    **Expose to External World** \
+    **(c) Expose to External World** \
     There are three types: 
     - i.   **Cluster IP** 
     - ii.  **NodePort** 
