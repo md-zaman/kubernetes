@@ -9,7 +9,7 @@ Containers are ephemeral in nature. Means containers can die and revive anytime.
  a. Auto-healing \
  b. Auto-scaling
 
-1. **Auto Scaling:** 
+1. **Auto Scaling:** \
     In Docker, you can manually increase the number of containers. In K8s, it can be done automatically. K8s also uses load balancing to redirect the traffic appropriately to the new containers.
     Load Balancing 
 
