@@ -87,7 +87,7 @@ Every container has to be allocated with IP address and load balancing capabilit
 22. We put one or more containers in a single pod (sidecar container or init containers) so that k8s can ensure they have advantages like allow you shared networking, shared storage, can talk to each other using local host like share the file.
 
     #### Init Containers:
-    Keyword: ```Initial-Container``` rolls down the red-carpet \
+    Keyword: ```Initial-Container``` rolls down the red-carpet. \
     Init containers are specialized containers that run before the main application containers in a Pod. They are designed to perform initialization tasks necessary for the proper functioning of the application. \
     **Use Cases**: 
     **Initialization tasks** : They are typically used for tasks like:
@@ -99,7 +99,7 @@ Every container has to be allocated with IP address and load balancing capabilit
     - Performing health checks on dependent services
 
     #### Sidecar Containers:
-    Keyword : ```Side-Kick``` of super hero \
+    Keyword : ```Side-Kick``` of super hero. \
     Sidecar containers are helper containers that run alongside the main application container within the same Kubernetes Pod. They extend and enhance the functionality of the main application without modifying its code directly. \
     **Use Cases:**
     - Log collection and forwarding.
@@ -141,6 +141,7 @@ To create the pod use the command:
 
     kubectl get pods -o wide
     - displays the details of the pod
+    - this will also display the node in which it's in
 
 ```
 29. To login to your kubernetes cluster: 
@@ -258,11 +259,14 @@ To create the pod use the command:
     We know containers are ephimeral in nature and that's why we deploy a deployment to ensure a particular no. of pods are running at all times.
     So, when a pod dies for any reason a new pod will come up because we have deployed a deployment (and we know to maintain the required number of services replicaset controller will start another pod). The new pod will have new IP address. Since in our case service doesn't exists in k8s, the user will send the request to the died container- which doesn't exists. So, service acts as a load balancer where whenever there is a traffic from a user, the user is redirected to the new pod and not the previous pod. Services are mapped with pods in deployments using ```labels``` and ```selectors``` and not IP addresses.
 
-    **Features of Service**: \
-    **A. Service acts as Load-Balancer** \
-    **B. Service Discovery**- Using **Labels** and **Selectors**. 
+    ### Features of Service: \
+    - **A. Service acts as Load-Balancer** \
+    - **B. Service Discovery**- Using **Labels** and **Selectors**. \
+    - **C. Expose to External World** \
+
+    - **B. Service Discovery**- Using **Labels** and **Selectors**. 
         For all pods that are created, a `label` is added. This label will be common for all pods. Service will not bother about the IP addresses but it will look for labels. The label will be same because Replicaset controller will deploy a new pod with the same YAML. \
-    **C. Expose to External World** \
+    - **C. Expose to External World** \
         There are three types: \
         - i.   **Cluster IP** \
         - ii.  **NodePort** \
