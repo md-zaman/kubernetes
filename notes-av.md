@@ -755,14 +755,14 @@ So to do this, we have to add env in our deployment:
     - searchs for env DB
 ```
 
-    You will get the DB port as 3306
-    So the developer can go to the python app and say
-    os.env("DB-PORT") and he will get the value for his database connection
+You will get the DB port as 3306
+So the developer can go to the python app and say
+os.env("DB-PORT") and he will get the value for his database connection
 
-    But now there is a problem
-    What if we were to change the port from "3306" to "3307" and we make this change in our configmap.yml
-    How will the pods come to know about this change?
-    If you exec here to the pod we will find that the port is still the same 
+But now there is a problem
+What if we were to change the port from "3306" to "3307" and we make this change in our configmap.yml
+How will the pods come to know about this change?
+If you exec here to the pod we will find that the port is still the same 
 ```ssh
     kubectl exec -it sample-python-app-78676 --bin/bash
     env | grep DB
