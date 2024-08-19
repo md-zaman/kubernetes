@@ -514,14 +514,17 @@ To create the pod use the command:
 ### Ingress
 
 There are 2 problems which ingress addresses which Services in kubernetes were not offering: \
-a. Enterprise & TLS Load Balancing. E.g., \
-- (i)   Sticky sessions LB \
-- (ii)  TLS based LB \
-- (iii) Path Based LB \
-- (iv)  Host based LB \
-- (v)   Ratio based LB \
-    b. Charges for Load Balancing \
-        Cloud provider will charge you for each and every service type. for each Static IP. \
+
+a. `Enterprise & TLS Load Balancing`. E.g., \
+    - (i)   Sticky sessions LB \
+    - (ii)  TLS based LB \
+    - (iii) Path Based LB \
+    - (iv)  Host based LB \
+    - (v)   Ratio based LB 
+
+
+b. `Charges for Load Balancing` \
+    Cloud provider will charge you for each and every service type. for each Static IP. \
 
 As a kubernetes user you can create an ingress resource and what kubernetes told to different load balancers like:
 - Nginx
