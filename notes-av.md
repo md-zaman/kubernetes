@@ -515,12 +515,12 @@ To create the pod use the command:
 
 There are 2 problems which ingress addresses which Services in kubernetes were not offering: \
 
-a. `Enterprise & TLS Load Balancing`. E.g., \
-    - (i)   Sticky sessions LB \
-    - (ii)  TLS based LB \
-    - (iii) Path Based LB \
-    - (iv)  Host based LB \
-    - (v)   Ratio based LB 
+a. `Enterprise & TLS Load Balancing`. E.g.,
+- (i)   **Sticky sessions Load Balancing** \
+- (ii)  **TLS based Load Balancing** \
+- (iii) **Path Based Load Balancing** \
+- (iv)  **Host based Load Balancing** \
+- (v)   **Ratio based Load Balancing** 
 
 
 b. `Charges for Load Balancing` \
