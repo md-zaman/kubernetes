@@ -769,103 +769,141 @@ If you exec here to the pod we will find that the port is still the same
     - here, you will get the output DB-PORT=3306
 ```
 So the port has not changes despite changing it in our configmap.yml \
-To solve this problem kubernetes says instead of using this approach, go with the approach of VolumeMounts
-VolumeMounts
+To solve this problem kubernetes says instead of using this approach, go with the approach of VolumeMounts. 
+### VolumeMounts
 In VolumeMounts, instead of using them as environmental variables you can use them as files. So your configmap information can be saved inside a file and developers can read the files instead of env variables.
 let's see how to do it
 
-    vi deployment.yml
-    Delete the environment (entire content of env) and replace it with:
-    Keep in mind that to mount any volume you need to create a volume first
-        At the level of the 'containers', write 'volumes' like:
-        volumes:
-          - name: db-connection
-            configMap:
-              name: test-cm
+```ssh
+vi deployment.yml
+```
+
+Delete the environment (entire content of env) and replace it with:
+Keep in mind that to mount any volume you need to create a volume first
+    At the level of the 'containers', write 'volumes' like:
+```ssh
+    volumes:
+        - name: db-connection
+        configMap:
+            name: test-cm
+```
 
         - In the above volume, we have kept 'configmap' to take out the info
         
-        And under 'image':
-        volumeMounts:
-          - name: db-connection
-            mountPath: /opt
+    And under 'image':
+
+```ssh
+    volumeMounts:
+        - name: db-connection
+        mountPath: /opt
+```
         
         - In the above volumeMount, we have kept the mountPath as '/opt' but it can be anything.
 
-        Let's apply:
-        kubectl apply -f deployment.yml
-
-        kubectl get pods -w
-        - watches the pods realtime
-
-        Get the pod name to exec
-        kubectl get pods
-
-        kubectl exec -it sample-python-app-7878687 --/bin/bash
-        let's see if the volume is mouted on the '/opt' directory
-        ls /opt
-        Output: db-port
-        - this means it is mounted
-        Let's find the value of the db-port
-        cat /opt/db-port | more
-        Output: 3306
-        So, it got mounted appropriately in the file-system 
         
-        Now, let's change the port in the configmap and see if it gets updated. for this, let's edit the configmap:
-        vi configmap.yml
-        change the port from '3306' to '3307'
-        and apply the changes:
-        kubectl apply -f cm.yml
+Let's apply:
+    ```ssh
+    kubectl apply -f deployment.yml
+
+    kubectl get pods -w
+    - watches the pods realtime
+
+    Get the pod name to exec
+    kubectl get pods
+
+    kubectl exec -it sample-python-app-7878687 --/bin/bash
+    ```
+Let's see if the volume is mouted on the '/opt' directory
+```ssh
+    ls /opt
+    Output: db-port
+    - this means it is mounted
+```
+
+Let's find the value of the db-port
+```ssh
+    cat /opt/db-port | more
+    Output: 3306
+```
+    
+So, it got mounted appropriately in the file-system 
         
-        Now, what will happen is the kubernetes pod, without getting restarted will know that the value of the configmap has changed. Let's find out:
-        First, let's make sure that the port you have applied has actually changed:
+Now, let's change the port in the configmap and see if it gets updated. for this, let's edit the configmap:
+```ssh
+vi configmap.yml
+```
+Change the port from '3306' to '3307'and apply the changes:
+    ```ssh
+    kubectl apply -f cm.yml
+    ```
+        
+Now, what will happen is the kubernetes pod, without getting restarted will know that the value of the configmap has changed. Let's find out: \
+First, let's make sure that the port you have applied has actually changed:
 
-        kubectl describe cm test-cm
-        - decribes the referred configmap(cm)- here 'test-cm'
-        You will find here that the value has changed
+```ssh
+    kubectl describe cm test-cm
+    - decribes the referred configmap(cm)- here 'test-cm'
+```
 
-        Let's also ensure that the pods have not restarted:
-        kubectl get pods
-        - lists the pods
-        - check the AGE to find whether they have restarted or not
-        Now let's exec and see:
-        kubectl exec -it sample-python-app-675675776 -- /bin/bash
-        cat /opt/dp-port
-        it got changed!
+You will find here that the value has changed
 
-        Change it again in the cm
+Let's also ensure that the pods have not restarted:
+```ssh
+    kubectl get pods
+    - lists the pods
+    - check the AGE to find whether they have restarted or not
+```
+Now let's exec and see:
+```ssh
+    kubectl exec -it sample-python-app-675675776 -- /bin/bash
+    cat /opt/dp-port
+```
+It got changed!
+
+Change it again in the cm
         vi cm.yml
-        Under 'data:' in db-port: "3307"
-        change the port number to "3309"
-        kubectl apply -f cm.yml
 
-        You don't have to exec everytime we can modify the command to display the info like:
-        kubectl exec -it sample-python-app-7686 --cat/opt/db-port
+    Under 'data:' in db-port: "3307"
+    Change the port number to "3309"
+    kubectl apply -f cm.yml
+
+You don't have to exec everytime we can modify the command to display the info like:
+```ssh
+    kubectl exec -it sample-python-app-7686 --cat/opt/db-port
+```
 
         You will find it got changed after some time
 
 Secrets
 Activity
 
-        a. kubectl create secret generic test-secret --from -literal=db-port="3306"
-            - creates secret from the cli itself
-            - there are several kinds of secrets like 'tls secret', 'generic secret'. 'tls secrets' are basically used to store the certificates.
+a.Let's create a Scret from the CLI itself
 
-        kubectl describe secret test-secret
-        - Describes the secret
-        - Let's find if this is encrypted or not (since it is a secret)
+```ssh
+kubectl create secret generic test-secret --from -literal=db-port="3306"
+- creates secret from the cli itself
+- there are several kinds of secrets like 'tls secret', 'generic secret'. 'tls secrets' are basically used to store the certificates.
+```
 
-        kubectl edit secret test-secret
-        - opens the referred secret yml
-        - you will find here that the db-port is encrypted in base64. This is not the best encryption though.
-        - Kubernetes allows you to encrypt secret. You can encrypt it using HashiCorp vault, Seal secret, etc.,
-        - if you want to find out what is the encrypted by coming out of yml and type the following command:
+```ssh
+kubectl describe secret test-secret
+- Describes the secret
+- Let's find if this is encrypted or not (since it is a secret)
+```
+
+```ssh
+kubectl edit secret test-secret
+    - opens the referred secret yml
+    - you will find here that the db-port is encrypted in base64. This is not the best encryption though.
+    - Kubernetes allows you to encrypt secret. You can encrypt it using HashiCorp vault, Seal secret, etc.,
+    - if you want to find out what is the encrypted by coming out of yml and type the following command:
         echo MzMwNg== | base64 --decode
         - Output: 3306
         - decrypts the port number
         - encryption is done on etcd (we will discuss later)
+```
 
-RBAC - Role Based Access Control
+### RBAC - Role Based Access Control
 
 45. Can be broadly devided into 2 parts:
     a. Users
