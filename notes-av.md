@@ -668,77 +668,92 @@ a. vi cm.yml
         db-port: "3306"
 ```
     
+```ssh
     kubectl apply -f cm.yml
 
     kubectl get cm
 
     kubectl describe cm test-cm
+```
 
-    Let's use this fields an environmental variable in a pod
-    But for that we need to have a k8s pod. So, let's create a pod:
+Let's use this fields an environmental variable in a pod
+But for that we need to have a k8s pod. So, let's create a pod:
 
+```ssh
     apiVersion: apps/v1
-        kind: Deployment
+    kind: Deployment
+    metadata:
+    name: sample-python-app
+    labels:
+        app: sample-python-app
+    spec:
+    replicas: 2
+    selector:
+        matchLabels:
+        app: sample-python-app
+    template:
         metadata:
-        name: sample-python-app
         labels:
             app: sample-python-app
         spec:
-        replicas: 2
-        selector:
-            matchLabels:
-            app: sample-python-app
-        template:
-            metadata:
-            labels:
-                app: sample-python-app
-            spec:
-            containers:
-            - name: python-app
-                image: zamanf5/python-sample-app-demo:v1
-                ports:
-                - containerPort: 8000
+        containers:
+        - name: python-app
+            image: zamanf5/python-sample-app-demo:v1
+            ports:
+            - containerPort: 8000
+```
     
-        kubectl apply -f deployement.yml
+```ssh
+    kubectl apply -f deployement.yml
 
-        kubectl get pods -w
-        - watches the pods
+    kubectl get pods -w
+    - watches the pods
+```
 
-        let's check the env variable of a pod of this deployement:
+Let's check the env variable of a pod of this deployement:
 
-        kubectl exec -it sample-python-app-78578 -- /bin/bash
-        - enters into the pod
+```ssh
+    kubectl exec -it sample-python-app-78578 -- /bin/bash
+    - enters into the pod
+```
 
-        If you check here you will not find any environmental variable:
-        env | grep db
-        - checks for env variable in pod
+If you check here you will not find any environmental variable:
+```ssh
+    env | grep db
+    - checks for env variable in pod
 
-        So to do this, we have to add env in our deployment:
-        vi deployment.yml
+```
+    
+So to do this, we have to add env in our deployment:
+    vi deployment.yml
 
-        Under image:
-        env:
-          - name: DB-PORT
-            valueFrom:
-              configMapKeyRef:
-                name: test-cm
-                key: db-port
+```ssh
+    Under image:
+    env:
+        - name: DB-PORT
+        valueFrom:
+            configMapKeyRef:
+            name: test-cm
+            key: db-port
+```
         
-        kubectl apply -f deployement.yml
+```ssh
+    kubectl apply -f deployement.yml
 
-        kubectl get pods -w
-        - watches the pods in realtime.
-        - you will see here that the previous pods are getting terminated and new ones are getting created.
+    kubectl get pods -w
+    - watches the pods in realtime.
+    - you will see here that the previous pods are getting terminated and new ones are getting created.
 
-        kubectl get pods
-        - displays all the pods
+    kubectl get pods
+    - displays all the pods
 
-        kubectl exec -it sample-python-app-78676 --bin/bash
-        - enters into the pod
-        - We have picked randomly any container for exec
+    kubectl exec -it sample-python-app-78676 --bin/bash
+    - enters into the pod
+    - We have picked randomly any container for exec
 
-        env | grep DB
-        - searchs for env DB
+    env | grep DB
+    - searchs for env DB
+```
 
         You will get the DB port as 3306
         So the developer can go to the python app and say
