@@ -638,6 +638,7 @@ After completing this video watch this video positively for more details on Ingr
 
 ### ConfigMaps & Secrets
 
+## ConfigMaps:
 ConfigMaps are used to store information. Suppose your app needs some information like DB port, DB username, connection type, etc., we know these information is retrieved used environment variables these details shouldn't be hardcoded because if details get changed user get null or no info at all
 So we try to save this as an ENV variable
 As a DevOps eng you can create a configmap inside a k8s cluster and put the information like DB port and any kind of information inside the configmap and you can mount the configmap or you can use the details of the configmap inside your k8s pod. 
@@ -645,7 +646,8 @@ So you can use this data of the configmap as ENV variables inside your k8s pod. 
 So, Configmap is solving the problem of storing the information that can be used by your application at later point of time. 
 Stored data can be used by your Pod, Deployment or your application.
 
-Secrets - Secrets in k8s solves the same problem but it is used for sesitive data. Like parameters, like DB password, DB Username.
+## Secrets:
+Secrets in k8s solves the same problem but it is used for sesitive data. Like parameters, like DB password, DB Username.
 Why we don't save this information in ConfigMap because whenever we save anything in k8s this information is saved in etcd, and in etcd data is stored as objects and any hacker who tries to access the etcd they can get access to your infomation like DBpassword DB Username.  
 So we should save all the non-sensitive data in ConfigMaps and Sensitive data in Secrets.
 In Secrets, k8s encrypts the data at rest. By default k8s uses the basic encryption but it also allows you to use your own encryption machanism - custom encryption.
@@ -655,14 +657,16 @@ With secrets you can use a strong RBAC.
 ConfigMaps
 Activity:
 
-    a. vi cm.yml
+a. vi cm.yml
 
+```ssh
     apiVersion: v1
     kind: ConfigMap
     metadata:
         name: test-cm
     data:
         db-port: "3306"
+```
     
     kubectl apply -f cm.yml
 
