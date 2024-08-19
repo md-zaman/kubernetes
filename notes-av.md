@@ -258,9 +258,12 @@ To create the pod use the command:
 44. What if there is no service in k8s?/ what if there is not component as service in k8s?
     We know containers are ephimeral in nature and that's why we deploy a deployment to ensure a particular no. of pods are running at all times.
     So, when a pod dies for any reason a new pod will come up because we have deployed a deployment (and we know to maintain the required number of services replicaset controller will start another pod). The new pod will have new IP address. Since in our case service doesn't exists in k8s, the user will send the request to the died container- which doesn't exists. So, service acts as a load balancer where whenever there is a traffic from a user, the user is redirected to the new pod and not the previous pod. Services are mapped with pods in deployments using ```labels``` and ```selectors``` and not IP addresses.
+    (1) LB
+    (2) D
+    (3) X
 
     ### Features of Service: 
-    - **(a) Service acts as Load-Balancer** 
+    - **(a) Service acts as Load-Balancer**
     - **(b) Service Discovery**- Using **Labels** and **Selectors**. 
     - **(c) Expose to External World** 
 
@@ -280,13 +283,13 @@ To create the pod use the command:
     **(ii) NodePort**: This will allow your application to be accessed inside your organisation. within your org or network. They might not have access to your cluster but they have the access to your app.- the workernode ip addresses 
 
 
-    **(iii) Load balancer**: In this mode service will expose your application to the external world. Suppose you have deployed your app on eks cluster. In this case you will get Elastic Load balancer IP for your service and now whoever want to access they can use this public IP address. This type is possible in cloud providers only as of now. 
+    **(iii) Load Balancer**: In this mode service will expose your application to the external world. Suppose you have deployed your app on EKS cluster. In this case you will get Elastic Load balancer IP for your service and now whoever want to access they can use this public IP address. This type is possible in cloud providers only as of now. 
 
-    
+
     **Use Cases**:
-        Load Balancer - Amazon.com
-        NodePort - VPC Nodes
-        ClusterIP - Cluster Network
+    - Load Balancer - Amazon.com
+    - NodePort - VPC Nodes
+    - ClusterIP - Cluster Network
         
 #### Kubernetes Service Deep Dive using Kubeshark
 
@@ -486,7 +489,7 @@ To create the pod use the command:
     ```
     You will find that the status under the 'EXTERNAL-IP' says '<pending>' because this is minikube. \
     The Cloud Controller manager generates this IP \
-    Extra Info: there is a project called MetalLB where you can do this using the minikube.
+    Extra Info: There is a project called MetalLB where you can do this using the minikube.
 
     v. Services can do three things: \
         a. LoadBalancing - Done \
@@ -511,13 +514,12 @@ To create the pod use the command:
 ### Ingress
 
 There are 2 problems which ingress addresses which Services in kubernetes were not offering: \
-    a. Enterprise & TLS Load Balancing \
-        E.g., \
-        i.   Sticky sessions LB \
-        ii.  TLS based LB \
-        iii. Path Based LB \
-        iv.  Host based LB \
-        v.   Ratio based LB \
+a. Enterprise & TLS Load Balancing. E.g., \
+- (i)   Sticky sessions LB \
+- (ii)  TLS based LB \
+- (iii) Path Based LB \
+- (iv)  Host based LB \
+- (v)   Ratio based LB \
     b. Charges for Load Balancing \
         Cloud provider will charge you for each and every service type. for each Static IP. \
 
