@@ -760,7 +760,7 @@ So the developer can go to the python app and say
 os.env("DB-PORT") and he will get the value for his database connection
 
 But now there is a problem
-What if we were to change the port from "3306" to "3307" and we make this change in our configmap.yml
+What if we were to change the port from "3306" to "3307" and we make this change in our configmap.yml \
 How will the pods come to know about this change?
 If you exec here to the pod we will find that the port is still the same 
 ```ssh
