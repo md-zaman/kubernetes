@@ -530,7 +530,7 @@ As a kubernetes user you can create an ingress resource and what kubernetes told
 - Nginx
 - f5
 - Ambassador
-- Treffic
+- Traefic
 - HA proxy
 
 Kubernetes told them to create ingress controllers. So, the nginx company will write the nginx ingress controller and then you can use it to your k8s cluster. You can deploy it using helm chart you can deploy using yaml manifest. 
