@@ -16,10 +16,10 @@ We will use the analogy of ships
 
 We have two kinds of ships:
 
-    (a) Cargo Ships \
+    (a) Cargo Ships 
         - which does the actual work of carrying containers accross the sea
 
-    (b) Control Ships \
+    (b) Control Ships 
         - that are responsible for monitoring and managing the cargo ships
 
 Kubernetes cluster consists of a set of nodes which can be which may be physical or virtual. It can be on-premise or on-cloud
