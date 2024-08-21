@@ -15,8 +15,10 @@ Simply the Introduction
 We will use the analogy of ships
 
 We have two kinds of ships:
+
     (a) Cargo Ships \
         - which does the actual work of carrying containers accross the sea
+
     (b) Control Ships \
         - that are responsible for monitoring and managing the cargo ships
 
