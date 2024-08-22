@@ -72,7 +72,7 @@ Installing ETCD
     ./etcdctl set key1 value1
 ```
 
-    To retrieve the stored data, run:
+To retrieve the stored data, run:
 ```ssh
     ./etcd get key1
     Output: Value1
