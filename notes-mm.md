@@ -56,18 +56,19 @@ Skipping this one just for now
 ETCD is a distributed reliable key-value store that is Simple, Secure and Fast
 
 Installing ETCD
-    1. Download the Binaries
-        - curl -L https://github.com/etcd-io/etcd/release/download/.....
+(a) Download the Binaries
+    - curl -L https://github.com/etcd-io/etcd/release/download/.....
 
-    2. Extract
-        tar xzvf stcd-v3.3.11.....
+(b) Extract
+    tar xzvf stcd-v3.3.11.....
 
-    3. Run ETCD Service
-        ./etcd
+(c) Run ETCD Service
+    ./etcd
 
 
     When you start/run the ETCD, it start a service which runs on port 2379 by default you can then attach any client with the etcd service to store and retrieve the information.
-    The default client which come with etcd is etcd control client. It is a command line client for etcd. You can use it to retrieve and store key-value pairs. To store any key-value pair,
+    The default client which come with etcd is etcd control client. It is a command line client for etcd. You can use it to retrieve and store key-value pairs. To store any key-value pair:
+    
 ```ssh
     ./etcdctl set key1 value1
 ```
