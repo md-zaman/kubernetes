@@ -66,8 +66,8 @@ Installing ETCD
     ./etcd
 
 
-    When you start/run the ETCD, it start a service which runs on port 2379 by default you can then attach any client with the etcd service to store and retrieve the information.
-    The default client which come with etcd is etcd control client. It is a command line client for etcd. You can use it to retrieve and store key-value pairs. To store any key-value pair:
+    When you start/run the ETCD, it start a service which runs on port 2379 by default you can then attach any client with the etcd service to store and retrieve any information.
+    The default client which come with etcd is etcd control client. It is a command line client for etcd. You can use it to store and retrieve and store key-value pairs. To store any key-value pair:
     
 ```ssh
     ./etcdctl set key1 value1
@@ -75,10 +75,74 @@ Installing ETCD
 
 To retrieve the stored data, run:
 ```ssh
-    ./etcd get key1
+    ./etcdctl get key1
     Output: Value1
 ```
 
+If you simply want to view more options in etcd type etcdctl without any arguement:
+./etcdctl
+- displays all the options
+
+
+You might come accross different versions of etcd commands. So let's check the versions:
+v0.1 Aug 2013
+v0.5 Dec 2014
+`v2.0 Feb 2015`
+`v3.1 Jan 2017`
+     Nov 2018 CNCF
+
+The most significant is the change from v2 to v3. The API version changed in this. etcd command changed as well. The set and get commands were changed.
+To find out the version:
+./etcdctl --version
+Output:
+    etcd version 3.3.11
+    API version: 2
+- remember there are two versions here one for etcd and another for api
+
+
+So, to change the etcdctl to work with api version 3 either set the environment variable called etcdctl_api=3 for each command. So right before you run each command
+or you can export it as an environment variable for the entire session using the export command.
+Also note that with v3 is a command. Version is now a command and not an option as it was with v2. So in v2 that was a option now its a command. If you now run:
+./etcdctl
+Output:
+    VERSION:
+        3.3.11
+    API VERSION
+        3.3
+    COMMANDS:
+            get     Gets the key or a range of keys
+            ...     ...
+
+
+Now after the v3,
+The command to set the value is:
+./etcdctl put key1 value1
+
+The command to get the value is:
+./etcd get key1
+Output:
+    key1
+    value1
+
+14. ETCD in Kubernetes
+
+The ETCD data store stores information regarding the cluster such as:
+- Nodes
+- Pods
+- Configs
+- Secrets
+- Accounts
+- Roles
+- Bindings
+- Others
+
+Every information that we see when we run the etcd get command is from the etcd server
+Everything that we do like adding additional nodes, pods etc is updated in etcd serer
+Only after it is updated in the etcd server the change is considered complete 
+
+The two way to install etcd shown in the course are downloading from scratch and using kubeadm
+If you setup your cluster from scratch then you have to deploy etcd and you have to download the binaries yourself. installing the binaries and configuring binaries as a service in your master node.
+There many options passed to the service a number of them related to certificates.  
 
 
 
