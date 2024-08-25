@@ -27,11 +27,11 @@ Containers are ephemeral in nature. Means containers can die and revive anytime.
     b. **Auto Healing**
     c. ...
 
-5. Docker has one more problem, it has a ```Single Host```, so if there is a shortage of memory one container is killed by another container. This is not the case with k8s. K8s has multi nodes and if a container is killed by another container k8s will put that container in a different node.
+5. Docker has one more problem, it has a `Single Host`, so if there is a shortage of memory one container is killed by another container. This is not the case with k8s. K8s has multi nodes and if a container is killed by another container k8s will put that container in a different node.
 
 6. K8s can put a faulty pod/application in a different node.
 
-7. **Kubernetes' Auto Scaling :** Kubernetes has something called ```replication controller``` or ```replica set``` (Replication controler is the old name). So, you can go to the ```deployment.yaml``` file and say increase the load from 1 to 10 because load has increased. It also supports HPA (Horizontal Pod Scaler) using which you can directly say that whenever there is an increase in load, increase the number of containers. Whenever my container is reaching the load of 80% increase a pod.
+7. **Kubernetes' Auto Scaling :** Kubernetes has something called `replication controller` or `replica set` (Replication controler is the old name). So, you can go to the ```deployment.yaml``` file and say increase the load from 1 to 10 because load has increased. It also supports HPA (Horizontal Pod Scaler) using which you can directly say that whenever there is an increase in load, increase the number of containers. Whenever my container is reaching the load of 80% increase a pod.
 
 8. **Auto Healing :** k8s controls and fixes the damage. Mostly controls. Suppose a container is going down. Even before a container goes down, k8s starts a new container. Whenever API server receives a signal that a container is going down immediately it will rollout a new container/pod.
 
