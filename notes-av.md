@@ -31,24 +31,24 @@ Containers are ephemeral in nature. Means containers can die and revive anytime.
 
 6. K8s can put a faulty pod/application in a different node.
 
-7. **Kubernetes' Auto Scaling :** Kubernetes has something called `replication controller` or `replica set` (Replication controler is the old name). So, you can go to the ```deployment.yaml``` file and say increase the load from 1 to 10 because load has increased. It also supports HPA (Horizontal Pod Scaler) using which you can directly say that whenever there is an increase in load, increase the number of containers. Whenever my container is reaching the load of 80% increase a pod.
+7. **Kubernetes' Auto Scaling :** Kubernetes has something called `replication controller` or `replica set` (Replication controler is the old name). So, you can go to the `deployment.yaml` file and say increase the load from 1 to 10 because load has increased. It also supports HPA (Horizontal Pod Auto-scaler) using which you can directly say that whenever there is an increase in load, increase the number of containers. Whenever my container is reaching the load of 80% increase a pod.
 
-8. **Auto Healing :** k8s controls and fixes the damage. Mostly controls. Suppose a container is going down. Even before a container goes down, k8s starts a new container. Whenever API server receives a signal that a container is going down immediately it will rollout a new container/pod.
+8. **Auto Healing :** Kubernetes controls and fixes the damage. Mostly controls. Suppose a container is going down. Even before a container goes down, kubernetes starts a new container. Whenever API server receives a signal that a container is going down immediately it will rollout a new container/pod.
 
-9. **Enterprise nature:** Custom resourses- advanced load balancing. K8s advancing every day by CNCF. 
+9. **Enterprise Nature:** `Custom resourses`- advanced load balancing. K8s advancing every day by CNCF. 
 
 # Day 2: Kubernetes Architecture
 
 10. On a high level k8s is divided in two parts- Control plane and the data plane. 
 
-Under ```Control plane``` we have: 
+Under `Control plane` we have: 
 - API Server, 
 - Controller Manager, 
 - ETCD, 
 - Scheduler and 
 - Cloud Controller Manager
 
-Under ```Data Plane``` we have: 
+Under `Data Plane` we have: 
 - Kubelet, 
 - Kube Proxy and 
 - Container Runtime.
@@ -62,20 +62,20 @@ Under ```Data Plane``` we have:
 | Cloud Control Manager (CCM) |                   |
 
 #### Worker Node: 
-11. **Kubelet**: Kubelet is responsible for ```maintaing``` the pod. It ensure that the pod is always running if the pod is not running, it will inform the API Server in control plane.
+11. **Kubelet**: Kubelet is responsible for `maintaing` the pod. It ensure that the pod is always running if the pod is not running, it will inform the API Server in control plane.
 
-12. **Container runtime:** Container runtime's primary job is to ```create```, ```start```, ```stop```, and ```delete``` containers on a node.
+12. **Container runtime:** Container runtime's primary job is to `create`, `start`, `stop`, and `delete` containers on a node.
 It can be docker or any other container runtime of CRI-O, containerd or any other container runtimes which implements container interface.
 
-13. **Kube Proxy**: Kube Proxy provides you networking. Its primary function is to ```maintain network rules on the node```, ensuring that pods can communicate with each other and with external services.
+13. **Kube Proxy**: Kube Proxy provides you networking. Its primary function is to `maintain network rules on the node`, ensuring that pods can communicate with each other and with external services.
 Every container has to be allocated with IP address and load balancing capabilities. (Basically uses the IP tables on your Linux machine).
 
 #### Control Plane:
 
 14. **API Server**: This is the component which exposes to the outside world. Takes request from external world. It also decides on which node the pod has to be created.
 15. **Scheduler (Kube-Scheduler)**: It schedules your pods/resources in k8s. 
-16. **ETCD**: It ```stores the entire cluster information```. It is highly-available, distributed key-value store.  
-17. **Controller Manager**: It helps in ```maintaing the desired state``` of the ```cluster```. It consists of multiple controllers that continuously monitor the state of various Kubernetes objects (like deployments, replica sets, and daemon sets) and take corrective actions to ensure they match the desired state specified in their configuration.
+16. **ETCD**: It `stores the entire cluster information`. It is highly-available, distributed key-value store.  
+17. **Controller Manager**: It helps in `maintaing the desired state` of the `cluster`. It consists of multiple controllers that continuously monitor the state of various Kubernetes objects (like deployments, replica sets, and daemon sets) and take corrective actions to ensure they match the desired state specified in their configuration.
 
 18. **CCM (Cloud Controller Manager)**: When we use our k8s cluster on EKS or AKS or GKE and want to lets say create a pod, k8s doesn't understand the language of these cloud provider so the CCM converts this instruction to EKS to talk to the API of EKS. The CCM is open source and suppose if I make a cloud by the name "Zaman cloud" I can create my own CCM which can be used in k8s. If we are deploying the cluster in on-premise, CCM is not required.
 
@@ -117,7 +117,7 @@ Every container has to be allocated with IP address and load balancing capabilit
 28. How to deploy a pod: \
     a. Create a yml file like below: 
     
-```ssh
+`ssh
     apiVersion: v1
     kind: Pod
     metadata:
@@ -128,11 +128,11 @@ Every container has to be allocated with IP address and load balancing capabilit
         image: nginx:1.14.2
         ports:
         - containerPort: 80
-```
+`
 Save the yml file. \
 To create the pod use the command:
 
-```ssh
+`ssh
     kubectl create pod -f pod.yml
     - creates a pod 
 
@@ -143,51 +143,51 @@ To create the pod use the command:
     - displays the details of the pod
     - this will also display the node in which it's in
 
-```
+`
 29. To login to your kubernetes cluster: 
-    ```ssh
+    `ssh
     minikube ssh
-    ```
+    `
 
 
 #### Auto Scaling and Auto healing:
 
-30. You have to use deployment to get ```auto-healing``` and ```auto-scaling```
+30. You have to use deployment to get `auto-healing` and `auto-scaling`
 
 31. In actual scenarios we don't deploy a pod but we deploy a deployments or stateful sets or deamon sets. We will discuss about these things later.
 
 32. To check the logs of the pod:
-    ```bash
+    `bash
     kubectl logs nginx
     - displays the logs of the pod
-    ```
+    `
 
-33. ```bash
+33. `bash
     kubectl describe nginx
     - displays all the details of the pod
     - this is how to debug
-    ```
+    `
 
 34. We can remember all the Kubernetes commands by downloading the pdf file easily available on the internet by the name: "kubernetes cheatsheet"
 
 32. When you want to delete a pod:
-    ```bash
+    `bash
     kubectl delete pod nginx
     - deletes the pod
-    ```
+    `
 
 33. To debug pods or apps. Your go-to commands could be:
-    ```bash
+    `bash
     kubectl describe pod <pod_name>
     kubectl logs nginx
-    ```
+    `
 
 # Day 34: Kubernetes Deployment
 
 34. Difference between Container, Pod and Deployment
 
 
-| ```Features```|```Container```                         | ```Pod```                                  |```Deployment```                               |
+| `Features`|`Container`                         | `Pod`                                  |`Deployment`                               |
 |---------------|----------------------------------------|--------------------------------------------|-----------------------------------------------|
 | **Basic Unit**| Single running process                 | Smallest deployable unit in K8s            | Manages and scales Pods                         |
 | **Contents**  | App. code, dependencies, libraries     | One or more containers                     | Desired state of Pods                           |
@@ -212,7 +212,7 @@ To create the pod use the command:
 38. **Controller**: are something which ensure that the desired state and actual state are same. There are default controllers and custom controllers. It is a go language application which k8s has written which ensures this.
 
 39. **Controllers defination from Gemini:**
-    Controllers are the core components that ```continuously monitor``` and ```maintain``` the ```desired state of your cluster```. They operate in control loops, constantly comparing the actual state of objects (like Pods, Deployments, Services) to their desired state, and taking actions to reconcile any differences.
+    Controllers are the core components that `continuously monitor` and `maintain` the `desired state of your cluster`. They operate in control loops, constantly comparing the actual state of objects (like Pods, Deployments, Services) to their desired state, and taking actions to reconcile any differences.
 
     **Key Concepts**:
 
@@ -243,10 +243,10 @@ To create the pod use the command:
 
 
 
-41. ```bash
+41. `bash
     kubectl get pods -w
     - watch the container log realtime (live)
-    ```
+    `
 
 42. If you delete a pod or if a pod is deleted for any reason while you have deployed a deployment. The replicaset which was created by the deployemnt will ensure that another pod is create even before the pod is deleted. This ensures 0 downtime.
 
@@ -257,7 +257,7 @@ To create the pod use the command:
 
 44. What if there is no service in k8s?/ what if there is not component as service in k8s?
     We know containers are ephimeral in nature and that's why we deploy a deployment to ensure a particular no. of pods are running at all times.
-    So, when a pod dies for any reason a new pod will come up because we have deployed a deployment (and we know to maintain the required number of services replicaset controller will start another pod). The new pod will have new IP address. Since in our case service doesn't exists in k8s, the user will send the request to the died container- which doesn't exists. So, service acts as a load balancer where whenever there is a traffic from a user, the user is redirected to the new pod and not the previous pod. Services are mapped with pods in deployments using ```labels``` and ```selectors``` and not IP addresses.
+    So, when a pod dies for any reason a new pod will come up because we have deployed a deployment (and we know to maintain the required number of services replicaset controller will start another pod). The new pod will have new IP address. Since in our case service doesn't exists in k8s, the user will send the request to the died container- which doesn't exists. So, service acts as a load balancer where whenever there is a traffic from a user, the user is redirected to the new pod and not the previous pod. Services are mapped with pods in deployments using `labels` and `selectors` and not IP addresses.
     (1) LB
     (2) D
     (3) X
@@ -295,7 +295,7 @@ To create the pod use the command:
 
 44. Activity: 
 
-    ```ssh
+    `ssh
     a. minikube status
         - checks the minikube status- the running cluster
 
@@ -309,26 +309,26 @@ To create the pod use the command:
 
     e. kube delete svc <service_name>
         - delete the mentioned services
-    ```
+    `
             
     Ensure that you don't remove the default kubernetes service by the name - "service/kubernetes".
 
     Ensure that when you do "kubectl get all" you get only the "service/kubernetes" running.
 
     Let's clone a particular GitHub repository with which we will work: 
-    ```ssh
+    `ssh
         git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero.git
-    ```
+    `
 
     Inside the folder we have these files and directories:
 
-    ```sh
+    `sh
         zaman@MdZamanLaptop:~/k8s/Docker-Zero-to-Hero/examples/python-web-app$ ls
         Dockerfile  devops  requirements.txt
         zaman@MdZamanLaptop:~/k8s/Docker-Zero-to-Hero/examples/python-web-app$ vim Dockerfile
-    ```
+    `
     The Dockerfile that we have has this content:
-    ```sh
+    `sh
         FROM ubuntu
 
         WORKDIR /app
@@ -343,15 +343,15 @@ To create the pod use the command:
 
         ENTRYPOINT ["python3"]
         CMD ["manage.py", "runserver", "0.0.0.0:8000"]
-    ```
+    `
 
     f. Let's build the image:
-    ```ssh
+    `ssh
         docker build -t zamanf5/python-sample-app-demo:v1 .
-    ```
+    `
 
     g. Now, let us make the deployment.yaml manifest
-    ```ssh
+    `ssh
         apiVersion: apps/v1
         kind: Deployment
         metadata:
@@ -373,15 +373,15 @@ To create the pod use the command:
                 image: zamanf5/python-sample-app-demo:v1
                 ports:
                 - containerPort: 8000
-    ```
+    `
     
     h. Now deploy the deployment:
-    ```ssh
+    `ssh
         kubectl apply -f deployment.yaml
-    ```
+    `
 
     i. Let's check:
-    ```ssh
+    `ssh
         kubectl get deploy
         - shows the deployements
         check the pods also to recheck:
@@ -394,17 +394,17 @@ To create the pod use the command:
         - displays the pods in verbose - shows your more details
         kubectl get pods -v=9
         - this is the maximum verbosity level
-    ```
+    `
         
     j. If you want to go to the application in minikube:
-    ```ssh
+    `ssh
         minikube ssh
         Then:
         curl -L http://172.17.0.5/8000/demo
         - We're using '-L' because abhishek veeramalla said that the application he has written, it requires a redirect.
         - Here we are trying to access the app. The app runs on the port 8000/demo
         - '/demo' is context root of the application
-    ```
+    `
                   
     k. If you try the same command after coming out of the k8s cluster, you won't be able to access it. This is because a pod by default will have cluster network attached to it. But you can have internal as well as external cutomers.
 
@@ -414,10 +414,10 @@ To create the pod use the command:
     iii. Load Balancer Mode
 
     m. Create the files:
-    ```ssh
+    `ssh
         vi service.yaml
-    ```
-    ```ssh
+    `
+    `ssh
         apiVersion: v1
         kind: Service
         metadata:
@@ -430,12 +430,12 @@ To create the pod use the command:
             - port: 80
             targetPort: 8000
             nodePort: 30007
-    ```
+    `
 
     Now, simply apply:
-    ```ssh
+    `ssh
         kubectl apply -f service.yml
-    ```
+    `
 
     ------
     Comment:
@@ -444,49 +444,49 @@ To create the pod use the command:
     ------
 
     To check:
-    ```ssh
+    `ssh
         kubectl get svc
         - displays the services
 
         kubectl get svc -v=9
         - shows a verbose status of the services
-    ```
+    `
 
     s. Irrespective of what kind of service you choose whether it be ClusterIP mode, NodePort mode or Load Balancing mode, `ClusterIP` will always be there.
     Apart from this you will also get a port mapping- the Node IP Address. This will be under the column 'PORT(S)'. You will get this port mapping and you can access you application using this port when you are using NodePort or LoadBalancing mode. (In NodePort we don't get this because in NodePort you only have your application avaiable in the Cluster.)
     
     t. You can access the application either by ClusterIP address which you will find under the 'CLUSTERIP' column (but you have to ensure that you are loggedin in the cluster) or you can use the Nope IP address. So, suppose your Node IP Address which is getting displayed under PORT(S) is '80:30007' and here is how you can do it:
         i. Get the IP Address. In minikube we can enter the command:
-    ```ssh
+    `ssh
         minikube ip
         Output: 192.168.64.10
-    ```
+    `
 
     Now, you can curl and see your application:
-    ```ssh
+    `ssh
         curl -L http://192.168.64.10:30007/demo
-    ```
+    `
 
     We can also enter this link in the address bar of the browser and access our application.
     However, if you take the same URL and try to access it from elsewhere you will not be able to access it. This is because you haven't exposed your application to the outside world.
 
     u. To expose this existing application to the outside world we can simply edit the svc:
-    ```ssh
+    `ssh
         kubectl edit svc python-django-sample-app
         - opens services' yaml where you can edit the service.
-    ```
+    `
     If you want to check the name of the service you can simply enter:
-    ```ssh
+    `ssh
         kubectl get svc
         - lists all the service
-    ```
+    `
     Here you have to change the service 'type:' from 'NodePort' to 'LoadBalancer'
     This will not work here because we are using minikube. But suppose you're using ec2 instance you can do it by accessing the ec2 instances' public IP.
     These things are taken care of by the CCM- Cloud Control Manager.
     After you saved this service aftermaking the changes enter:
-    ```ssh
+    `ssh
         kubectl get svc
-    ```
+    `
     You will find that the status under the 'EXTERNAL-IP' says '<pending>' because this is minikube. \
     The Cloud Controller manager generates this IP \
     Extra Info: There is a project called MetalLB where you can do this using the minikube.
@@ -499,10 +499,10 @@ To create the pod use the command:
 
     c. **Service Discovery**: An activity for this
         Let us edit the svc and change the 'selector' value and see how it goes:
-    ```ssh
+    `ssh
         kubectl edit svc python-django-sample-app
         - edits the service referred
-    ```
+    `
 
     Now, after changing the selector the labels and selectors are different. Let's find out if we can access our application with the Node IP. We can enter the command in the browser also. 'http://192.168.64.10:30007/demo'.
             Here you will find that our application is not accessible.
@@ -552,11 +552,11 @@ Ingress controller has to be installed before ingress resource.
 Using the previous setup we will do 'Host based' Load Balancing
 
 a. Create YML manifest for the ingress 
-```ssh
+`ssh
 vi ingress.yml
-```
+`
 
-```ssh
+`ssh
         apiVersion: networking.k8s.io/v1
         kind: Ingress
         metadata:
@@ -573,60 +573,60 @@ vi ingress.yml
                     name: python-django-sample-app
                     port:
                     number: 80
-```    
+`    
 Now, simply apply:
-```ssh
+`ssh
     kubectl apply -f ingress.yml
-```
+`
 ---------
 
 Check:
-```ssh
+`ssh
     kubectl get ingress
         - lists all ingres
-```
+`
 
 Now although we have made this ingress, nothing will happen - what do I mean by that? What it means is that since I have created the ingress if I were to curl the domain 'foo.bar.com/bar' like this:
-```ssh
+`ssh
     curl -L http://foo.bar.com/bar -v
-```
+`
 Nothing will happen here..
 Why?
 Our desired output was that ingress should take me to the service- 'python-django-sample-app' as mentioned in the ingress that we have defined above. It is not happening because there is no ingress 'controller'.
 So, we will install ingress controller
 Search for it on Google for minikube:
-```ssh
+`ssh
     minikube addons enable ingress
         - installs nginx controller
-```
+`
 Let's check if it has installed. To check we will check pods because ingress controllers are also a pod
-```ssh
+`ssh
     kubectl get pods -A | grep nginx
     - lists pods in all namespace '-A' means all namespace
-```
+`
 
 Now let us find the logs and find out if it has identified our ingress resource that we have created.
-```ssh
+`ssh
     kubectl logs ingress-nginx-controller-cc8496... -n ingress-nginx
     - this command checks the logs of the mentioned pod in the specified namespace (nginx ingress created its own logs)
-```
+`
     
 You will find that it has successfully synced as well.
 
 If you enter the command 
-```ssh
+`ssh
     kubectl get ingress
-```
+`
 You will find here that now, under the address, there is an IP address earlier it was not there.
 
 In your minikube, you also have to edit the 'host'
-```ssh
+`ssh
     sudo vi /etc/hosts
-```
+`
 And add this :
-```ssh
+`ssh
     192.168.64.11 foo.bar.com
-```
+`
 Now if you try to ping it will be resolved.
                      
 
@@ -659,27 +659,27 @@ Activity:
 
 a. vi cm.yml
 
-```ssh
+`ssh
     apiVersion: v1
     kind: ConfigMap
     metadata:
         name: test-cm
     data:
         db-port: "3306"
-```
+`
     
-```ssh
+`ssh
     kubectl apply -f cm.yml
 
     kubectl get cm
 
     kubectl describe cm test-cm
-```
+`
 
 Let's use this fields an environmental variable in a pod
 But for that we need to have a k8s pod. So, let's create a pod:
 
-```ssh
+`ssh
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -701,33 +701,33 @@ But for that we need to have a k8s pod. So, let's create a pod:
             image: zamanf5/python-sample-app-demo:v1
             ports:
             - containerPort: 8000
-```
+`
     
-```ssh
+`ssh
     kubectl apply -f deployement.yml
 
     kubectl get pods -w
     - watches the pods
-```
+`
 
 Let's check the env variable of a pod of this deployement:
 
-```ssh
+`ssh
     kubectl exec -it sample-python-app-78578 -- /bin/bash
     - enters into the pod
-```
+`
 
 If you check here you will not find any environmental variable:
-```ssh
+`ssh
     env | grep db
     - checks for env variable in pod
 
-```
+`
     
 So to do this, we have to add env in our deployment:
     vi deployment.yml
 
-```ssh
+`ssh
     Under image:
     env:
         - name: DB-PORT
@@ -735,9 +735,9 @@ So to do this, we have to add env in our deployment:
             configMapKeyRef:
             name: test-cm
             key: db-port
-```
+`
         
-```ssh
+`ssh
     kubectl apply -f deployement.yml
 
     kubectl get pods -w
@@ -753,7 +753,7 @@ So to do this, we have to add env in our deployment:
 
     env | grep DB
     - searchs for env DB
-```
+`
 
 You will get the DB port as 3306
 So the developer can go to the python app and say
@@ -763,46 +763,46 @@ But now there is a problem
 What if we were to change the port from "3306" to "3307" and we make this change in our configmap.yml \
 How will the pods come to know about this change?
 If you exec here to the pod we will find that the port is still the same 
-```ssh
+`ssh
     kubectl exec -it sample-python-app-78676 --bin/bash
     env | grep DB
     - here, you will get the output DB-PORT=3306
-```
+`
 So the port has not changes despite changing it in our configmap.yml \
 To solve this problem kubernetes says instead of using this approach, go with the approach of VolumeMounts. 
 ### VolumeMounts
 In VolumeMounts, instead of using them as environmental variables you can use them as files. So your configmap information can be saved inside a file and developers can read the files instead of env variables.
 let's see how to do it
 
-```ssh
+`ssh
 vi deployment.yml
-```
+`
 
 Delete the environment (entire content of env) and replace it with:
 Keep in mind that to mount any volume you need to create a volume first
     At the level of the 'containers', write 'volumes' like:
-```ssh
+`ssh
     volumes:
         - name: db-connection
         configMap:
             name: test-cm
-```
+`
 
         - In the above volume, we have kept 'configmap' to take out the info
         
     And under 'image':
 
-```ssh
+`ssh
     volumeMounts:
         - name: db-connection
         mountPath: /opt
-```
+`
         
         - In the above volumeMount, we have kept the mountPath as '/opt' but it can be anything.
 
         
 Let's apply:
-    ```ssh
+    `ssh
     kubectl apply -f deployment.yml
 
     kubectl get pods -w
@@ -812,52 +812,52 @@ Let's apply:
     kubectl get pods
 
     kubectl exec -it sample-python-app-7878687 --/bin/bash
-    ```
+    `
 Let's see if the volume is mouted on the '/opt' directory
-```ssh
+`ssh
     ls /opt
     Output: db-port
     - this means it is mounted
-```
+`
 
 Let's find the value of the db-port
-```ssh
+`ssh
     cat /opt/db-port | more
     Output: 3306
-```
+`
     
 So, it got mounted appropriately in the file-system 
         
 Now, let's change the port in the configmap and see if it gets updated. for this, let's edit the configmap:
-```ssh
+`ssh
 vi configmap.yml
-```
+`
 Change the port from '3306' to '3307'and apply the changes:
-    ```ssh
+    `ssh
     kubectl apply -f cm.yml
-    ```
+    `
         
 Now, what will happen is the kubernetes pod, without getting restarted will know that the value of the configmap has changed. Let's find out: \
 First, let's make sure that the port you have applied has actually changed:
 
-```ssh
+`ssh
     kubectl describe cm test-cm
     - decribes the referred configmap(cm)- here 'test-cm'
-```
+`
 
 You will find here that the value has changed
 
 Let's also ensure that the pods have not restarted:
-```ssh
+`ssh
     kubectl get pods
     - lists the pods
     - check the AGE to find whether they have restarted or not
-```
+`
 Now let's exec and see:
-```ssh
+`ssh
     kubectl exec -it sample-python-app-675675776 -- /bin/bash
     cat /opt/dp-port
-```
+`
 It got changed!
 
 Change it again in the cm
@@ -868,9 +868,9 @@ Change it again in the cm
     kubectl apply -f cm.yml
 
 You don't have to exec everytime we can modify the command to display the info like:
-```ssh
+`ssh
     kubectl exec -it sample-python-app-7686 --cat/opt/db-port
-```
+`
 
         You will find it got changed after some time
 
@@ -879,19 +879,19 @@ Activity
 
 a.Let's create a Scret from the CLI itself
 
-```ssh
+`ssh
 kubectl create secret generic test-secret --from -literal=db-port="3306"
 - creates secret from the cli itself
 - there are several kinds of secrets like 'tls secret', 'generic secret'. 'tls secrets' are basically used to store the certificates.
-```
+`
 
-```ssh
+`ssh
 kubectl describe secret test-secret
 - Describes the secret
 - Let's find if this is encrypted or not (since it is a secret)
-```
+`
 
-```ssh
+`ssh
 kubectl edit secret test-secret
     - opens the referred secret yml
     - you will find here that the db-port is encrypted in base64. This is not the best encryption though.
@@ -901,7 +901,7 @@ kubectl edit secret test-secret
         - Output: 3306
         - decrypts the port number
         - encryption is done on etcd (we will discuss later)
-```
+`
 
 ### RBAC - Role Based Access Control
 
