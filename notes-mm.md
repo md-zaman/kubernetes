@@ -41,7 +41,7 @@ Controllers-Managers - Node controllers, replication controllers, etc.,
 
 (vi) **Kubelet** is an agent that runs on each node in a cluster. It listens for instructions from the kube-apiserver and deploys or destroys containers in the nodes as required. It periodically fetches status report from the kubelet to monitor the status of the nodes and containers on them. 
 
-(vii) **Kube-proxy** Application running on the worker nodes need to communicate to each other like if you are running a webserver running in a container in a node and a database containers on another container on another node. Communications are enabled by the Kube-proxy. It ensure that the necessary rules are in place on the worker node to allow the containers running on them to reach each other.
+(vii) **Kube-proxy** Application running on the worker nodes need to ==communicate== to each other like if you are running a webserver running in a container in a node and a database containers on another container on another node. Communications are enabled by the Kube-proxy. It ensure that the necessary rules are in place on the worker node to allow the containers running on them to reach each other.
 
 ### 12. Docker vs ContainerD
 
@@ -395,8 +395,4 @@ kubeconfig=/etc/kubernetes/controller-manager.conf --leader-elect=true --root-ca
 ```
 
 
-Zaman
-: this is my name
 
-term
-: definition
