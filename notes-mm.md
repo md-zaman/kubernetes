@@ -397,3 +397,6 @@ kubeconfig=/etc/kubernetes/controller-manager.conf --leader-elect=true --root-ca
 
 Zaman
 : this is my name
+
+term
+: definition
