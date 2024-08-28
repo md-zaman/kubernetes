@@ -64,7 +64,7 @@ Installing ETCD
 
 
     When you start/run the ETCD, it start a service which runs on port 2379 by default you can then attach any client with the etcd service to store and retrieve any information.
-    The default client which come with etcd is etcd control client. It is a command line client for etcd. You can use it to store and retrieve and store key-value pairs. To store any key-value pair:
+    The default client which come with etcd is etcd control client. It is a command line client for etcd. You can use it to store and retrieve  key-value pairs. To store any key-value pair:
     
 ```ssh
     ./etcdctl set key1 value1
@@ -89,7 +89,8 @@ v0.5 Dec 2014
      Nov 2018 CNCF
 
 The most significant is the change from v2 to v3. The API version changed in this. Etcd command changed as well. The set and get commands were changed.
-To find out the version:
+
+To find out the version: \
 ./etcdctl --version
 Output:
     etcd version 3.3.11
@@ -133,21 +134,23 @@ The ETCD data store stores information regarding the cluster such as:
 - Bindings
 - Others
 
-Every information that we see when we run the etcd get command is from the etcd server
+Every information that we see when we run the kubectl get command is from the etcd server
 Everything that we do like adding additional nodes, pods etc is updated in etcd serer
-Only after it is updated in the etcd server the change is considered complete 
+Only after it is updated in the etcd server, the change is considered complete.
 
-There two types of kuberenetes deployment shown in this course deployment from scratch and another using the kubeadm tool.
+There two types of kuberenetes deployment shown in this course: 
+- Deployment from scratch and 
+- Using the kubeadm tool.
 Cluster from scratch
 If you setup your cluster from scratch then you have to deploy etcd and you have to download the binaries yourself. installing the binaries and configuring etcd as a service in your master node.
-There many options passed to the service a number of them related to certificates.
+There are many options passed to the service a number of them related to certificates.
 another one is:
 --advertise-client-urls https://${INTERNAL_IP}:2379 \\
 This is the address on which the etcd listens. It happens to be on the IP of the server and on the port 2379- the default port where etcd listens.
-This is the URL that should be configured on the kube apiserver when it tries to reach the etcd server.
+This is the URL that should be configured on the kube-apiserver when it tries to reach the etcd server.
 
 Cluster using kubeadm
-The kubeadm deploys the etcd server as a pod in the kubesystem namespace:
+The kubeadm deploys the etcd server as a pod in the kube-system namespace:
 kubectl get pods -n kube-system
 To list all keys stored by kubernetes:
 kubectl exec etcd-master -n kube-system etcdctl get / --prefix -keys-only
@@ -178,7 +181,7 @@ etcdctl endpoint health
 etcdctl get
 etcdctl put
 
-To set the right version of API set the environment variable ETCDCTL_API command
+To set the right version of API, set the environment variable ETCDCTL_API command
 
 export ETCDCTL_API=3
 
@@ -215,12 +218,12 @@ You don't really need the kubectl command line instead you can also invoke the a
  (d) Update ETCD
  (e) Scheduler
 
-In this case the API-Server create a pod object without assigning it to any node, updates the information in the etcd server, updates the user that the pod has been created.
-The scheduler continuously monitors the api-server and realises that there's a new pod with no node assigned, the scheduler identifies the right node to place the new pod on and communicates back to the kube-apiserver, the api-server then updates the information in the etcd cluster, the api-server then passes that information to the kubelet in the appropriate worker node, the kubelet then creates the pod on the node and instructs the container runtime engine to deploy the application runtime image once done the kubelet updates the status back to the api-server and the api server then updates the data back in the etcd cluster. 
+In this case the API-Server creates a pod object without assigning it to any node, updates the information in the etcd server, updates the user that the pod has been created.
+The scheduler continuously monitors the api-server and realises that there's a new pod with no node assigned, the scheduler identifies the right node to place the new pod on and communicates back to the kube-apiserver, the api-server then updates the information in the etcd cluster, the api-server then passes that information to the kubelet in the appropriate worker node, the kubelet then creates the pod on the node and instructs the container runtime engine to deploy the application runtime image once done the kubelet updates the status back to the api-server and the api-server then updates the data back in the etcd cluster. 
 A similar pattern is followed everytime the change is requested.
 The kube-apiserver is at the centre of all the different tasks that needs to be performed to make a change in the cluster. 
 To summarise, the kube-apiserver is responsible for authenticating and validating request, retrieving and updating data in the etcd data store. Infact kube-apiserver is the only component that interacts with the etcd data store. the other components uses the api-server to perform the updates in the cluster in their respective areas.
-If you bootstraped your your cluster using kubeadmin tool then you don't need to know this but if you're setting up this hardway then the kube-apiserver is availble as a binary in the kubernetes release page. Download and run it as a service in your kubernetes master node. 
+If you bootstrapped your your cluster using kubeadm tool then you don't need to know this but if you're setting up this hardway then the kube-apiserver is available as a binary in the kubernetes release page. Download and run it as a service in your kubernetes master node. 
 
 The kube-apiserver, just like etcd is run with a lot of parameters, as you can see below:
 wget https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-apiserver
@@ -247,12 +250,12 @@ We will install all of these indiviadually later
 
 Let's look at a few of them:
 Certificatates - these help in setting up connectivity between different components
-ETCD servers - The option etcd servers is where you specify the loaction of the etcd servers   --etcd-servers=https://127.0.0.1:2379 \\
+ETCD servers - The option etcd servers is where you specify the location of the etcd servers   --etcd-servers=https://127.0.0.1:2379 \\
 
 To view api-server option in existing cluster:
 If Kubeadm
-the kubeadm deploys the kube-apiserver as a pod in the kube-system namespace on the master node you can see thatby :
-cat /et/kubernetes/manifests/kube-apiserver.yaml
+the kubeadm deploys the kube-apiserver as a pod in the kube-system namespace on the master node you can see that by :
+cat /etc/kubernetes/manifests/kube-apiserver.yaml
 In a non-kubeadm setup:
 cat /etc/systemd/system/kube-apiserver.service
 
@@ -261,7 +264,7 @@ You can also see the running process and the affective option by listing the pro
 17. Kube Controller Manager
 
 Manages various controllers in kubernetes
-In kubernetes is a process that continuously monitors the state of various components within the system and works towards bringing the whole system to the desired functioning state. 
+In kubernetes its a process that continuously monitors the state of various components within the system and works towards bringing the whole system to the desired functioning state. 
 Example:
 - Deployment Controller
 - CronJob
@@ -270,7 +273,7 @@ Example:
 - Namespace Controller
 - Job Controller
 - Stateful-Set
-- Daemon-Set
+- Daemon-Set (not a controller but have traits)
 - PV-Binder-Controller
 - Endpoint-Controller
 - PV-Protection-Controller
@@ -394,5 +397,127 @@ kubeconfig=/etc/kubernetes/controller-manager.conf --leader-elect=true --root-ca
 --use-service-account-credentials=true
 ```
 
+18. Kube Scheduler
+
+The scheduler is only responsible for deciding which pod goes on which node, it doesn't actually places the pod on the nodes- that's the job of the kubelet. The kubelet is who creates the pod on the node. The scheduler only decides which pod goes where. 
+The scheduler places the pods on certain nodes based on certain criteria. You may have pods with certain resource requirements. You can have nodes in the cluster dedicated to certain applications. So, how this schedular assign these pods? The scedular looks at each pod and tries to find the best node for it. e.g., It has a set of cpu and memory requirement the scedular goes for two phase to identify the best node for the pod:
+Phases:
+    (a) Filter Nodes 
+    (b) Ranks Nodes
+
+    (a) Filter Nodes: The scedular tries to filter out the nodes that don't fit the profile for this pod. E.g., the nodes that don't have sufficient cpu and memory resources needed/requested for the pod. This was few nodes are filtered out so we are not left with fewer nodes where the pods can be placed.
+    (b) Ranks Nodes : Suppose there are two nodes left, how does the sceduler picks one of the two? The scduler ranks the nodes to identify the best fit for the pod. It uses a priority function to assign a score to the nodes on a scale of 0 to 10. e.g., the schedular calculates number of resources that would be free on the nodes after after placing the pod on them. The nodes which will be having more number of resources free even after putting the pod in the node will be ranked better and so that will be decided.
+
+There are other way also how nodes are selecetd like:
+- Resource Requirements and Limits
+- Taints and Tolerations
+- Node Selectors/Affinity
+
+Installing the kube-scheduler
+
+wget https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-scheduler
+
+Extract it and run it as a service
+
+kube-scheduler.service
+
+ExecStart=/usr/local/bin/kube-scheduler \\
+--config=/etc/kubernetes/config/kube-scheduler.yaml \\
+--v=2
+
+Now how do you view the kube-scheduler options?
+
+If you have set it up with kubeadm:
+The kubeadm tool deploys the kubescheduler as a pod in the kube-system namespace on the masternode.
+
+cat /etc/kubernetes/manifests/kube-scheduler.yaml
+
+spec:
+containers:
+- command:
+- kube-scheduler
+- --address=127.0.0.1
+- --kubeconfig=/etc/kubernetes/scheduler.conf
+- --leader-elect=true
+
+You can also see the running process and affective options by listing the process on the master node and searching for kube-scheduler
+
+ps -aux | grep kube-scheduler
+
+root 2477 0.8 1.6 48524 34044 ? Ssl 17:31 0:08 kube-scheduler --
+address=127.0.0.1 --kubeconfig=/etc/kubernetes/scheduler.conf --leader-elect=true
+
+
+
+19. Kubelet
+The kubelet registers the node on the kubernetes cluster. When it receives the intruction to load a container or a pod on a node it requests the container runtime engine which maybe docker to pull the requiered image to run an instance. The kubelet then continues to monitor the status of the pod and containers in it and reports to the kube-apiserver on a timely basis. 
+
+If you use kubeadm to deploy the cluster it doesn't automatically deploy the kubelets. Now that's the difference from other components.
+You must manually install kubelet on your worker nodes. 
+Download the installer, extract it and run it as a service.
+
+How do you install a kubelet normally:
+
+wget https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kubelet
+
+kubelet.service
+
+ExecStart=/usr/local/bin/kubelet \\
+--config=/var/lib/kubelet/kubelet-config.yaml \\
+--container-runtime=remote \\
+--container-runtime-endpoint=unix:///var/run/containerd/containerd.sock \\
+--image-pull-progress-deadline=2m \\
+--kubeconfig=/var/lib/kubelet/kubeconfig \\
+--network-plugin=cni \\
+--register-node=true \\
+--v=2
+
+You can view the running process and the affective options by listing the process on the worker node and searching for kubelet.
+
+ps -aux | grep kubelet
+
+root 2095 1.8 2.4 960676 98788 ? Ssl 02:32 0:36 /usr/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --
+config=/var/lib/kubelet/config.yaml --cgroup-driver=cgroupfs --cni-bin-dir=/opt/cni/bin --cni-conf-dir=/etc/cni/net.d --network-plugin=cni
+ 
+
+20. Kube-Proxy
+ Within a kubernetes cluster every pod can reach every other pod. This is accomplished by deploying pod networking solution to the clu ster. A pod network is an internal virtual network that spans accross all the nodes in the cluster to which all the pods are connected through this network there are able to communicate with each other. There are many solution as such. e.g., I have a web app deployed in the 1st node and a database application deployed on the 2nd. The web app reached the db app simply by using the ip of the pod but there is no guarantee that the ip of the database will always remain the same. So a better way to reach the db app is by using the service sowe create the service to expose the database app accross the cluster. The web app can now access the database app using the name of the service 'db'. The service also gets an ip address assigned to it. whenever a pod tries to reach the service using its ip or name it forwards the traffic to the backend pod in this case the database. But what is this service and how does it get an ip? does this service joins the same pod network? The service acnnot join the pod network because the service is not an actual thing - it's not a container like pod it doesn't have an interfaces or an actively listeing process - its a virtual component that only lives in kubernetes memory. But then we also said the service should be accessable accross the cluster from any nodes so how is that achieved? That's where kube-proxy comes in. 
+ Kubeproxy is a process that run on each node in the kubernetes cluster. Its job is to look for new services and everytime a new service is created it create an appropriate rules on each node to forward traffic to those services to the backend pods. One way it does this is by ip tables rules, in this case it creates ip tables rule on each node in the cluster to forward traffic heading towards the ip of the service which is 10.96.0.12 to the ip of the actual pod which is 10.32.0.15. So that;s how kube proxy configure a service. More to come. This is high level over view
+
+![alt text](<kube-proxy diagram-1.png>)
+
+Installing kube-proxy
+
+wget https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-proxy
+
+kube-proxy.service
+
+ExecStart=/usr/local/bin/kube-proxy \\
+--config=/var/lib/kube-proxy/kube-proxy-config.yaml
+Restart=on-failure
+RestartSec=5
+
+View kube-proxy- kubeadm
+The kubeadm tool deploy kubeproxy as a pod on each node
+Inffact it is deployed as a daemonset so a single pod is always deployed on each node in the cluster
+
+kubectl get pods -n kube-system
+
+NAMESPACE NAME READY STATUS RESTARTS AGE
+kube-system coredns-78fcdf6894-hwrq9 1/1 Running 0 16m
+kube-system coredns-78fcdf6894-rzhjr 1/1 Running 0 16m
+kube-system etcd-master 1/1 Running 0 15m
+kube-system kube-apiserver-master 1/1 Running 0 15m
+kube-system kube-controller-manager-master 1/1 Running 0 15m
+kube-system kube-proxy-lzt6f 1/1 Running 0 16m
+kube-system kube-proxy-zm5qd 1/1 Running 0 16m
+kube-system kube-scheduler-master 1/1 Running 0 15m
+kube-system weave-net-29z42 2/2 Running 1 16m
+kube-system weave-net-snmdl 2/2 Running 1 16m -
+
+kubectl get daemonset -n kube-system
+
+NAME DESIRED CURRENT READY UP-TO-DATE AVAILABLE NODE SELECTOR AGE
+kube-proxy 2 2 2 2 2 beta.kubernetes.io/arch=amd64 1h
 
 
