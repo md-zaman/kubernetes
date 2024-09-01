@@ -625,7 +625,7 @@ Sol: Same process but look under the events section
 
 Q10. What does the READY column in the output of the kubectl get pods command indicate?
 
-Sol: running containers/total (check again)
+Sol: running containers/total pods(check again)
 
 Q11. Delete the webapp Pod.
 
@@ -639,6 +639,49 @@ Q12. Create a new pod with the name redis and the image redis123.
 
 Use a pod-definition YAML file. And yes the image name is wrong!
 
-Sol: kubectl run redis --image=redis123
+Sol: 
+Step -1:
+kubectl run redis --image=redis123 --dry-run=client -o yaml > redis-definition.yaml
+Step-2:
+kubectl create -f redis-defination.yml
+
+Q13. Now change the image on this pod to redis.
+
+
+Once done, the pod should be in a running state.
+
+Sol:
+Use the kubectl edit command to update the image of the pod to redis.
+
+kubectl edit pod redis
+If you used a pod definition file then update the image from redis123 to redis in the definition file via Vi or Nano editor and then run kubectl apply command to update the image :-
+
+kubectl apply -f redis-definition.yaml 
+
+
+29. Recap - ReplicaSets
+
+There are 2 reasons why we need replication controllers:
+ (a) To ensure that a specified number of pods are running at all times- Even if you have a single pod a replication controller can help you to bringing up a pod if it dies.
+ (b) Load Balancing and Scaling- We the number of pods increase we deploy another pod to balance the load accross 2 pods if the demand futher increase and if we were to run out of resources on our 1st node, we could deploy additional pods accross the other nodes in the cluster. So, the replication controller spans accross multiple nodes in the cluster. It helps us balance the load accross multiple pods on different nodes as well as scale our application when the demand increases. 
+
+Replication controller and Replica sets are two similar terms both have the same purpose but they're not the same. 
+
+Replication controller is the older technology which is being replaced by replica set. Replica set is the new  recommended way to setup replication. we will dicuss in depth later
+
+Let's find out how we create replication controllers:
+
+rc-defination.yaml
+
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: myapp-rc
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  
+
 
 
