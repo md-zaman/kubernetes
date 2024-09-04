@@ -681,7 +681,48 @@ metadata:
     app: myapp
     type: front-end
 spec:
-  
+   
 
 
+To create a replication controller:
+kubectl create -f rc-defination.yml
+- creates a replication controller from the yaml manifest file
+
+kubectl get replicationcontroller
+- lists the replicationcontrollers
+
+Check how many pods did it create:
+kubectl get pods
+- lists all the pods
+
+
+Now let is find out replica set
+
+Let's find out how the replica set yaml file looks like:
+
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replication
+  labels:
+    app: myapp
+    type: front-end
+spec:
+   
+The difference between Replication Controller and Replica Set are:
+
+
+
+Replica set can also manage pods that were not created with the help of replica set creation.
+
+
+kubectl create -f replicaset-defination.yml
+- creates a replicaset from a yml file
+
+kubectl get replicaset
+- lists replicasets
+
+
+ 
 
