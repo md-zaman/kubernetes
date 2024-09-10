@@ -724,5 +724,237 @@ kubectl get replicaset
 - lists replicasets
 
 
- 
+## How to Scale replicas
+
+1st Method:
+You can go to the defination .yaml file and change the replicas to the desired number. Let's say 6
+
+Then simply use the command 
+kubectl replace -f replicaset-defination.yml
+- replaces the replicaset if you have scaled or done any kind of changes
+
+2nd Method:
+kubectl scale --replicas=6 -f replicaset-defination.yml
+- scales the replicas. Over here we haven't changed the defination file instead we have added the desired replicas as flag
+- Here the number of replicas in the defination file will remain the same and will not change
+
+## Command
+
+kubectl create -f replicaset-defination.yml
+
+kubectl get replicaset
+
+kubectl delete replicaset myapp-replicaset
+- Also deletes all underlying PODs
+
+kubectl replace -f replicaset-defination.yml
+
+kubectl scale --replicas=6 -f replicaset-definition.yml
+
+### Practice Test - ReplicaSets
+
+Skipping the easy questions
+
+Q3. How about now? How many ReplicaSets do you see?
+A. kubectl get replicaset
+
+Q4. How many PODs are DESIRED in the new-replica-set?
+A. kubectl get replicaset
+
+Output:
+
+NAME              DESIRED   CURRENT   READY   AGE
+new-replica-set   4         4         0       6s
+
+Hence: 4
+
+Q5. What is the image used to create the pods in the new-replica-set?
+A. kubectl describe pod new-replica-set-7b6q9
+
+Q6. How many PODs are READY in the new-replica-set?
+
+kubectl get pods
+
+Q7. Why do you think the PODs are not ready?
+
+A. Doesn't exist
+
+Q8. Delete any one of the 4 PODs.
+
+A. kubectl delete pod <podname>
+
+Q9. How many PODs exist now?
+
+A. Same beacuse of Replicaset
+
+Q10. Why are there still 4 PODs, even after you deleted one?
+
+A. Replicaset
+
+Q11. Create a ReplicaSet using the replicaset-definition-1.yaml file located at /root/.
+
+A. kubectl create -f replicaset
+
+But there is a problem wth the version. It's written here as "v1". In replicasets the version has to be "app/v1"
+
+You can check the version of replicasets by the following command:
+
+kubectl api-resources | grep replicaset
+- displays the version of the replicasets
+
+So, we replace the apiVersion: v1 with apps/v1 and save
+
+kubectl create -f replicaset-definition-1.yaml 
+replicaset.apps/replicaset-1 created
+
+
+Q12. Fix the issue in the replicaset-definition-2.yaml file and create a ReplicaSet using it.
+
+A. The values for labels on lines 9 and 13 should match. i.e., the selector should match the label in the template
+so, we change accordingly
+
+Q13. Delete the two newly created ReplicaSets - replicaset-1 and replicaset-2
+A. 
+
+Q14. Fix the original replica set new-replica-set to use the correct busybox image.
+
+A. The error is in the image name it should be "busybox"
+    kubectl edit replicaset <new-replicaset>
+
+Q15. Scale the ReplicaSet to 5 PODs.
+
+kubectl scale --replica=5 -f new-replica-set - isse hua nahi
+
+kubectl edit replicaset new-replica-set
+
+then edited the replicas
+
+Q16. Now scale the ReplicaSet down to 2 PODs.
+
+
+Use the kubectl scale command or edit the replicaset using kubectl edit replicaset.
+
+A. 
+
+## 32. Deployment
+
+Let's talk about how you migh want to deploy your application in aproduction environment.
+You want a webserver that you want to deploy in the production environment. You need not just one but multiple such web-servers. 2ndly, whenever, newer versions of applications builds become available in the docker registry, you would like to upgrade your docker instances seemlessly. However when you upgrade your instances, you don't want to upgrade them at once as we just did (in replicasets above). This may impact users accessing our application. So, you might upgrade them one after the other- this is also known as rolling updates.
+Suppose one of the upgrades you performed resulted in an unexpected error and you are asked to undo the change you would like to be able to rollback the changes that we recently carried out.
+Finally, you would like to make multiple changes to your environment such as upgrading the webserver versions as well as scaling your environment as well as modifying the resource allocations etc you don't want to apply each change immidiatedly when the command is run instead, you would like to apply a **pause** to your environment, make the changes and then resume so that all the changes, so that all the changes are rolled out together. All of these capabilities are available with the kubernetes deployments. 
+
+d:\OneDrive\DevOps Study\Kubernetes\deployment1-diagram.png
+
+deployment defination yaml file:
+The yaml file in deployments case would be same as replicaset, the difference will be the 'kind'. In 'kind', we will write as Deployment
+
+![alt text](deployment2-defination-1.png)
+
+To list all the objects in the cluster:
+kubectl get all
+- lists all the objects in the cluster
+
+
+-------------
+Here's a tip!
+
+As you might have seen already, it is a bit difficult to create and edit YAML files. Especially in the CLI. During the exam, you might find it difficult to copy and paste YAML files from browser to terminal. Using the kubectl run command can help in generating a YAML template. And sometimes, you can even get away with just the kubectl run command without having to create a YAML file at all. For example, if you were asked to create a pod or deployment with specific name and image you can simply run the kubectl run command.
+
+Use the below set of commands and try the previous practice tests again, but this time try to use the below commands instead of YAML files. Try to use these as much as you can going forward in all exercises
+
+Reference (Bookmark this page for exam. It will be very handy):
+
+https://kubernetes.io/docs/reference/kubectl/conventions/
+
+Create an NGINX Pod
+
+kubectl run nginx --image=nginx
+
+Generate POD Manifest YAML file (-o yaml). Don't create it(--dry-run)
+
+kubectl run nginx --image=nginx --dry-run=client -o yaml
+
+Create a deployment
+
+kubectl create deployment --image=nginx nginx
+
+Generate Deployment YAML file (-o yaml). Don't create it(--dry-run)
+
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
+
+Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) and save it to a file.
+
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yaml
+
+Make necessary changes to the file (for example, adding more replicas) and then create the deployment.
+
+kubectl create -f nginx-deployment.yaml
+
+------------
+
+Practice Test - Deployments
+
+Q1. How many PODs exist on the system?
+
+In the current(default) namespace.
+
+A. kubectl get pods
+
+Q2. How many ReplicaSets exist on the system?
+
+In the current(default) namespace.
+
+A. kubectl get replicaset
+
+Q3. How many Deployments exist on the system?
+
+In the current(default) namespace.
+
+A. kubectl get deployment
+
+Q4. Same quest to check the number of deployemnts 
+
+A. 
+
+Q5. How many replicasets (henceforth shortform wll be used in this doc as rs)
+A. kubectl get rs
+
+Q6. How many PODs exist on the system now?
+A. kubectl get pods
+
+Q7. Out of all the existing PODs, how many are ready?
+A. NAME                                   READY   STATUS             RESTARTS   AGE
+frontend-deployment-6469748456-656xc   0/1     ImagePullBackOff   0          5m28s
+frontend-deployment-6469748456-qvmjm   0/1     ImagePullBackOff   0          5m28s
+frontend-deployment-6469748456-87glt   0/1     ImagePullBackOff   0          5m28s
+frontend-deployment-6469748456-lczfc   0/1     ImagePullBackOff   0          5m28s
+
+Q8. What is the image used to create the pods in the new deployment?
+A. kubectl describe pods <podname>
+
+Q9. Why do you think the deployment is not ready?
+A. The image doesn't exists
+
+Q10. Create a new Deployment using the deployment-definition-1.yaml file located at /root/.
+A. vi deployment command. The error is with the 'kind' deployment with small 'd'. Make the d as uppercase.
+
+Q11. Create a new Deployment with the below attributes using your own deployment definition file.
+
+
+Name: httpd-frontend;
+Replicas: 3;
+Image: httpd:2.4-alpine
+
+A. kubectl create deployment --image=httpd:2.4-alpine httpd-frontend --dry-run=client -o yaml > deployment-created.yaml
+
+## 36. Services
+
+Enable communication between various components within and outside of the application. It helps us connect apps together with other apps or users. E.g., our apps has groups pods running various sections such as a group for serving frontend loads to user and other groups for running backend processes and a third group connecting to an external data source. 
+It's services that enable connectivity between these groups of pods. Services enable to frontend application to be made available to end users, it helps communication between backend and frontend pods and helps in establishing connectivity with external data source.
+Thus services enable loose coupling between microservices in our application.
+
+![alt text](services-loose-coupling-1.png)
+
+External communication. 
+How do we as external users access the webpage?
 
