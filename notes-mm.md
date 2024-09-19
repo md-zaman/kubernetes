@@ -29,9 +29,9 @@ But somebody needs to load the containers on the ships and not just load but pla
 The Master Nodes does all of these using a set of components called the `Control Plane Components`. Let's look at all of these components now: \
 (i) **ETCD** is a highly available `key-value-store` database that stores information in a `key-value-format`
 
-(ii) **Kube-Scheduler** is a component of the kuberenetes control-plane. It identifies the right node to place a container on based on the container's resource requirement, the worker node capacity or any other policies or contrains such as taints and tolerations, node affinity rules that are on them. 
+(ii) **Kube-Scheduler** is a component of the kuberenetes control-plane. It identifies the right node to place a container based on the container's resource requirement, the worker node capacity or any other policies or contrains such as taints and tolerations, node affinity rules that are on them. 
 
-(iii) The Operations teams handles takes care of ship handling, traffic control, etc., they deal with issues related to damages, the route different ships take, etc, the cargo teams takes care of the containers, when a container is damaged or distroyed they make sure new containers are made. Similarly he have controllers which takes care of different areas.
+(iii) The Operations teams handles takes care of ship handling, traffic control, etc., they deal with issues related to damages, the route different ships take, etc, the cargo teams takes care of the containers, when a container is damaged or distroyed they make sure new containers are made. Similarly they have controllers which takes care of different areas.
 Controllers-Managers - Node controllers, replication controllers, etc.,
 
 (iv) Who manages these components at a high level
@@ -957,4 +957,6 @@ Thus services enable loose coupling between microservices in our application.
 
 External communication. 
 How do we as external users access the webpage?
+
+Kubernetes service is an object just like pods or replicasets. One of its usecase is to listen to a port on the node and forward request on that port to a port running the web app. This type of service is known as the nodePort service. 
 
