@@ -24,7 +24,7 @@ We have two kinds of ships:
 
 Kubernetes cluster consists of a set of nodes which may be physical or virtual. It can be on-premise or on-cloud that hosts applications in the form of containers. This relate to the cargo ship in this analogy.
 The `Worker Nodes` are the ships that can load containers.
-But somebody needs to load the containers on the ships and not just load but plan to load, identify the right ships, store information about the ships, monitor or track the containers on the ships, manage the whole loading process, etc. This is done by the control ships. The control ships are the `Master nodes` in the Kubernetes cluster
+But somebody needs to load the containers on the ships and not just load but plan to load, identify the right ships, store information about the ships, monitor or track the containers on the ships, manage the whole loading process, etc. This is done by the control ships. The control ships are the `Master nodes` in the Kubernetes cluster.
 
 The Master Nodes does all of these using a set of components called the `Control Plane Components`. Let's look at all of these components now: \
 (i) **ETCD** is a highly available `key-value-store` database that stores information in a `key-value-format`
@@ -63,7 +63,7 @@ Installing ETCD
     ./etcd
 
 
-    When you start/run the ETCD, it start a service which runs on port 2379 by default you can then attach any client with the etcd service to store and retrieve any information.
+    When you start/run the ETCD, it starts a service which runs on port 2379 by default you can then attach any client with the etcd service to store and retrieve any information.
     The default client which come with etcd is etcd control client. It is a command line client for etcd. You can use it to store and retrieve  key-value pairs. To store any key-value pair:
     
 ```ssh
