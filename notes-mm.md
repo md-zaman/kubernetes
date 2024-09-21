@@ -37,7 +37,7 @@ Controllers-Managers - Node controllers, replication controllers, etc.,
 (iv) Who manages these components at a high level
 **Kube-APIServer** is the primary management component of kubernetes. The Kube-APIServer is responsible for orchestrating all operations within the cluster. It exposes the kubernetes API which is used by external users to perform management operations on the cluster as well as the controllers to monitor the state of cluster and make necessary changes as required and by the worker nodes to communicate with the server. 
 
-(v) **Container Runtime** everything is in container form here, so in every node there is a container runtime
+(v) **Container Runtime** everything is in a container form here, so in every node there is a container runtime
 
 (vi) **Kubelet** is an agent that runs on each node in a cluster. It listens for instructions from the kube-apiserver and deploys or destroys containers in the nodes as required. It periodically fetches status report from the kubelet to monitor the status of the nodes and containers on them. 
 
