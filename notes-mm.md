@@ -12,17 +12,9 @@ Simply the Introduction
 
 ### 11. Cluster Architecture
 
-We will use the analogy of ships
 
-We have two kinds of ships:
-
-    (a) Cargo Ships 
-        - which does the actual work of carrying containers accross the sea
-
-    (b) Control Ships 
-        - that are responsible for monitoring and managing the cargo ships
-
-Kubernetes cluster consists of a set of nodes which may be physical or virtual. It can be on-premise or on-cloud that hosts applications in the form of containers. This relate to the cargo ship in this analogy.
+Kubernetes cluster consists of a set of nodes which may be physical or virtual. 
+It can be on-premise or on-cloud that hosts applications in the form of containers.
 The `Worker Nodes` are the ships that can load containers.
 But somebody needs to load the containers on the ships and not just load but plan to load, identify the right ships, store information about the ships, monitor or track the containers on the ships, manage the whole loading process, etc. This is done by the control ships. The control ships are the `Master nodes` in the Kubernetes cluster.
 
@@ -41,7 +33,7 @@ Controllers-Managers - Node controllers, replication controllers, etc.,
 
 (vi) **Kubelet** is an agent that runs on each node in a cluster. It listens for instructions from the kube-apiserver and deploys or destroys containers in the nodes as required. It periodically fetches status report from the kubelet to monitor the status of the nodes and containers on them. 
 
-(vii) **Kube-proxy** Application running on the worker nodes need to ==communicate== to each other like if you are running a webserver running in a container in a node and a database containers on another container on another node. Communications are enabled by the Kube-proxy. It ensure that the necessary rules are in place on the worker node to allow the containers running on them to reach each other.
+(vii) **Kube-proxy** Application running on the worker nodes need to `communicate` to each other like if you are running a webserver running in a container in a node and a database containers on another container on another node. Communications are enabled by the Kube-proxy. It ensure that the necessary rules are in place on the worker node to allow the containers running on them to reach each other.
 
 ### 12. Docker vs ContainerD
 
@@ -135,15 +127,15 @@ The ETCD data store stores information regarding the cluster such as:
 - Others
 
 Every information that we see when we run the kubectl get command is from the etcd server
-Everything that we do like adding additional nodes, pods etc is updated in etcd serer
+Everything that we do like adding additional nodes, pods etc is updated in etcd server
 Only after it is updated in the etcd server, the change is considered complete.
 
 There two types of kuberenetes deployment shown in this course: 
 - Deployment from scratch and 
 - Using the kubeadm tool.
 Cluster from scratch
-If you setup your cluster from scratch then you have to deploy etcd and you have to download the binaries yourself. installing the binaries and configuring etcd as a service in your master node.
-There are many options passed to the service a number of them related to certificates.
+If you setup your cluster from scratch then you have to deploy etcd and you have to download the binaries yourself- installing the binaries and configuring etcd as a service in your master node.
+There are many options passed to the service. A number of them related to certificates.
 another one is:
 --advertise-client-urls https://${INTERNAL_IP}:2379 \\
 This is the address on which the etcd listens. It happens to be on the IP of the server and on the port 2379- the default port where etcd listens.
@@ -155,7 +147,7 @@ kubectl get pods -n kube-system
 To list all keys stored by kubernetes:
 kubectl exec etcd-master -n kube-system etcdctl get / --prefix -keys-only
 
-In a high availablility environment, you will have multiple master nodes in your cluster hence you will have multiple etcd instances spread accross master nodes. In such cases make sure that the etcd instances know about each other by setting the right parametre in the etcd service configuration. The initial cluster option is where you must specify the different instances of the etcd service. 
+In a high availability environment, you will have multiple master nodes in your cluster hence you will have multiple etcd instances spread accross master nodes. In such cases make sure that the etcd instances know about each other by setting the right parametre in the etcd service configuration. The initial cluster option is where you must specify the different instances of the etcd service. 
 
 15. ETCD - Commands (Optional)
 
