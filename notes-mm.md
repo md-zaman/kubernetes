@@ -704,7 +704,7 @@ kubectl get pods
 - lists all the pods
 
 
-Now let is find out replica set
+Now let us find out replica set
 
 Let's find out how the replica set yaml file looks like:
 
@@ -846,8 +846,9 @@ A.
 
 ## 32. Deployment
 
-Let's talk about how you migh want to deploy your application in aproduction environment.
-You want a webserver that you want to deploy in the production environment. You need not just one but multiple such web-servers. 2ndly, whenever, newer versions of applications builds become available in the docker registry, you would like to upgrade your docker instances seemlessly. However when you upgrade your instances, you don't want to upgrade them at once as we just did (in replicasets above). This may impact users accessing our application. So, you might upgrade them one after the other- this is also known as rolling updates.
+Let's talk about how you might want to deploy your application in a production environment.
+You want a webserver that you want to deploy in the production environment. You need not just one but multiple such web-servers. /
+2ndly, whenever, newer versions of applications builds become available in the docker registry, you would like to upgrade your docker instances seemlessly. However when you upgrade your instances, you don't want to upgrade them at once as we just did (in replicasets above). This may impact users accessing our application. So, you might upgrade them one after the other- this is also known as rolling updates.
 Suppose one of the upgrades you performed resulted in an unexpected error and you are asked to undo the change you would like to be able to rollback the changes that we recently carried out.
 Finally, you would like to make multiple changes to your environment such as upgrading the webserver versions as well as scaling your environment as well as modifying the resource allocations etc you don't want to apply each change immidiatedly when the command is run instead, you would like to apply a **pause** to your environment, make the changes and then resume so that all the changes, so that all the changes are rolled out together. All of these capabilities are available with the kubernetes deployments. 
 
@@ -890,7 +891,7 @@ Generate Deployment YAML file (-o yaml). Don't create it(--dry-run)
 
 kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
 
-Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) and save it to a file.
+Generate Deployment YAML file (-o yaml). Don't create it(-dry-run) and save it to a file.
 
 kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yaml
 
@@ -924,7 +925,7 @@ Q4. Same quest to check the number of deployemnts
 
 A. 
 
-Q5. How many replicasets (henceforth shortform wll be used in this doc as rs)
+Q5. How many replicasets (henceforth shortform will be used in this doc as rs)
 A. kubectl get rs
 
 Q6. How many PODs exist on the system now?
@@ -966,5 +967,5 @@ Thus services enable loose coupling between microservices in our application.
 External communication. 
 How do we as external users access the webpage?
 
-Kubernetes service is an object just like pods or replicasets. One of its usecase is to listen to a port on the node and forward request on that port to a port running the web app. This type of service is known as the nodePort service. 
+Kubernetes service is an object just like pods or replicasets. One of its use-case is to listen to a port on the node and forward request on that port to a port running the web app. This type of service is known as the nodePort service. 
 
