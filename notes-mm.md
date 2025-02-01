@@ -13,17 +13,33 @@ Simply the Introduction
 ### 11. Cluster Architecture
 
 
+<<<<<<< HEAD
 Kubernetes cluster consists of a set of nodes which may be physical or virtual. 
 It can be on-premise or on-cloud that hosts applications in the form of containers.
 The `Worker Nodes` are the ships that can load containers.
 But somebody needs to load the containers on the ships and not just load but plan to load, identify the right ships, store information about the ships, monitor or track the containers on the ships, manage the whole loading process, etc. This is done by the control ships. The control ships are the `Master nodes` in the Kubernetes cluster.
+=======
+We have two kinds of ships:
 
-The Master Nodes does all of these using a set of components called the `Control Plane Components`. Let's look at all of these components now: \
+    (a) Cargo Ships 
+        - which does the actual work of carrying containers accross the sea
+
+    (b) Control Ships 
+        - that are responsible for monitoring and managing the cargo ships
+
+Kubernetes cluster consists of a set of nodes which may be physical or virtual. It can be on-premise or on-cloud that hosts applications in the form of containers.
+>>>>>>> 681bcbb (update notes mm)
+
+The Master Nodes does all its work using a set of components called the `Control Plane Components`. Let's look at all of these components now: \
 (i) **ETCD** is a highly available `key-value-store` database that stores information in a `key-value-format`
 
 (ii) **Kube-Scheduler** is a component of the kuberenetes control-plane. It identifies the right node to place a container based on the container's resource requirement, the worker node capacity or any other policies or contrains such as taints and tolerations, node affinity rules that are on them. 
 
+<<<<<<< HEAD
 (iii) The Operations teams handles takes care of ship handling, traffic control, etc., they deal with issues related to damages, the route different ships take, etc, the cargo teams takes care of the containers, when a container is damaged or distroyed they make sure new containers are made. Similarly they have controllers which takes care of different areas.
+=======
+(iii) The Operations teams handles takes care of ship handling, traffic control, etc., they deal with issues related to damages, the route different ships take, etc, the cargo teams takes care of the containers, when a container is damaged or destroyed they make sure new containers are made. Similarly he have controllers which takes care of different areas.
+>>>>>>> 681bcbb (update notes mm)
 Controllers-Managers - Node controllers, replication controllers, etc.,
 
 (iv) Who manages these components at a high level
@@ -442,7 +458,7 @@ address=127.0.0.1 --kubeconfig=/etc/kubernetes/scheduler.conf --leader-elect=tru
 
 
 19. Kubelet
-The kubelet registers the node on the kubernetes cluster. When it receives the intruction to load a container or a pod on a node it requests the container runtime engine which maybe docker to pull the required image to run an instance. The kubelet then continues to monitor the status of the pod and containers in it and reports to the kube-apiserver on a timely basis. 
+The kubelet registers the node on the kubernetes cluster("registers" means the kubelet informs the control plane that the node is available for running workloads.Like The kubelet contacts the API server with its node details (e.g., CPU, memory, hostname)). When it receives the intruction to load a container or a pod on a node it requests the container runtime engine which maybe docker to pull the required image to run an instance. The kubelet then continues to monitor the status of the pod and containers in it and reports to the kube-apiserver on a timely basis. 
 
 If you use kubeadm to deploy the cluster, it doesn't automatically deploy the kubelets. Now that's the difference from other components.
 You must manually install kubelet on your worker nodes. 
@@ -473,7 +489,7 @@ config=/var/lib/kubelet/config.yaml --cgroup-driver=cgroupfs --cni-bin-dir=/opt/
  
 
 20. Kube-Proxy
- Within a kubernetes cluster every pod can reach every other pod. This is accomplished by deploying pod networking solution to the cluster. A pod network is an internal virtual network that spans accross all the nodes in the cluster to which all the pods are connected through this network there are able to communicate with each other. There are many solution as such. e.g., I have a web app deployed in the 1st node and a database application deployed on the 2nd. The web app reached the db app simply by using the ip of the pod but there is no guarantee that the ip of the database will always remain the same. So a better way to reach the db app is by using the service so we create the service to expose the database app accross the cluster. The web app can now access the database app using the name of the service 'db'. The service also gets an ip address assigned to it. whenever a pod tries to reach the service using its ip or name it forwards the traffic to the backend pod in this case the database. But what is this service and how does it get an ip? does this service joins the same pod network? The service cannot join the pod network because the service is not an actual thing - it's not a container like pod it doesn't have an interfaces or an actively listeing process - its a virtual component that only lives in kubernetes memory. But then we also said the service should be accessable accross the cluster from any nodes so how is that achieved? That's where kube-proxy comes in. 
+ Within a kubernetes cluster every pod can reach every other pod. This is accomplished by deploying pod networking solution to the cluster. A pod network is an internal virtual network that spans accross all the nodes in the cluster to which all the pods are connected through this network they are able to communicate with each other. There are many solution as such. e.g., I have a web app deployed in the 1st node and a database application deployed on the 2nd. The web app reached the db app simply by using the ip of the pod but there is no guarantee that the ip of the database will always remain the same. So a better way to reach the db app is by using the service so we create the service to expose the database app accross the cluster. The web app can now access the database app using the name of the service 'db'. The service also gets an ip address assigned to it. whenever a pod tries to reach the service using its ip or name it forwards the traffic to the backend pod in this case the database. But what is this service and how does it get an ip? does this service joins the same pod network? The service cannot join the pod network because the service is not an actual thing - it's not a container like pod it doesn't have an interfaces or an actively listeing process - its a virtual component that only lives in kubernetes memory. But then we also said the service should be accessable accross the cluster from any nodes so how is that achieved? That's where kube-proxy comes in. 
  Kubeproxy is a process that run on each node in the kubernetes cluster. Its job is to look for new services and everytime a new service is created it create an appropriate rules on each node to forward traffic to those services to the backend pods. One way it does this is by ip tables rules, in this case it creates ip tables rule on each node in the cluster to forward traffic heading towards the ip of the service which is 10.96.0.12 to the ip of the actual pod which is 10.32.0.15. So that;s how kube proxy configure a service. More to come. This is high level over view
 
 ![alt text](<kube-proxy diagram-1.png>)
@@ -543,7 +559,7 @@ pod-defination.yml
  spec:
 
 
-apiVersion: this is version of the kubernetes api ersion we are using the create the pod. different for different resources. Differet types are v1, app/v1
+apiVersion: this is version of the kubernetes api version we are using the create the pod. different for different resources. Differet types are v1, app/v1
 
 kind: type of object like pods, replica set, deployment, service
 metadata: data about the object like name, 
@@ -567,11 +583,11 @@ kubectl describe pod my-app-pod
 Created a pod
 
 
-24. Practice Test Introduction
+### 24. Practice Test Introduction
 
 Q2. Create a new pod with the nginx image.
 
-Solution: kubectl run nginx --image=nginx
+`Solution`: kubectl run nginx --image=nginx
 
 
 Q3. How many pods are created now?
