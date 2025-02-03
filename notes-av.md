@@ -39,7 +39,7 @@ Containers are ephemeral in nature. Means containers can die and revive anytime.
 
 # Day 2: Kubernetes Architecture
 
-10. On a high level k8s is divided in two parts- Control plane and the data plane. 
+10. On a high level k8s is divided in two parts- Control plane and the Data plane. 
 
 Under `Control plane` we have: 
 - API Server, 
@@ -64,24 +64,29 @@ Under `Data Plane` we have:
 #### Worker Node: 
 11. **Kubelet**: Kubelet is responsible for `maintaing` the pod. It ensure that the pod is always running if the pod is not running, it will inform the API Server in control plane.
 
-12. **Container runtime:** Container runtime's primary job is to `create`, `start`, `stop`, and `delete` containers on a node.
+12. **Kube Proxy**: Kube Proxy provides you `networking`. Its primary function is to `maintain network rules on the node`, ensuring that pods can communicate with each other and with external services.
+Every container has to be allocated with IP address and load balancing capabilities. (Basically uses the IP tables on your Linux machine).
+
+13. **Container runtime:** Container runtime's primary job is to `create`, `start`, `stop`, and `delete` containers on a node.
 It can be docker or any other container runtime of CRI-O, containerd or any other container runtimes which implements container interface.
 
-13. **Kube Proxy**: Kube Proxy provides you `networking`. Its primary function is to `maintain network rules on the node`, ensuring that pods can communicate with each other and with external services.
-Every container has to be allocated with IP address and load balancing capabilities. (Basically uses the IP tables on your Linux machine).
 
 #### Control Plane:
 
-14. **API Server**: This is the component which exposes to the outside world. Takes request from external world. It also decides on which node the pod has to be created.
-15. **Scheduler (Kube-Scheduler)**: It schedules your pods/resources in k8s. 
-16. **ETCD**: It `stores the entire cluster information`. It is highly-available, distributed key-value store.  
+14. **API Server**: This is the component which exposes to the outside world. Takes request from external world. 
+
+15. **Scheduler (Kube-Scheduler)**: Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.
+It identifies the right node to place a container based on the container's resource requirement, the worker node capacity or any other policies or contrains such as taints and tolerations, node affinity rules
+
+16. **ETCD**: It `stores the entire cluster information`. It is highly-available, distributed key-value store.
+
 17. **Controller Manager**: It helps in `maintaing the desired state` of the `cluster`. It consists of multiple controllers that continuously monitor the state of various Kubernetes objects (like deployments, replica sets, and daemon sets) and take corrective actions to ensure they match the desired state specified in their configuration.
 
 18. **CCM (Cloud Controller Manager)**: When we use our k8s cluster on EKS or AKS or GKE and want to lets say create a pod, k8s doesn't understand the language of these cloud provider so the CCM converts this instruction to EKS to talk to the API of EKS. The CCM is open source and suppose if I make a cloud by the name "Zaman cloud" I can create my own CCM which can be used in k8s. If we are deploying the cluster in on-premise, CCM is not required.
 
 19. Kubernetes has custom resources and custom resource definations for the features it doesn't have.
 
-20. Pod is described of how to run a container. It is like a wrapper of container. In K8s instead of deploying a container we deploy a pod.
+20. Pod is described of how to run a container. It is like a wrapper of container. In K8s, instead of deploying a container we deploy a pod.
 21. Why do we deploy a pod instead because k8s is an enterprise level platform and it wants to build a declarative capabilities.
 
 22. We put one or more containers in a single pod (sidecar container or init containers) so that k8s can ensure they have advantages like allow you shared networking, shared storage, can talk to each other using local host like share the file.
@@ -92,10 +97,10 @@ Every container has to be allocated with IP address and load balancing capabilit
     **Use Cases**: 
     **Initialization tasks** : They are typically used for tasks like:
 
-    - Setting up configuration files   
-    - Creating directories or files needed by the application   
-    - Fetching data or dependencies from external sources   
-    - Running database migrations or schema updates   
+    - Setting up configuration files
+    - Creating directories or files needed by the application
+    - Fetching data or dependencies from external sources
+    - Running database migrations or schema updates
     - Performing health checks on dependent services
 
     #### Sidecar Containers:
@@ -141,7 +146,7 @@ To create the pod use the command:
 
     kubectl get pods -o wide
     - displays the details of the pod
-    - this will also display the node in which it's in
+    - this will also display the node in which it is in
 
 ```
 29. To login to your kubernetes cluster: 
@@ -248,7 +253,7 @@ To create the pod use the command:
     - watch the container log realtime (live)
     ```
 
-42. If you delete a pod or if a pod is deleted for any reason while you have deployed a deployment. The replicaset which was created by the deployemnt will ensure that another pod is create even before the pod is deleted. This ensures 0 downtime.
+42. If you delete a pod or if a pod is deleted for any reason while you have deployed a deployment. The replicaset which was created by the deployemnt will ensure that another pod is created even before the pod is deleted. This ensures 0 downtime.
 
 
 # Day 35: Kubernetes Services
@@ -275,7 +280,10 @@ To create the pod use the command:
     - (i)   **Cluster IP** 
     - (ii)  **NodePort** 
     - (iii) **Load balancer** 
-    - (iv) There are more but these are the default types
+    - There are more but these are the default types
+    - (v) **ExternalName**
+    - (vi) **Headless**
+
 
     **(i) Cluster IP mode**: Application will be accessible inside the k8s cluster. Here you will only get 2 benefits- Discovery and load balancing. 
 
@@ -284,6 +292,12 @@ To create the pod use the command:
 
 
     **(iii) Load Balancer**: In this mode service will expose your application to the external world. Suppose you have deployed your app on EKS cluster. In this case you will get Elastic Load balancer's IP for your service and now whoever want to access they can use this public IP address. This type is possible in cloud providers only as of now. 
+
+
+    **(iv) ExternalName**: Internal clients use the DNS name of a Service as an alias for an external DNS name.
+
+
+    **(v) Headless**: You can use a headless service when you want a Pod grouping, but don't need a stable IP address.
 
 
     **Use Cases**:
@@ -453,7 +467,7 @@ To create the pod use the command:
     ```
 
     s. Irrespective of what kind of service you choose whether it be ClusterIP mode, NodePort mode or Load Balancing mode, `ClusterIP` will always be there.
-    Apart from this you will also get a port mapping- the Node IP Address. This will be under the column 'PORT(S)'. You will get this port mapping and you can access you application using this port when you are using NodePort or LoadBalancing mode. (In NodePort we don't get this because in NodePort you only have your application avaiable in the Cluster.)
+    Apart from this you will also get a port mapping- the Node IP Address. This will be under the column 'PORT(S)'. You will get this port mapping and you can access you application using this port when you are using NodePort or LoadBalancing mode. (In NodePort we don't get this because in NodePort you only have your application available in the Cluster.)
     
     t. You can access the application either by ClusterIP address which you will find under the 'CLUSTERIP' column (but you have to ensure that you are loggedin in the cluster) or you can use the Node IP address. So, suppose your Node IP Address which is getting displayed under PORT(S) is '80:30007' and here is how you can do it:
         i. Get the IP Address. In minikube we can enter the command:
@@ -478,7 +492,7 @@ To create the pod use the command:
     If you want to check the name of the service you can simply enter:
     ```ssh
         kubectl get svc
-        - lists all the service
+        - lists all the services
     ```
     Here you have to change the service 'type:' from 'NodePort' to 'LoadBalancer'
     This will not work here because we are using minikube. But suppose you're using ec2 instance you can do it by accessing the ec2 instances' public IP.
