@@ -968,11 +968,13 @@ c. LoadBalancer
 Services in Detail:
 
 a. NodePort
-    - We said that it's external access to the application a service can help us map a port on the node to a port on the pod. 
+    - We said that service is external access to the application a service can help us map a port on the node to a port on the pod. 
     If we take a closer look, we see 3 ports involved:
     a. The port on the pod (where the actual server is running- Port 80 in this case)- This is known as the **`target port`** beacuse this is where the service forwards its request to.
     b. The 2nd port is the port on the service itself. It is simply referred to as `port`. Remember these terms are from the viewpoint of service itself. Service is like a virtual server inside the node inside the cluster, it has its own IP address and that IP address is called the `ClusterIP of the service`.
-    c. Then we have the port on the node itself which we use to access the webserver externally and that is know as the `NodePort`. In our case it is set to `30008`. NodePorts can be in a valid range- which by default ca be from 30,000 to 32,767.
+    c. Then we have the port on the node itself which we use to access the webserver externally and that is know as the `NodePort`. In our case it is set to `30008`. NodePorts can be in a valid range- which by default can be from 30,000 to 32,767.
+
+    ![alt text](nodePort-service.svg)
 
     Let's see how we can create the manifest:
 
@@ -1013,9 +1015,31 @@ Then run the following command to create the service:
 ```bash
 kubectl create -f service-defination.yml
 service "myapp-service" creater
+   - creates a service resource using the file
 ```
-    - creates a service resource using the file
+
+kubectl get services 
+ - lists all the services 
+
+(insert how it looks)
+
+After we create this service, we can now use this port to access the webservice using the curl command:
+
+curl https://192.168.1.2:30008
+
+In prod we don't just have one pod. We have multiple instances of your web app running for high availability and lb purposes. In our case we have multiple similar pods running our web app. The all have the same labels with the key- app: set to a value: myapp. The same labels is used as a selector during the creation of the service. So when a service is created it looks for a matching pod with the label and finds let's say 3 of them. The service then automatically selects all the 3 pods as end points to forward the external requests coming from the user. You don't have to do any additional configuartion to make this happen. 
+If you are wondering what algorithm it uses to balance the load to 3 different pods- it uses `Random` Algorithm. Thus the service acts as built-in load balanacer to distribute load accross different pods.
+
+Now finally let's understand what hapens when pods are ditributed accross multiple nodes. In this case we have web app on pods on separate nodes in the cluster. When we create a service without having to do any additional configuartion, k8s automaticall creates a service that spans accross all the nodes in the cluster aand maps the target port to the same nodePort on all the nodes in the cluster. This way you can access your app using the IP of any node in the clusrter and using the same port number, which in this case is 30008:
+
+Below, using the IP of any of the nodes we are trying to curl to the same port and the same port is made available on all the nodes part of the cluster:
+
+curl https://192.168.1.2:30008
+curl https://192.168.1.3:30008
+curl https://192.168.1.4:30008
 
 
+To summarize, in any case, whether it be a single Pod on a single node, multiple Pods on a single node, or multiple Pods on multiple nodes, the service is created exactly the same without you having to do any additional steps during the service creation.
 
+When Pods are removed or added, the service is automatically updated, making it highly flexible and adaptive. Once created, you won't typically have to make any additional configuration changes.
 
