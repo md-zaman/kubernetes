@@ -1013,7 +1013,9 @@ Then run the following command to create the service:
 ```bash
 kubectl create -f service-defination.yml
 service "myapp-service" creater
-   - creates a service resource using the file
 ```
+    - creates a service resource using the file
+
+
 
 
