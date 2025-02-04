@@ -13,33 +13,17 @@ Simply the Introduction
 ### 11. Cluster Architecture
 
 
-<<<<<<< HEAD
 Kubernetes cluster consists of a set of nodes which may be physical or virtual. 
 It can be on-premise or on-cloud that hosts applications in the form of containers.
 The `Worker Nodes` are the ships that can load containers.
 But somebody needs to load the containers on the ships and not just load but plan to load, identify the right ships, store information about the ships, monitor or track the containers on the ships, manage the whole loading process, etc. This is done by the control ships. The control ships are the `Master nodes` in the Kubernetes cluster.
-=======
-We have two kinds of ships:
-
-    (a) Cargo Ships 
-        - which does the actual work of carrying containers accross the sea
-
-    (b) Control Ships 
-        - that are responsible for monitoring and managing the cargo ships
-
-Kubernetes cluster consists of a set of nodes which may be physical or virtual. It can be on-premise or on-cloud that hosts applications in the form of containers.
->>>>>>> 681bcbb (update notes mm)
 
 The Master Nodes does all its work using a set of components called the `Control Plane Components`. Let's look at all of these components now: \
 (i) **ETCD** is a highly available `key-value-store` database that stores information in a `key-value-format`
 
 (ii) **Kube-Scheduler** is a component of the kuberenetes control-plane. It identifies the right node to place a container based on the container's resource requirement, the worker node capacity or any other policies or contrains such as taints and tolerations, node affinity rules that are on them. 
 
-<<<<<<< HEAD
 (iii) The Operations teams handles takes care of ship handling, traffic control, etc., they deal with issues related to damages, the route different ships take, etc, the cargo teams takes care of the containers, when a container is damaged or distroyed they make sure new containers are made. Similarly they have controllers which takes care of different areas.
-=======
-(iii) The Operations teams handles takes care of ship handling, traffic control, etc., they deal with issues related to damages, the route different ships take, etc, the cargo teams takes care of the containers, when a container is damaged or destroyed they make sure new containers are made. Similarly he have controllers which takes care of different areas.
->>>>>>> 681bcbb (update notes mm)
 Controllers-Managers - Node controllers, replication controllers, etc.,
 
 (iv) Who manages these components at a high level
@@ -958,8 +942,11 @@ A. kubectl create deployment --image=httpd:2.4-alpine httpd-frontend --dry-run=c
 
 ## 36. Services
 
-Enable communication between various components within and outside of the application. It helps us connect apps together with other apps or users. E.g., our apps has groups pods running various sections such as a group for serving frontend loads to user and other groups for running backend processes and a third group connecting to an external data source. 
-It's services that enable connectivity between these groups of pods. Services enable to frontend application to be made available to end users, it helps communication between backend and frontend pods and helps in establishing connectivity with external data source.
+Enable communication between various components within and outside of the application. It helps us connect apps together with other apps or users. E.g., our apps has groups pods running various sections such as :
+a group for serving frontend loads to user,
+other groups for running backend processes and 
+a third group connecting to an external data source. 
+It is services that enable connectivity between these groups of pods. Services enable to frontend application to be made available to end users, it helps communication between backend and frontend pods and helps in establishing connectivity with external data source.
 Thus services enable loose coupling between microservices in our application.
 
 ![alt text](services-loose-coupling-1.png)
@@ -968,4 +955,65 @@ External communication.
 How do we as external users access the webpage?
 
 Kubernetes service is an object just like pods or replicasets. One of its use-case is to listen to a port on the node and forward request on that port to a port running the web app. This type of service is known as the nodePort service. 
+
+Services Types
+
+a. NodePort
+    - Where the service makes an internal pod accessible on a port on the node to a port on the pod
+b. ClusterIP
+    - the service creates a virtual IP inside the cluster to enable communication between different services such as a set of front-end servers to a set of back-end servers
+c. LoadBalancer
+    - where we provision load balancer for our applications in supported cloud providers. E.g., to distribute load accross different web servers in your front-end tier.
+
+Services in Detail:
+
+a. NodePort
+    - We said that it's external access to the application a service can help us map a port on the node to a port on the pod. 
+    If we take a closer look, we see 3 ports involved:
+    a. The port on the pod (where the actual server is running- Port 80 in this case)- This is known as the **`target port`** beacuse this is where the service forwards its request to.
+    b. The 2nd port is the port on the service itself. It is simply referred to as `port`. Remember these terms are from the viewpoint of service itself. Service is like a virtual server inside the node inside the cluster, it has its own IP address and that IP address is called the `ClusterIP of the service`.
+    c. Then we have the port on the node itself which we use to access the webserver externally and that is know as the `NodePort`. In our case it is set to `30008`. NodePorts can be in a valid range- which by default ca be from 30,000 to 32,767.
+
+    Let's see how we can create the manifest:
+
+    service-defination.yml
+
+    apiVersion: v1
+    kind: Service
+    metadata:
+        name: myapp-service
+
+    spec:
+        type: NodePort
+        ports:
+          - targetPort: 80
+            port: 80
+            nodePort: 30008
+
+    Under spec, out of all the port the mandatort field is port. If you don't provide a targetPort, it will be assumed to be the port and if you don't provide a nodePort, a free port between the valid range between 30,000 to 32,767 is automatically allocated. Alos note that port is an array so that `-` under the port section is the first element in the array. You can have multiple such port mappings within a single service. 
+    In the above dia we have mentioned everything like we have mentioned the ports but we have not mentioned the pod. There is nothing in the defination file that connects the service to the pod. We have mentioned the target port but we haven't mentioned the target pod on which pod? There could be 100s of pods running webservices on port 80. How do we do that. We will use labels and selectors to do this to link these together. The pod was created using a label we need to bring that label into this service defination file. So we will have new property in the above file known as selector. Pull the label from the pod defination file and put it under the selector section. This will link the service to the pod:
+
+    apiVersion: v1
+    kind: Service
+    metadata:
+        name: myapp-service
+
+    spec:
+        type: NodePort
+        ports:
+          - targetPort: 80
+            port: 80
+            nodePort: 30008
+        selector:
+          app: myapp
+          type: front-end
+
+
+Then run the following command to create the service:
+```bash
+kubectl create -f service-defination.yml
+service "myapp-service" creater
+   - creates a service resource using the file
+```
+
 
